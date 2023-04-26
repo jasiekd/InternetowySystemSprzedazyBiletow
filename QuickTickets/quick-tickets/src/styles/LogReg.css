@@ -14,7 +14,7 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    gap: 6rem;
+    gap: 2rem;
 }
 .accountFormHeader{
     margin-top: 10rem;
@@ -40,4 +40,10 @@
 }
 .logo{
     cursor: pointer;
+}
+.buttonsAccountMenu{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
 }
