@@ -1,0 +1,43 @@
+.logRegContent{
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: right;
+    
+}
+.accountFormContent{
+    background-color: white;
+    width: 45rem;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
+}
+.accountFormHeader{
+    margin-top: 10rem;
+    justify-content: center;
+    display: flex;
+}
+.accountFormInputs{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+.accountFormButton{
+    min-width: 15rem;
+}
+.accountFormButtons{
+    display: flex;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    justify-content: center;
+    gap: 5rem;
+}
+.logo{
+    cursor: pointer;
+}

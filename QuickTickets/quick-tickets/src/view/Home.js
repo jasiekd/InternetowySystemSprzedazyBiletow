@@ -2,19 +2,68 @@ import * as React from 'react';
 import mainImg from '../images/event.jpg';
 import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
-import Trendy from '../components/Trendy';
-import PopularPlaces from '../components/PopularPlaces';
 import categoryicon from '../images/categoryicon.png';
 import Footer from '../components/Footer';
+import exampleEvent from "../images/example-event.png";
+import "../styles/MainStyle.css";
+import examplePlace from "../images/place.jfif";
+import { useNavigate } from "react-router-dom";
+import logo from "../images/logo.png";
+
 export default function Home() {
+
+    const navigate = useNavigate();
+
+    const EventData = [
+        {
+            icon:exampleEvent,
+            title: "Example Event",
+            place: "Example Place",
+            minPrice: "129"
+        },
+        {
+            icon:exampleEvent,
+            title: "Example Event",
+            place: "Example Place",
+            minPrice: "129"
+        },
+        {
+            icon:exampleEvent,
+            title: "Example Event",
+            place: "Example Place",
+            minPrice: "129"
+        },
+        {
+            icon: exampleEvent,
+            title: "Example Event",
+            place: "Example Place",
+            minPrice: "129"
+        },
+    ]
+    const PlaceData = [
+        {
+            icon:examplePlace,
+            title: "Example Place",
+        },
+        {
+            icon:examplePlace,
+            title: "Example Place",
+        },
+        {
+            icon:examplePlace,
+            title: "Example Place",
+        },
+        {
+            icon: examplePlace,
+            title: "Example Place",
+        },
+    ]
     return (
 
         <div className="App">
             
         <header className="App-header">
-         <p className='logo'>Quick Tickets</p>
-         <img src=''  alt=""/>
-         
+         <img src={logo}/>
          <input id="searcher" type="text" />
 
          <Button startIcon={<SearchIcon/>} sx={{ 
@@ -27,6 +76,7 @@ export default function Home() {
         }}  className='greenButton'>
 
         </Button>
+        <button className='main-btn' onClick={()=>navigate("/login")}>Zaloguj</button>
         </header>
         
         <main className='content'>
@@ -42,7 +92,37 @@ export default function Home() {
             
             </div>
           <div className='trendy'>
-              <Trendy/>  
+            <div>
+                <div className='trendy-header'>
+                    Na czasie
+                </div>
+                <div className='trendy-content'>
+                    {
+                        EventData.map((val,key)=>{
+                            
+                            return(
+                                <div className="trendy-event">
+                                    <img className='trendy-event-img' src={val.icon}  alt=""/>
+                                    <div className="trendy-info">
+                                        <div className="trendy-title">
+                                            {val.title}
+                                        </div>
+                                        <div className="trendy-place">
+                                            {val.place}
+                                        </div>
+                                        <div className="trendy-price">
+                                            od {val.minPrice} zł
+                                        </div>
+                                        <button className="main-btn">Kup teraz</button>    
+                                    </div>
+                                </div>
+                                
+                            )
+                        
+                        })
+                    }
+                </div>
+            </div>
           </div>
           <div className='events-categories'>
             <div className='events-categories-header'>
@@ -96,7 +176,30 @@ export default function Home() {
                 </div>
           </div>
           <div className='popular-places'>
-            <PopularPlaces/>
+                <div>
+                    <div className='place-header'>
+                        Najpopularniejsze miejsca
+                    </div>
+                    <div className='place-content'>
+                        {
+                            PlaceData.map((val,key)=>{
+                                
+                                return(
+                                    <div className="place-event">
+                                        <img className='place-img' src={val.icon}  alt=""/>
+                                        <div className="place-info">
+                                            <div className="place-title">
+                                                {val.title}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                )
+                            
+                            })
+                        }
+                    </div>
+                </div>
           </div>
          
         </main>
