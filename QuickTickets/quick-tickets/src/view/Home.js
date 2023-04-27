@@ -9,7 +9,7 @@ import "../styles/MainStyle.css";
 import examplePlace from "../images/place.jfif";
 import { useNavigate } from "react-router-dom";
 import logo from "../images/logo.png";
-
+import Header from '../components/Header';
 export default function Home() {
 
     const navigate = useNavigate();
@@ -61,23 +61,8 @@ export default function Home() {
     return (
 
         <div className="App">
-            
-        <header className="App-header">
-         <img src={logo}/>
-         <input id="searcher" type="text" />
-
-         <Button startIcon={<SearchIcon/>} sx={{ 
-            backgroundColor: '#AEDF70', 
-            color: 'white', 
-            '&:hover': {
-                backgroundColor: '#96C05F',
-                boxShadow: 'none',
-            },
-        }}  className='greenButton'>
-
-        </Button>
-        <button className='main-btn' onClick={()=>navigate("/login")}>Zaloguj</button>
-        </header>
+            <Header/>
+        
         
         <main className='content'>
           <div className='info'>
@@ -131,46 +116,46 @@ export default function Home() {
             <div className='events-categories-leftbtn'>
                 <button className='btn'>
                     <img className='img' src={categoryicon} alt=""/>
-                    <p>Koncerty1</p>
+                    <p>Koncerty</p>
                 </button>
             </div>
             <div className='events-categories-column'>
            
                 <div className='events-categories-row'>
-                    <button className='btn'>
+                    <button className='btn events-categories-element'>
                         <img className='img' src={categoryicon} alt=""/>
-                        <p>Koncerty</p>
+                        <p>Teatr</p>
                     </button>
-                    <button className='btn'>
+                    <button className='btn events-categories-element'>
                         <img className='img' src={categoryicon} alt=""/>
-                        <p>Koncerty</p>
+                        <p>Dla dzieci</p>
                     </button>
-                    <button className='btn'>
+                    <button className='btn events-categories-element'>
                         <img className='img' src={categoryicon} alt=""/>
-                        <p>Koncerty</p>
+                        <p>Widowiska</p>
                     </button>
-                    <button className='btn'>
+                    <button className='btn events-categories-element'>
                         <img className='img' src={categoryicon} alt=""/>
-                        <p>Koncerty</p>
+                        <p>Kino</p>
                     </button>
                 </div>
                 <div className='events-categories-row'>
-                    <button className='btn'>
+                    <button className='btn events-categories-element'>
                         <img className='img' src={categoryicon} alt=""/>
-                        <p>Koncerty</p>
+                        <p>Sport</p>
                     </button>
-                    <button className='btn'>
+                    <button className='btn events-categories-element'>
                         <img className='img' src={categoryicon} alt=""/>
-                        <p>Koncerty</p>
+                        <p>Klasyka</p>
                     </button>
-                    <button className='btn'>
+                    <button className='btn events-categories-element' >
                         <img className='img' src={categoryicon} alt=""/>
-                        <p>Koncerty</p>
+                        <p>Targi | Wystawy</p>
                     </button>
-                    <button className='btn'>
+                    <button className='btn events-categories-element'>
                        
                         <img className='img' src={categoryicon} alt=""/>
-                        <p>Koncerty</p>
+                        <p>Festivale</p>
                     </button>
                 </div>
                 </div>
