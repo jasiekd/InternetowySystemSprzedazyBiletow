@@ -1,0 +1,66 @@
+.event-info{
+    background-color: white;
+    margin-top: 2rem;
+}
+.event-content{
+    display: flex;
+    flex-direction: row;
+}
+.event-img img{
+    width: 450px;
+    height: 350px;
+    object-fit: cover;
+    padding: 2rem;
+}
+.event-description{
+    padding: 2rem;
+}
+.event-description-title{
+    font-size: 3rem;
+    font-weight: 700;
+}
+.event-description-text{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    height: 220px;
+    overflow-y: auto;
+    text-align: justify;
+    text-justify: inter-word;
+}
+.event-title{
+    padding: 2rem;
+    padding-bottom: 0;
+}
+.event-title-header{
+    font-size: 2rem;
+    font-weight: 700;
+    display: flex;
+}
+.event-place{
+    background-color: white;
+    padding-top: 2rem;
+    margin-top: 2rem;
+
+}
+.comments{
+    background-color: white;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+.comment{
+    background-color: rgb(228, 228, 228);
+    padding: 1rem;
+}
+.comment-list{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+}
+.comment-author{
+    font-weight: 600;
+    font-size: 1.4rem;
+}

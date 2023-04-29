@@ -6,6 +6,7 @@ import {
 import Login from "../view/Login";
 import Register from "../view/Register";
 import SearchList from "../view/SearchList";
+import Event from "../view/Event";
 
 const router = createBrowserRouter([
     {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
     {
         path: "/search-list",
         element: <SearchList/>
+    },
+    {
+        path: "/event",
+        element: <Event/>
     }
 ]);
 

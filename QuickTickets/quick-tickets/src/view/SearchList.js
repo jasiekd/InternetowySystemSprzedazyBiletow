@@ -171,7 +171,7 @@ export default function SearchList() {
                                     </div>
                                 </div>
                                 <div className='event-list-price'>już od 80PLN</div>
-                                <div className='buy-option'><button className='main-btn'>Kup teraz</button></div>
+                                <div className='buy-option'><button className='main-btn' onClick={()=>navigate("/event")}>Kup teraz</button></div>
                             </div>
                         )
                     })
