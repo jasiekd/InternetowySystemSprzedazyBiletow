@@ -1,0 +1,33 @@
+
+  
+  .menu {
+    position: absolute;
+  
+    list-style-type: none;
+    padding: 0;
+  
+    border: 2px solid #93BB60;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap:1rem;
+    margin-top: 3.8rem;
+  }
+  .drop-down-btn{
+    background-color: white;
+    border: none;
+    font-size: 1rem; 
+    font-weight: 500;
+    width: 15rem;
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+  }
+  .drop-down-btn:hover{
+    background-color: #c7c7c7;
+  }
+  
+  

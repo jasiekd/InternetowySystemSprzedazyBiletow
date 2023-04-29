@@ -3,6 +3,8 @@ import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import '../styles/SearchInput.css';
 import searchIcon from '../images/search-icon.png';
+import { useNavigate } from "react-router-dom";
+
 const InputStyled = styled(TextField)({
 
     '& label': {
@@ -28,10 +30,11 @@ const InputStyled = styled(TextField)({
   });
 
 export default function SearchInput() {
+  const navigate = useNavigate();
     return(
         <div className='search-content'>
             <InputStyled id="filled-basic" label="Szukaj wydarzenia..." variant="outlined" fullWidth/>
-            <button className='search-button'>
+            <button className='search-button' onClick={()=>navigate("/search-list")}>
                 <img src={searchIcon}/>
             </button>
         </div>
