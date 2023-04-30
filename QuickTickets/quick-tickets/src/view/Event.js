@@ -50,7 +50,7 @@ export default function Event() {
                     <div className='event-description'>
                         <div className='event-description-title'>Opis wydarzenia</div>
                         <div className='event-description-text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non sem ac mauris congue vehicula. Cras eget lacus libero. Donec non tincidunt ipsum, a scelerisque nunc. Quisque interdum arcu in ipsum gravida, sit amet consectetur enim egestas. Aenean quis tellus in nisl aliquet pellentesque quis sed tellus. Nulla facilisi. Phasellus dignissim metus eget turpis semper, in lacinia elit viverra. Nam quis est eget diam maximus hendrerit id sit amet est. Morbi in tristique est. Mauris vel lorem erat. Nullam varius luctus finibus. Aenean lacinia metus id ligula facilisis commodo.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non sem ac mauris congue vehicula. Cras eget lacus libero. Donec non tincidunt ipsum, a scelerisque nunc. Quisque interdum arcu in ipsum gravida, sit amet consectetur enim egestas. Aenean quis tellus in nisl aliquet pellentesque quis sed tellus. Nulla facilisi. Phasellus dignissim metus eget turpis semper, in lacinia elit viverra. Nam quis est eget diam maximus hendrerit id sit amet est. Morbi in tristique est. Mauris vel lorem erat. Nullam varius luctus finibus. Aenean lacinia metus id ligula facilisis commodo.</div>
-                        <button className='main-btn'>Kup teraz</button>
+                        <button className='main-btn' onClick={()=>navigate("/buy-ticket")}>Kup teraz</button>
                     </div>
                 </div>     
             </div>

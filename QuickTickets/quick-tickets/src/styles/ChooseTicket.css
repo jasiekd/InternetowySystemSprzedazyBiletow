@@ -1,0 +1,27 @@
+.buy-form{
+    width: 40%;
+    height: 33rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.buy-event-info{
+    width: 60%;
+    height: 33rem;
+    
+}
+.choose-ticket{
+    display: flex;
+}
+.buy-event-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.buy-event-info img{
+    width: 30rem;
+    height: 20rem;
+
+    object-fit: cover;
+}

@@ -7,6 +7,7 @@ import Login from "../view/Login";
 import Register from "../view/Register";
 import SearchList from "../view/SearchList";
 import Event from "../view/Event";
+import BuyTicket from "../view/BuyTicket";
 
 const router = createBrowserRouter([
     {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
     {
         path: "/event",
         element: <Event/>
+    },
+    {
+        path: "/buy-ticket",
+        element: <BuyTicket/>
     }
 ]);
 

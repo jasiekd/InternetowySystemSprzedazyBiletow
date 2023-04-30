@@ -1,0 +1,35 @@
+table.pay-summart-table {
+    width: 100%;
+    background-color: #FFFFFF;
+    border-collapse: collapse;
+    border-width: 2px;
+    border-color: #93BB60;
+    border-style: solid;
+    color: #000000;
+  }
+  
+table.pay-summart-table th {
+    border-width: 2px;
+    border-color: #93BB60;
+    border-style: solid;
+    padding: 5px;
+    color: white;
+}
+table.pay-summart-table td{
+    border-width: 2px;
+    border-color: #93BB60;
+    border-style: solid;
+    padding: 5px;
+    color: #93BB60;
+    font-weight: 700;
+    text-align: center;
+}
+  
+  table.pay-summart-table thead {
+    background-color: #93BB60;
+  }
+.pay-status{
+    color: #93BB60;
+    padding-top: 4rem;
+    font-size: 2rem;
+}

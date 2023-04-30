@@ -1,0 +1,29 @@
+.buy-ticket-menu{
+    height: 43rem;
+    background-color: white;
+    width: 100%;
+    position: relative;
+    flex-direction: column;
+    display: flex;
+    align-self: center;
+
+}
+.buy-ticket-stepper{
+
+}
+.buy-ticket-content{
+    height: 33rem;
+}
+.buy-ticket-nav{
+
+}
+.buy-title{
+    color: #93BB60;
+    font-size: 2rem;
+    padding-bottom: 1rem;
+    font-weight: 600;
+}
+.price-sum{
+    color: #93BB60;
+    font-weight: 600;
+}

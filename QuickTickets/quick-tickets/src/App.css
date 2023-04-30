@@ -14,6 +14,8 @@ body{
   width: 90rem;
   margin: 0 auto;
   min-height: 77vh;
+
+  justify-content: center;
 }
 .info{
   display: flex;
