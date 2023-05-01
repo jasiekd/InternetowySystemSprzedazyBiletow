@@ -1,0 +1,6 @@
+﻿################################################################################
+# Ten plik .gitignore został utworzony automatycznie przez Microsoft(R) Visual Studio.
+################################################################################
+
+/QuickTickets/quick-tickets/src/styles/UserProfile.css
+/QuickTickets/quick-tickets/src/view/UserProfile.js
