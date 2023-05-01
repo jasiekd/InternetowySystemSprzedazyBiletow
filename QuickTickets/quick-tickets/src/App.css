@@ -3,8 +3,6 @@
   padding: 0;
 }
 
-
-
 body{
   background-color: #E7E7E7;
 }
@@ -14,7 +12,6 @@ body{
   width: 90rem;
   margin: 0 auto;
   min-height: 77vh;
-
   justify-content: center;
 }
 .info{
@@ -103,7 +100,7 @@ body{
 .img{
   margin: 0;
   padding: 0;
-  height: 5vh;
+  height: 3rem;
   width: auto;
 }
 .btn:hover{

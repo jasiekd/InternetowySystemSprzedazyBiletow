@@ -188,9 +188,7 @@ export default function Home() {
           </div>
          
         </main>
-        <div className='App-footer'>
             <Footer/>
-          </div>
       </div>
     );
 }

@@ -6,7 +6,7 @@ import Header from '../components/Header';
 import exampleEvent from "../images/example-event.png";
 import "../styles/Event.css";
 import examplePlace from "../images/place.jfif";
-
+import Swal from 'sweetalert2';
 export default function Event() {
 
     const navigate = useNavigate();
@@ -33,6 +33,25 @@ export default function Event() {
             num: 1
         },
     ]
+    const showAddComent=()=>{
+        const { value: text } = Swal.fire({
+            input: 'textarea',
+            inputLabel: 'Dodaj Komentarz',
+            inputPlaceholder: 'Napisz co sądzisz o tym wydarzeniu...',
+            inputAttributes: {
+              'aria-label': 'Type your message here'
+            },
+            confirmButtonText: 'Zapisz',
+            confirmButtonColor: '#93BB60',
+            cancelButtonText: 'Anuluj',
+            showCancelButton: true,
+            showCloseButton: true
+          })
+          
+          if (text) {
+            Swal.fire(text)
+          }
+    }
     return (
 
         <div className="App">
@@ -67,7 +86,7 @@ export default function Event() {
                 </div>
             </div>
             <div className='comments'>
-            <div className='event-title-header' style={{paddingLeft:"2rem",paddingTop:"1rem"}}>Komentarze<button className='main-btn' style={{marginRight:"0",marginLeft:"auto"}}>Dodaj komentarz</button></div>
+            <div className='event-title-header' style={{paddingLeft:"2rem",paddingTop:"1rem"}}>Komentarze<button className='main-btn' style={{marginRight:"0",marginLeft:"auto"}} onClick={showAddComent}>Dodaj komentarz</button></div>
                 <div className='comment-list'>
                     {
                         comments.map((val,key)=>{

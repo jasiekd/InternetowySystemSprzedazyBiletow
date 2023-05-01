@@ -5,12 +5,11 @@ import { GreenInput } from "./GreenInput";
 import exampleEvent from "../images/example-event.png";
 import EventInfo from "./EventInfo";
 import QRCode from "react-qr-code";
-import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import { useReactToPrint } from "react-to-print";
 
-function Ticket(props) {
+class Ticket extends React.PureComponent {
+  render(){
     return (
-      <div ref={props.reportTemplateRef}>
         <table className="summart-table">
           <thead>
             <tr>
@@ -48,42 +47,22 @@ function Ticket(props) {
             </tr>
           </tbody>
         </table>
-      </div>
     );
-  }
+  }  
+  
+  };
   
   export default function SummaryBuy() {
-    const reportTemplateRef = React.useRef(null);
-  
-    const handleGeneratePdf = () => {
-      const doc = new jsPDF({
-        format: "a4",
-        unit: "px",
-        orientation:"landscape"
-      });
-  
-      doc.autoTable({
-        html: reportTemplateRef.current,
-        startY: 20,
-        theme: 'grid',
-        styles: {
-          cellPadding: 3,
-          fontSize: 10,
-          overflow: 'linebreak',
-        },
-      
-        addPageContent: function (data) {
-          doc.text('Your Title Here', 14, 14);
-        },
-      });
-  
-      doc.save('document.pdf');
-    };
-  
+    const componentRef = React.useRef();
+    const handlePrint = useReactToPrint({
+      content: () => componentRef.current,
+    })
+
     return (
       <div className="summary">
-        <Ticket reportTemplateRef={reportTemplateRef} />
-        <button className="main-btn" onClick={handleGeneratePdf}>
+
+        <Ticket ref={componentRef}/>
+        <button className="main-btn" onClick={handlePrint}>
           Zapisz do pliku
         </button>
       </div>
