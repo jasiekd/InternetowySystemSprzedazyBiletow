@@ -1,4 +1,6 @@
 table.summart-table {
+    align-self:center;
+    justify-self: center;
     width: 90%;
     background-color: #FFFFFF;
     border-collapse: collapse;

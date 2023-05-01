@@ -14,8 +14,6 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "dayjs": "^1.11.7",
-    "jspdf": "^2.5.1",
-    "jspdf-autotable": "^3.5.28",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
     "react": "^18.2.0",
@@ -23,8 +21,10 @@
     "react-qr-code": "^2.0.11",
     "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
+    "react-to-print": "^2.14.12",
     "sort-by": "^1.2.0",
     "styled-components": "^5.3.9",
+    "sweetalert2": "^11.7.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
