@@ -17,17 +17,17 @@ namespace QuickTickets.Api.Services
             _tokenOptions = tokenOptions.Value;
         }
 
-        public string GenerateBearerToken(string id)
+        public string GenerateBearerToken(string id, string role)
         {
             var expiry = DateTimeOffset.Now.AddMinutes(15); //ważny przez 15 minut
-            var userClaims = GetClaimsForUser(id);
+            var userClaims = GetClaimsForUser(id,role);
             return CreateToken(expiry, userClaims);
         }
 
-        public string GenerateRefreshToken(string id)
+        public string GenerateRefreshToken(string id, string role)
         {
             var expiry = DateTimeOffset.Now.AddDays(30); //ważny przez 30 dni
-            var userClaims = GetClaimsForUser(id);
+            var userClaims = GetClaimsForUser(id, role);
             return CreateToken(expiry, userClaims);
         }
 
@@ -44,6 +44,8 @@ namespace QuickTickets.Api.Services
             //jeśli chociaż jeden z nich nie ma Claimsa z ID - coś jest nie tak. Nie pozwól odświeżyć
             var accessPrincipalId = accessPrincipal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var refreshPrincipalId = refreshPrincipal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var accessRole = accessPrincipal.FindFirst(ClaimTypes.Role)?.Value;
+
 
             if (accessPrincipalId == null || refreshPrincipalId == null || accessPrincipalId != refreshPrincipalId)
                 return null;
@@ -51,8 +53,8 @@ namespace QuickTickets.Api.Services
             //tutaj wiemy, że id są te same - odświeżamy tokeny
             TokenInfoDto result = new TokenInfoDto
             {
-                AccessToken = GenerateBearerToken(accessPrincipalId),
-                RefreshToken = GenerateRefreshToken(accessPrincipalId)
+                AccessToken = GenerateBearerToken(accessPrincipalId, accessRole),
+                RefreshToken = GenerateRefreshToken(accessPrincipalId, accessRole)
             };
 
             return result;
@@ -90,11 +92,11 @@ namespace QuickTickets.Api.Services
             return new JwtSecurityTokenHandler().WriteToken(securityToken);
         }
 
-        private IEnumerable<Claim> GetClaimsForUser(string id)
+        private IEnumerable<Claim> GetClaimsForUser(string id, string role)
         {
             var claims = new List<Claim>();
             claims.Add(new Claim(ClaimTypes.NameIdentifier, id));
-            claims.Add(new Claim(ClaimTypes.Role, "User"));
+            claims.Add(new Claim(ClaimTypes.Role, role));
 
             return claims;
         }

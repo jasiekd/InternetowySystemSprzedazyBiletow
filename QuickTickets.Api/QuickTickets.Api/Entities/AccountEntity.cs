@@ -26,8 +26,7 @@ namespace QuickTickets.Api.Entities
 
         public DateTime DateCreated { get; set; } = DateTime.Now;
 
-        [Required]
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
         [Required]
         public bool IsDeleted { get; set; }

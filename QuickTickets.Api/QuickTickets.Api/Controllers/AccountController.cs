@@ -121,17 +121,27 @@ namespace QuickTickets.Api.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("register")]
         [AllowAnonymous]
-        public async Task<ActionResult<AccountEntity>> PostAccountEntity(AccountEntity accountEntity)
+        public async Task<ActionResult<RegisterInfoDto>> PostAccountEntity(RegisterInfoDto registerInfoDto)
         {
             if (_context.Accounts == null)
             {
                 return Problem("Entity set 'DataContext.Accounts'  is null.");
             }
-            accountEntity.Id = Guid.NewGuid();
             SHA256 sha256 = SHA256Managed.Create();
-            byte[] bytes = Encoding.UTF8.GetBytes(accountEntity.Password);
+            byte[] bytes = Encoding.UTF8.GetBytes(registerInfoDto.Password);
             byte[] hash = sha256.ComputeHash(bytes);
-            accountEntity.Password = Convert.ToBase64String(hash);
+            AccountEntity accountEntity = new AccountEntity
+            {
+                Id = Guid.NewGuid(),
+                Name = registerInfoDto.Name,
+                Surname = registerInfoDto.Surname,
+                Login = registerInfoDto.Login,
+                Email = registerInfoDto.Email,
+                Password = Convert.ToBase64String(hash),
+                DateOfBirth = registerInfoDto.DateOfBirth,
+                RoleID = 2
+            };
+
             if (LoginEmailExists(accountEntity.Email, accountEntity.Login))
                 return Problem("Account with that email or login already exist");
             _context.Accounts.Add(accountEntity);

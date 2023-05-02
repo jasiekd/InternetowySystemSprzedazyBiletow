@@ -1,6 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 using Google.Apis.Auth;
+using Microsoft.EntityFrameworkCore.Update.Internal;
 using QuickTickets.Api.Data;
 using QuickTickets.Api.Dto;
 using QuickTickets.Api.Entities;
@@ -15,7 +16,7 @@ namespace QuickTickets.Api.Services
         {
             _tokenService = tokenService;
             _context = context;
-    }
+        }
 
         public TokenInfoDto LoginUser(UserLoginRequestDto loginData)
         {
@@ -33,8 +34,8 @@ namespace QuickTickets.Api.Services
                     string password = Convert.ToBase64String(hash);
                     if (accountEntity.Password == password) {
                         var result = new TokenInfoDto();
-                        result.AccessToken = _tokenService.GenerateBearerToken(accountEntity.Id.ToString());
-                        result.RefreshToken = _tokenService.GenerateRefreshToken(accountEntity.Id.ToString());
+                        result.AccessToken = _tokenService.GenerateBearerToken(accountEntity.Id.ToString(),accountEntity.RoleID.ToString());
+                        result.RefreshToken = _tokenService.GenerateRefreshToken(accountEntity.Id.ToString(), accountEntity.RoleID.ToString());
 
                         return result;
                     }
@@ -62,6 +63,10 @@ namespace QuickTickets.Api.Services
         {
             return (_context.Accounts?.Any(e => e.Email == email)).GetValueOrDefault();
         }
+        private bool SubjectAlreadyExist(string subject)
+        {
+            return (_context.Accounts?.Any(e => e.GoogleSubject == subject)).GetValueOrDefault();
+        }
         public TokenInfoDto LoginUserWithGoogle(GoogleLoginRequest loginData)
         {
             if (_context.Accounts == null)
@@ -71,38 +76,54 @@ namespace QuickTickets.Api.Services
             else
             {
                 var payload = GetGooglePayload(loginData.Credentials);
-
-                if(EmailAlreadyExist(payload.Result.Email))
+                if (SubjectAlreadyExist(payload.Result.Subject))
                 {
-                    var accountEntity = _context.Accounts.Where(x => x.Email == payload.Result.Email).FirstOrDefault();
+                    var accountEntity = _context.Accounts.Where(x => x.GoogleSubject == payload.Result.Subject).FirstOrDefault();
                     var result = new TokenInfoDto();
-                    result.AccessToken = _tokenService.GenerateBearerToken(accountEntity.Id.ToString());
-                    result.RefreshToken = _tokenService.GenerateRefreshToken(accountEntity.Id.ToString());
+                    result.AccessToken = _tokenService.GenerateBearerToken(accountEntity.Id.ToString(), accountEntity.RoleID.ToString());
+                    result.RefreshToken = _tokenService.GenerateRefreshToken(accountEntity.Id.ToString(), accountEntity.RoleID.ToString());
 
                     return result;
                 }
                 else
                 {
-                    var newAccountEntity = new AccountEntity
+                    if (EmailAlreadyExist(payload.Result.Email))
                     {
-                        Id = Guid.NewGuid(),
-                        Name = payload.Result.GivenName,
-                        Surname = payload.Result.FamilyName,
-                        Email = payload.Result.Email,
-                        DateOfBirth = new DateTime(2008, 3, 1, 7, 0, 0),
-                        IsDeleted = false,
-                        RoleID = 2,
-                        GoogleSubject = payload.Result.Subject
-                    };
+                        var accountEntity = _context.Accounts.Where(x => x.Email == payload.Result.Email).FirstOrDefault();
+                        accountEntity.GoogleSubject = payload.Result.Subject;
+                        _context.Accounts.Update(accountEntity);
+                        _context.SaveChangesAsync();
+                        var result = new TokenInfoDto();
+                        result.AccessToken = _tokenService.GenerateBearerToken(accountEntity.Id.ToString(), accountEntity.RoleID.ToString());
+                        result.RefreshToken = _tokenService.GenerateRefreshToken(accountEntity.Id.ToString(), accountEntity.RoleID.ToString());
+                        
 
-                    _context.Accounts.Add(newAccountEntity);
-                    _context.SaveChangesAsync();
-                    var result = new TokenInfoDto();
-                    result.AccessToken = _tokenService.GenerateBearerToken(newAccountEntity.Id.ToString());
-                    result.RefreshToken = _tokenService.GenerateRefreshToken(newAccountEntity.Id.ToString());
+                        return result;
+                    }
 
-                    return result;
-                    
+                    else
+                    {
+                        var newAccountEntity = new AccountEntity
+                        {
+                            Id = Guid.NewGuid(),
+                            Name = payload.Result.GivenName,
+                            Surname = payload.Result.FamilyName,
+                            Email = payload.Result.Email,
+                            DateOfBirth = new DateTime(2008, 3, 1, 7, 0, 0),
+                            IsDeleted = false,
+                            RoleID = 2,
+                            GoogleSubject = payload.Result.Subject
+                        };
+
+                        _context.Accounts.Add(newAccountEntity);
+                        _context.SaveChangesAsync();
+                        var result = new TokenInfoDto();
+                        result.AccessToken = _tokenService.GenerateBearerToken(newAccountEntity.Id.ToString(), newAccountEntity.RoleID.ToString());
+                        result.RefreshToken = _tokenService.GenerateRefreshToken(newAccountEntity.Id.ToString(), newAccountEntity.RoleID.ToString());
+
+                        return result;
+
+                    }
                 }
                 return null;
             }
