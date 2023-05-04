@@ -82,6 +82,8 @@ namespace QuickTickets.Api
                 app.UseSwaggerUI();
             }
 
+            app.UseCors(MyAllowSpecificOrigins);
+
             app.UseAuthorization();
 
 

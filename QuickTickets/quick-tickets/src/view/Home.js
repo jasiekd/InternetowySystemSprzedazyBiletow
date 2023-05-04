@@ -10,6 +10,7 @@ import examplePlace from "../images/place.jfif";
 import { useNavigate } from "react-router-dom";
 import logo from "../images/logo.png";
 import Header from '../components/Header';
+import { logOut } from '../controllers/Login';
 export default function Home() {
 
     const navigate = useNavigate();
