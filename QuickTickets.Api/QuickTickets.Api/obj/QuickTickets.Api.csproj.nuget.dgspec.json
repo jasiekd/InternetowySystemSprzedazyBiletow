@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\karol\\source\\repos\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\QuickTickets.Api.csproj": {}
+    "C:\\Users\\Johny\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\QuickTickets.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\karol\\source\\repos\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\QuickTickets.Api.csproj": {
+    "C:\\Users\\Johny\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\QuickTickets.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\karol\\source\\repos\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\QuickTickets.Api.csproj",
+        "projectUniqueName": "C:\\Users\\Johny\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\QuickTickets.Api.csproj",
         "projectName": "QuickTickets.Api",
-        "projectPath": "C:\\Users\\karol\\source\\repos\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\QuickTickets.Api.csproj",
-        "packagesPath": "C:\\Users\\karol\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\karol\\source\\repos\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\obj\\",
+        "projectPath": "C:\\Users\\Johny\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\QuickTickets.Api.csproj",
+        "packagesPath": "C:\\Users\\Johny\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Johny\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\karol\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Johny\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -91,7 +95,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -103,7 +108,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.311\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
