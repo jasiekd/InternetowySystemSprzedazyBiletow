@@ -69,6 +69,7 @@ namespace QuickTickets.Api
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<TokenService>();
             builder.Services.AddScoped<AccountService>();
+            builder.Services.AddScoped<EventsService>();
 
             var app = builder.Build();
 
