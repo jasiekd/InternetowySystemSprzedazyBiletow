@@ -24,7 +24,9 @@
     width: 90rem;
   }
   .main-logo{
-
+    cursor: pointer;
+    height: 100%;
+    width: 30%;
   }
   .login-nav-login{
 

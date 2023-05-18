@@ -33,7 +33,6 @@ export default function Header({isLogged}) {
     
     return (
         <header className="App-header">
-            <div className='header-content'>
                 <img className='main-logo' onClick={()=>navigate("/home")} src={logo}/>
                 
                 <div style={{width:"40rem"}}>
@@ -92,7 +91,12 @@ export default function Header({isLogged}) {
                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                         >
                             <MenuItem onClick={()=>navigate("/user-profile")}>
-                            <Avatar /> Profile
+                                <Avatar /> 
+                                Profil
+                            </MenuItem>
+                            <MenuItem onClick={()=>navigate("/add-event")}>
+                                <Avatar /> 
+                                Dodaj wydarzenie
                             </MenuItem>
                             <Divider />
                         
@@ -109,7 +113,6 @@ export default function Header({isLogged}) {
                 }
                 
                 
-            </div>
         </header>
     )
 }

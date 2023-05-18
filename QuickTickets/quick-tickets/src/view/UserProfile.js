@@ -76,35 +76,19 @@ function UserProfile(){
 
 
             <Header/>
-            <main className='content'>
-                <div className='profile'>
-                
-                    <div className="profile-data">
-                        <div className="profile-data-column">
-                            <div className="profile-data-row">
+            <main className='content'>                
+                    <div className="content-data">
+                        <div className="content-data-column">
+                                <h1>Witaj Jan Nowak</h1>
+
                                 <GreenInput label="Imię" fullWidth type="text" ></GreenInput>
-                                <button className="main-btn">Zmień</button>
-                            </div>
-                            <div className="profile-data-row">
                                 <GreenInput label="Nazwisko" fullWidth type="text" ></GreenInput>
-                                <button className="main-btn">Zmień</button>
-                            </div>
-                            <div className="profile-data-row">
                                 <GreenInput label="Adres" fullWidth type="text" ></GreenInput>
-                                <button className="main-btn">Zmień</button>
-                            </div>
-                            <div className="profile-data-row">
                                 <GreenInput label="Numer telefonu" fullWidth type="tel" ></GreenInput>
-                                <button className="main-btn">Zmień</button>
-                            </div>
-                            <div className="profile-data-row">
                                 <GreenInput label="Email" fullWidth type="email" ></GreenInput>
                                 <button className="main-btn" type="submit">Zmień</button>
-                            </div>
                         </div>
-                        <div className="profile-data-column">
-                            <h1>Witaj Jan Nowak</h1>
-                        </div>
+                        
                     </div>
                     <div className='searchList'>
                         <h1>Zakupione bilety:</h1>
@@ -129,7 +113,6 @@ function UserProfile(){
                         }  
                         <Pagination count={10} size='large'/>
                     </div>
-                </div>
                 </main>
             <div className='App-footer'>
                 <Footer/>

@@ -11,6 +11,81 @@ import { useNavigate } from "react-router-dom";
 import logo from "../images/logo.png";
 import Header from '../components/Header';
 import { logOut } from '../controllers/Login';
+import { useState, useEffect } from 'react';
+import EventsController from '../controllers/Events.js';
+function TrendyContent({getHotEvents}){
+    const[trendyEvent,setTrendyEvent] = useState(null);
+
+    useEffect(()=>{
+        getHotEvents().then((result)=>{
+            setTrendyEvent(result);
+        })
+    },[])
+    return(
+        <div className='trendy-content'>
+            {
+                    trendyEvent?
+                        trendyEvent.map((val,key)=>{       
+                            return(
+                                <div className="trendy-event" key={key}>
+                                    <img className='trendy-event-img' src={val.imgURL}  alt=""/>
+                                    <div className="trendy-info">
+                                        <div className="trendy-title">
+                                            {val.title}
+                                        </div>
+                                        <div className="trendy-place">
+                                            {val.location.name}
+                                        </div>
+                                        <div className="trendy-price">
+                                            od {val.ticketPrice} zł
+                                        </div>
+                                            <button className="main-btn">Kup teraz</button>    
+                                        </div>
+                                </div>
+                                        
+                            )
+                                
+                        })
+                    :
+                        null  
+            }
+        </div>
+    )
+}
+function MostPopularPlaces({getHotLocations}){
+    const [popularPlaces,setPopularPlaces] = useState(null);
+
+    useEffect(()=>{
+
+        getHotLocations().then((result)=>{
+            setPopularPlaces(result);
+        })
+    },[])
+    return(
+    <div className='place-content'>
+        {
+            popularPlaces?
+            popularPlaces.map((val,key)=>{
+                
+                return(
+                    <div className="place-event">
+                        <img className='place-img' src={logo}  alt=""/>
+                        <div className="place-info">
+                            <div className="place-title">
+                                {val.name}
+                            </div>
+                        </div>
+                    </div>
+                    
+                )
+            
+            })
+            :
+            null
+        }
+    </div>
+    );
+}
 export default function Home() {
 
     const navigate = useNavigate();
@@ -59,6 +134,8 @@ export default function Home() {
             title: "Example Place",
         },
     ]
+
+
     return (
 
         <div className="App">
@@ -82,32 +159,9 @@ export default function Home() {
                 <div className='trendy-header'>
                     Na czasie
                 </div>
-                <div className='trendy-content'>
-                    {
-                        EventData.map((val,key)=>{
-                            
-                            return(
-                                <div className="trendy-event">
-                                    <img className='trendy-event-img' src={val.icon}  alt=""/>
-                                    <div className="trendy-info">
-                                        <div className="trendy-title">
-                                            {val.title}
-                                        </div>
-                                        <div className="trendy-place">
-                                            {val.place}
-                                        </div>
-                                        <div className="trendy-price">
-                                            od {val.minPrice} zł
-                                        </div>
-                                        <button className="main-btn">Kup teraz</button>    
-                                    </div>
-                                </div>
-                                
-                            )
-                        
-                        })
-                    }
-                </div>
+                <EventsController>
+                    <TrendyContent/>
+                </EventsController>
             </div>
           </div>
           <div className='events-categories'>
@@ -166,25 +220,11 @@ export default function Home() {
                     <div className='place-header'>
                         Najpopularniejsze miejsca
                     </div>
-                    <div className='place-content'>
-                        {
-                            PlaceData.map((val,key)=>{
-                                
-                                return(
-                                    <div className="place-event">
-                                        <img className='place-img' src={val.icon}  alt=""/>
-                                        <div className="place-info">
-                                            <div className="place-title">
-                                                {val.title}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                )
-                            
-                            })
-                        }
-                    </div>
+                    <EventsController>
+                        <MostPopularPlaces/>
+                    </EventsController>
+
+                    
                 </div>
           </div>
          

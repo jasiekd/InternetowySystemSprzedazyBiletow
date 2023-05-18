@@ -9,6 +9,7 @@ import SearchList from "../view/SearchList";
 import Event from "../view/Event";
 import BuyTicket from "../view/BuyTicket";
 import UserProfile from "../view/UserProfile";
+import AddEvent from "../view/AddEvent";
 
 const router = createBrowserRouter([
     {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
     {
         path: "/user-profile",
         element: <UserProfile/>
+    },
+    {
+        path: "/add-event",
+        element: <AddEvent/>
     },
 ]);
 
