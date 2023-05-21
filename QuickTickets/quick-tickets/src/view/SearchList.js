@@ -19,10 +19,9 @@ import price from "../images/price.png";
 import arrow from "../images/arrow.png";
 import "../styles/SearchList.css";
 import Pagination from '@mui/material/Pagination';
+import EventsController from '../controllers/Events';
 
-export default function SearchList() {
-
-    const navigate = useNavigate();
+function FilteringOptions({getTypesOfEvents,getEventLocations}){
     const [openDate, setOpenDate] = React.useState(false);
     const [openPlace, setOpenPlace] = React.useState(false);
     const [openCategory, setOpenCategory] = React.useState(false);
@@ -40,27 +39,133 @@ export default function SearchList() {
     const handleOpenPrice = () => {
         setOpenPrice(!openPrice);
     };
+    const [categoryList,setCategoryList] = React.useState([]);
+    const [locationsList,setLocationsList] = React.useState([]);
+    const [selectedCategory,setSelectedCategory] = React.useState("Kategoria");
+    const [selecredLocation,setSelectedLocation] = React.useState("Miejsce");
+    const [selectedDate,setSelectedDate] = React.useState("Data");
+    const [dateFrom,setDateFrom] = React.useState(null); 
+    const [dateTo,setDateTo] = React.useState(null); 
+    const [selectedPrice,setSelectedPrice] = React.useState("Cena");
+    const [priceFrom,setPriceFrom] = React.useState("");
+    const [priceTo,setPriceTo] = React.useState("");
+    React.useEffect(()=>{
+        getTypesOfEvents().then((result)=>{
+            setCategoryList(result);
+        })
 
-    const categoryList =[
-        {
-            title: "item 1",
-        },
-        {
-            title: "item 2",
-        },
-        {
-            title: "item 3",
-        },
-        {
-            title: "item 4",
-        },
-        {
-            title: "item 5",
-        },
-        {
-            title: "item 6",
-        }
-    ];
+        getEventLocations().then((result)=>{
+            setLocationsList(result);
+        })
+    },[])
+
+    const selectLocation = (name) =>{
+        setSelectedLocation(name);
+        handleOpenPlace();
+    }
+    const selectCategory = (name) =>{
+        setSelectedCategory(name);
+        handleOpenCategory();
+    }
+    const selectDate = () =>{
+        if(dateFrom!==""&&dateTo!=="")
+            setSelectedDate(dateFrom+" - "+dateTo);
+        handleOpenDate();
+    }
+    const deleteDate = () =>{
+        setSelectedDate("Data");
+        handleOpenDate();
+        setDateTo("");
+        setDateFrom("");
+    }
+
+    const selectPrice = () =>{
+        if(priceFrom!==""&&priceTo!=="")
+            setSelectedPrice(priceFrom+" - "+priceTo);
+        handleOpenPrice();
+    }
+    const deletePrice = () =>{
+        setSelectedPrice("Cena");
+        handleOpenPrice();
+        setPriceFrom("");
+        setPriceTo("");
+    }
+    return(
+            <div className='filteringOptions'>
+            <div className='filteringElement'>
+                <button className='filteringButton' onClick={handleOpenDate}><img className='leftIcon' src={calendar}/><div className='filteringTitle'>{selectedDate}</div><img className='rightIcon' src={arrow}/></button>
+                    
+                    {openDate ? (
+                        <div className="menu">
+                            Okres od
+                            <GreenInput value={dateFrom} label="" onChange={(e)=>setDateFrom(e.target.value)} fullWidth type="date"></GreenInput>
+                            Okres do
+                            <GreenInput value={dateTo} label="" onChange={(e)=>setDateTo(e.target.value)} fullWidth type="date"></GreenInput>
+
+                            
+                            <div style={{display:"flex", gap:"1rem"}}>
+                                <button className='main-btn' onClick={()=>deleteDate()}>Usuń</button>
+                                <button className='main-btn' onClick={()=>selectDate()}>Zapisz</button>
+                            </div>
+                        </div>
+                ) : null}
+            </div>  
+            <div className='filteringElement'>
+                <button className='filteringButton' onClick={handleOpenPlace}><img className='leftIcon' src={place}/><div className='filteringTitle'>{selecredLocation}</div><img className='rightIcon' src={arrow}/></button>
+                
+                    {openPlace ? (
+                        <div className="menu">
+                            <button className='drop-down-btn' key={-1} onClick={()=>selectLocation("Miejsce")}>wszystkie</button>
+                            {
+                                locationsList.map((val,key)=>{
+                                    return(
+                                        <button className='drop-down-btn' key={key} onClick={()=>selectLocation(val.name)}>{val.name}</button>
+                                    )
+                                })
+                            }
+                        </div>
+                ) : null}
+            </div>  
+            <div className='filteringElement'>
+                <button className='filteringButton' onClick={handleOpenCategory}><img className='leftIcon' src={category}/><div className='filteringTitle'>{selectedCategory}</div><img className='rightIcon' src={arrow}/></button>
+                
+                    {openCategory ? (
+                        <div className="menu">
+                            <button className='drop-down-btn' key={-1} onClick={()=>selectCategory("Kategoria")}>wszystkie</button>
+                            {
+                                categoryList.map((val,key)=>{
+                                    return(
+                                        <button className='drop-down-btn' key={key} onClick={()=>selectCategory(val.description)}>{val.description}</button>
+                                    )
+                                })
+                            }
+                        </div>
+                ) : null}
+            </div>  
+            <div className='filteringElement'>
+                <button className='filteringButton' onClick={handleOpenPrice}><img className='leftIcon' src={price}/><div className='filteringTitle'>{selectedPrice}</div><img className='rightIcon' src={arrow}/></button>
+                
+                    {openPrice ? (
+                        <div className="menu">
+                            Cena od
+                            <GreenInput label="" type='number' value={priceFrom} onChange={(e)=>setPriceFrom(e.target.value)}/>
+                            Cena do
+                            <GreenInput label="" type='number'value={priceTo} onChange={(e)=>setPriceTo(e.target.value)}/>
+                            <div style={{display:"flex", gap:"1rem"}}>
+                                <button className='main-btn' onClick={()=>deletePrice()}>Usuń</button>
+                                <button className='main-btn' onClick={()=>selectPrice()}>Zapisz</button>
+                            </div>
+                        </div>
+                ) : null}
+            </div>  
+        </div>
+    )
+}
+
+export default function SearchList() {
+
+    const navigate = useNavigate();
+    
 
     const eventList =[
         {
@@ -93,70 +198,9 @@ export default function SearchList() {
         <div className="App">
             <Header/>
         <main className='content'>
-            <div className='filteringOptions'>
-                <div className='filteringElement'>
-                    <button className='filteringButton' onClick={handleOpenDate}><img className='leftIcon' src={calendar}/><div className='filteringTitle'>Data</div><img className='rightIcon' src={arrow}/></button>
-                    
-                        {openDate ? (
-                            <div className="menu">
-                                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <DemoContainer components={['DatePicker']}>
-                                        <DatePicker label="Okres od" />
-                                    </DemoContainer>
-                                </LocalizationProvider>
-
-                                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <DemoContainer components={['DatePicker']}>
-                                        <DatePicker label="Okres do" />
-                                    </DemoContainer>
-                                </LocalizationProvider>
-                                <button className='main-btn'>Zapisz</button>
-                            </div>
-                    ) : null}
-                </div>  
-                <div className='filteringElement'>
-                    <button className='filteringButton' onClick={handleOpenPlace}><img className='leftIcon' src={place}/><div className='filteringTitle'>Miejsce</div><img className='rightIcon' src={arrow}/></button>
-                    
-                        {openPlace ? (
-                            <div className="menu">
-                                {
-                                categoryList.map((val,key)=>{
-                                    return(
-                                        <button className='drop-down-btn' key={key}>{val.title}</button>
-                                    )
-                                })
-                               }
-                            </div>
-                    ) : null}
-                </div>  
-                <div className='filteringElement'>
-                    <button className='filteringButton' onClick={handleOpenCategory}><img className='leftIcon' src={category}/><div className='filteringTitle'>Kategoria</div><img className='rightIcon' src={arrow}/></button>
-                    
-                        {openCategory ? (
-                            <div className="menu">
-                               {
-                                categoryList.map((val,key)=>{
-                                    return(
-                                        <button className='drop-down-btn' key={key}>{val.title}</button>
-                                    )
-                                })
-                               }
-                                
-                            </div>
-                    ) : null}
-                </div>  
-                <div className='filteringElement'>
-                    <button className='filteringButton' onClick={handleOpenPrice}><img className='leftIcon' src={price}/><div className='filteringTitle'>Cena</div><img className='rightIcon' src={arrow}/></button>
-                    
-                        {openPrice ? (
-                            <div className="menu">
-                                <GreenInput label="Cena od" type='number'/>
-                                <GreenInput label="Cena do" type='number'/>
-                                <button className='main-btn'>Zapisz</button>
-                            </div>
-                    ) : null}
-                </div>  
-            </div>
+            <EventsController>
+                <FilteringOptions/>
+            </EventsController>
             <div className='searchList'>
                 {
                     eventList.map((val,key)=>{

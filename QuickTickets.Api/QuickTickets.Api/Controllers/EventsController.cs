@@ -35,8 +35,8 @@ namespace QuickTickets.Api.Controllers
             {
                 return NotFound();
             }
-            //Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            Guid userId = Guid.Parse("7A8D0B4E-5D46-4E9D-AB7B-6BC665B11953");
+            Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            //Guid userId = Guid.Parse("7A8D0B4E-5D46-4E9D-AB7B-6BC665B11953");
             EventsEntity eventEntity = new EventsEntity { 
                 EventID = 0,
                 Title = createEventDto.Title,

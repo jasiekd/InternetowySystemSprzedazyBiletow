@@ -7,8 +7,13 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useState, useEffect } from 'react';
 import EventsController from '../controllers/Events.js';
+import '../styles/DropDownMenu.css';
+import place from "../images/place.png";
+import arrow from "../images/arrow.png"
+import category from "../images/category.png";
+import '../styles/AddEvent.css';
 
-function EventForm({onAddEvent}){
+function EventForm({onAddEvent,getTypesOfEvents,getEventLocations}){
     const [title,setTitle] = useState("");
     const [seats,setSeats] = useState(0);
     const [ticketPrice,setTicketPrice] = useState(0);
@@ -17,28 +22,94 @@ function EventForm({onAddEvent}){
     const [adultsOnly,setAdultsOnly] = useState(null);
     const [imgURL,setImgURL] = useState("");
 
-    function addNewEvent(){
-        onAddEvent({title,seats,ticketPrice,description,date,adultsOnly,imgURL});
+    const addNewEvent=()=>{
+        onAddEvent({title,seats,ticketPrice,description,date,adultsOnly,imgURL,typeID,locationID}).then((result)=>{
+            setTitle("");
+            setSeats(0);
+            setTicketPrice(0);
+            setDescription("");
+            setDate("");
+            setAdultsOnly(null);
+            setImgURL("");
+        });
       
     
-        setTitle("");
-        setSeats(0);
-        setTicketPrice(0);
-        setDescription("");
-        setDate("");
-        setAdultsOnly(null);
-        setImgURL("");
+        
+    }
+
+    const handleOpenPlace = () => {
+        setOpenPlace(!openPlace);
+    };
+    const handleOpenCategory = () => {
+        setOpenCategory(!openCategory);
+    };
+    const [openPlace, setOpenPlace] = React.useState(false);
+    const [openCategory, setOpenCategory] = React.useState(false);
+    const [locationsList,setLocationsList] = React.useState([]);
+    const [categoryList,setCategoryList] = React.useState([]);
+
+    useEffect(()=>{
+        getEventLocations().then((result)=>{
+            setLocationsList(result);
+        })
+        getTypesOfEvents().then((result)=>{
+            setCategoryList(result);
+        })
+    },[])
+    const [selectedCategory,setSelectedCategory] = React.useState("Kategoria");
+    const [selecredLocation,setSelectedLocation] = React.useState("Miejsce");
+    const [typeID,setTypeID] = useState(0);
+    const [locationID,setLocationID] = useState(0);
+    const selectLocation = (name,id) =>{
+        setSelectedLocation(name);
+        setLocationID(id);
+        handleOpenPlace();
+    }
+    const selectCategory = (name,id) =>{
+        setSelectedCategory(name);
+        setTypeID(id);
+        handleOpenCategory();
     }
     return(
         <div className="content-data">
                         <div className="content-data-column">
                             <h1>Dodaj wydarzenie:</h1>
-                            <GreenInput label="Tytuł" onChange={(e)=>setTitle(e.target.value)} fullWidth type="text" ></GreenInput>
-                            <GreenInput label="Ilość miejsc" onChange={(e)=>setSeats(e.target.value)} fullWidth type="number" ></GreenInput>
-                            <GreenInput label="Cena biletu" onChange={(e)=>setTicketPrice(e.target.value)} fullWidth type="number" ></GreenInput>
-                            <GreenInput label="Opis" onChange={(e)=>setDescription(e.target.value)} fullWidth type="text" ></GreenInput>
-                            <GreenInput label="" onChange={(e)=>setDate(e.target.value)} fullWidth type="date"></GreenInput>
-                            <GreenInput label="Link do zdjęcia" onChange={(e)=>setImgURL(e.target.value)} fullWidth type="text"></GreenInput>
+                            <GreenInput value={title} label="Tytuł" onChange={(e)=>setTitle(e.target.value)} fullWidth type="text" ></GreenInput>
+                            <GreenInput value={seats} label="Ilość miejsc" onChange={(e)=>setSeats(e.target.value)} fullWidth type="number" ></GreenInput>
+                            <GreenInput value={ticketPrice} label="Cena biletu" onChange={(e)=>setTicketPrice(e.target.value)} fullWidth type="number" ></GreenInput>
+                            <GreenInput value={description} label="Opis" onChange={(e)=>setDescription(e.target.value)} fullWidth type="text" ></GreenInput>
+                            <GreenInput value={date} label="" onChange={(e)=>setDate(e.target.value)} fullWidth type="date"></GreenInput>
+                            <div className='addEventOption'>
+                                <button className='filteringButton addEvent-filtering' onClick={handleOpenPlace}><img className='leftIcon' src={place}/><div className='filteringTitle'>{selecredLocation}</div><img className='rightIcon' src={arrow}/></button>
+                                
+                                    {openPlace ? (
+                                        <div className="menu">
+                                            {
+                                            locationsList.map((val,key)=>{
+                                                return(
+                                                    <button className='drop-down-btn' key={key} onClick={()=>selectLocation(val.name,val.locationID)}>{val.name}</button>
+                                                )
+                                            })
+                                        }
+                                        </div>
+                                    ) : null}
+                            </div>
+                            <div className='addEventOption'>
+                                <button className='filteringButton addEvent-filtering' onClick={handleOpenCategory}><img className='leftIcon' src={category}/><div className='filteringTitle'>{selectedCategory}</div><img className='rightIcon' src={arrow}/></button>
+                                
+                                    {openCategory ? (
+                                        <div className="menu">
+                                            {
+                                            categoryList.map((val,key)=>{
+                                                return(
+                                                    <button className='drop-down-btn' key={key} onClick={()=>selectCategory(val.description,val.typeID)}>{val.description}</button>
+                                                )
+                                            })
+                                        }
+                                        </div>
+                                    ) : null}
+                            </div>
+                            <GreenInput value={imgURL} label="Link do zdjęcia" onChange={(e)=>setImgURL(e.target.value)} fullWidth type="text"></GreenInput>
                             
                             <FormControlLabel
                             control={<Checkbox />}
@@ -51,7 +122,7 @@ function EventForm({onAddEvent}){
                             </label>
                             <input id="imageInput" style={{display:'none'}} type="file" className="main-btn"></input> */}
 
-                            <button className="main-btn" onClick={addNewEvent} type="submit">Dodaj</button>
+                            <button className="main-btn"  onClick={()=>addNewEvent()}>Dodaj</button>
 
                         </div>
                     </div>

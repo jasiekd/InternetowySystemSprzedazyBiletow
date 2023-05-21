@@ -1,0 +1,8 @@
+.addEventOption{
+    width: 100%;
+}
+.addEvent-filtering{
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(197, 197, 197);
+}

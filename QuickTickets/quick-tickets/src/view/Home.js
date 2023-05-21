@@ -1,7 +1,5 @@
 import * as React from 'react';
 import mainImg from '../images/event.jpg';
-import Button from '@mui/material/Button';
-import SearchIcon from '@mui/icons-material/Search';
 import categoryicon from '../images/categoryicon.png';
 import Footer from '../components/Footer';
 import exampleEvent from "../images/example-event.png";
