@@ -53,8 +53,7 @@ body{
   padding: 2%;
   color:#93BB60;
   font-size: 1.3rem;
-  overflow: auto;
-  max-height: 300px;
+
 }
 .info-event-img{
   width: 100%;
@@ -275,4 +274,15 @@ body{
   .place-img{
       width: 90vw;
   }
+}
+.title{
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+
+.approve-section{
+  position: absolute;
+  right:0;
+  top:0;
 }

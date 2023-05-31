@@ -43,6 +43,7 @@
     background-color: white;
     height: 200px;
     display: flex;
+    position: relative;
 }
 .searchList{
     display: flex;

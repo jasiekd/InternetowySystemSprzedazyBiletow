@@ -146,9 +146,12 @@ export default function Home() {
                 <img className='info-event-img' src={mainImg}  alt=""/>
             </div>
             <div className='info-right'>
-            <h3>Zapewniamy bilety na najlepsze wydarzenia tej zimy!11!!!!</h3>
-            <p>Zapewniamy bilety na najlepsze wydarzenia tej zimy!11!!!!Zapewniamy bilety na najlepsze wydarzenia tej zimy!11!!!!</p>
-          
+            <h1>Witajcie! Cieszymy się, że odwiedzacie stronę QuickTickets</h1>
+            <br/>
+            <br/>
+            <p>Najlepszego miejsca, aby zapewnić sobie bilety na najbardziej ekscytujące wydarzenia! Jeśli jesteście gotowi na niesamowite przygody, niezwykłe spektakle i niezapomniane chwile, to trafiłeś we właściwe miejsce.</p>
+            <br/>
+            <p>Nasze doświadczenie i zaangażowanie sprawiają, że każdy zakupiony u nas bilet staje się wyjątkowym przeżyciem. Pragniemy zapewnić Wam dostęp do najbardziej ekskluzywnych i popularnych wydarzeń, abyście mogli delektować się ich magią i energią.</p>
             </div>
             
             </div>

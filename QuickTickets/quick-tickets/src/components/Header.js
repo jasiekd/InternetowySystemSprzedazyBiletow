@@ -91,12 +91,33 @@ export default function Header({isLogged}) {
                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                         >
                             <MenuItem onClick={()=>navigate("/user-profile")}>
-                                <Avatar /> 
                                 Profil
                             </MenuItem>
                             <MenuItem onClick={()=>navigate("/add-event")}>
-                                <Avatar /> 
                                 Dodaj wydarzenie
+                            </MenuItem>
+                            <MenuItem onClick={()=>navigate("/add-localization")}>
+                                Dodaj lokalizacje
+                            </MenuItem>
+                            <MenuItem onClick={()=>navigate("/add-event")}>
+                                Dodaj kategorie
+                            </MenuItem>
+                            <Divider />
+                            <MenuItem onClick={()=>navigate("/register")}>
+                                Dodaj administratora
+                            </MenuItem>
+                            <Divider />
+                            <MenuItem onClick={()=>navigate("/organisers-approval")}>
+                                Zatwierdzanie organizatorów
+                            </MenuItem>
+                            <MenuItem onClick={()=>navigate("/events-approval")}>
+                                Zatwierdzanie wydarzeń
+                            </MenuItem>
+                            <MenuItem onClick={()=>navigate("/my-events")}>
+                                Moje wydarzenia
+                            </MenuItem>
+                            <MenuItem onClick={()=>navigate("/add-event")}>
+                                Zostań organizatorem
                             </MenuItem>
                             <Divider />
                         

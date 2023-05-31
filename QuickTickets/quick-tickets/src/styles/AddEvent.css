@@ -6,3 +6,22 @@
     border-width: 1px;
     border-color: rgb(197, 197, 197);
 }
+.eventForm{
+    width: 50%;
+    height: 61rem;
+}
+.evntPreview{
+    width: 50%;
+    background-color: #E7E7E7;
+    height: 61rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.formColumn{
+    width: 100%;
+    
+}
+.addEventContent{
+    display: flex;
+    gap:2rem
+}

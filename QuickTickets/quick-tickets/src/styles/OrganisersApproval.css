@@ -1,0 +1,16 @@
+.organisers-list{
+    width: clamp(10vw,60vw,90vw);
+    background-color: white;
+    height: auto;
+    display: flex;
+    font-size: 1.2rem;
+    position: relative;
+    word-break: break-all;
+    word-wrap: break-word;
+    gap:8px;
+    padding: 8px;
+}
+.organisers-list-row{
+    display: flex;
+    flex:1;
+}

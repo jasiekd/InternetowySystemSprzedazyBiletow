@@ -12,6 +12,8 @@ import place from "../images/place.png";
 import arrow from "../images/arrow.png"
 import category from "../images/category.png";
 import '../styles/AddEvent.css';
+import EventComponent from "../components/EventComponent";
+import LocationComponent from "../components/LocationComponent";
 
 function EventForm({onAddEvent,getTypesOfEvents,getEventLocations}){
     const [title,setTitle] = useState("");
@@ -71,61 +73,81 @@ function EventForm({onAddEvent,getTypesOfEvents,getEventLocations}){
         handleOpenCategory();
     }
     return(
+        <div className="addEventContent">
+        <div className="eventForm">
         <div className="content-data">
-                        <div className="content-data-column">
-                            <h1>Dodaj wydarzenie:</h1>
-                            <GreenInput value={title} label="Tytuł" onChange={(e)=>setTitle(e.target.value)} fullWidth type="text" ></GreenInput>
-                            <GreenInput value={seats} label="Ilość miejsc" onChange={(e)=>setSeats(e.target.value)} fullWidth type="number" ></GreenInput>
-                            <GreenInput value={ticketPrice} label="Cena biletu" onChange={(e)=>setTicketPrice(e.target.value)} fullWidth type="number" ></GreenInput>
-                            <GreenInput value={description} label="Opis" onChange={(e)=>setDescription(e.target.value)} fullWidth type="text" ></GreenInput>
-                            <GreenInput value={date} label="" onChange={(e)=>setDate(e.target.value)} fullWidth type="date"></GreenInput>
-                            <div className='addEventOption'>
-                                <button className='filteringButton addEvent-filtering' onClick={handleOpenPlace}><img className='leftIcon' src={place}/><div className='filteringTitle'>{selecredLocation}</div><img className='rightIcon' src={arrow}/></button>
-                                
-                                    {openPlace ? (
-                                        <div className="menu">
-                                            {
-                                            locationsList.map((val,key)=>{
-                                                return(
-                                                    <button className='drop-down-btn' key={key} onClick={()=>selectLocation(val.name,val.locationID)}>{val.name}</button>
-                                                )
-                                            })
-                                        }
-                                        </div>
-                                    ) : null}
+            
+            <div className="content-data-column formColumn" >
+                <h2>Dane wydarzenia</h2>    
+                <GreenInput value={title} label="Tytuł" onChange={(e)=>setTitle(e.target.value)} fullWidth type="text" ></GreenInput>
+                <GreenInput value={seats} label="Ilość miejsc" onChange={(e)=>setSeats(e.target.value)} fullWidth type="number" ></GreenInput>
+                <GreenInput value={ticketPrice} label="Cena biletu" onChange={(e)=>setTicketPrice(e.target.value)} fullWidth type="number" ></GreenInput>
+                <GreenInput value={description} label="Opis" onChange={(e)=>setDescription(e.target.value)} fullWidth type="text" multiline rows={4} maxRows={40}></GreenInput>
+                <GreenInput value={date} label="" onChange={(e)=>setDate(e.target.value)} fullWidth type="date"></GreenInput>
+                <div className='addEventOption'>
+                    <button className='filteringButton addEvent-filtering' onClick={handleOpenPlace}><img className='leftIcon' src={place}/><div className='filteringTitle'>{selecredLocation}</div><img className='rightIcon' src={arrow}/></button>
+                    
+                        {openPlace ? (
+                            <div className="menu">
+                                {
+                                locationsList.map((val,key)=>{
+                                    return(
+                                        <button className='drop-down-btn' key={key} onClick={()=>selectLocation(val.name,val.locationID)}>{val.name}</button>
+                                    )
+                                })
+                            }
                             </div>
-                            <div className='addEventOption'>
-                                <button className='filteringButton addEvent-filtering' onClick={handleOpenCategory}><img className='leftIcon' src={category}/><div className='filteringTitle'>{selectedCategory}</div><img className='rightIcon' src={arrow}/></button>
-                                
-                                    {openCategory ? (
-                                        <div className="menu">
-                                            {
-                                            categoryList.map((val,key)=>{
-                                                return(
-                                                    <button className='drop-down-btn' key={key} onClick={()=>selectCategory(val.description,val.typeID)}>{val.description}</button>
-                                                )
-                                            })
-                                        }
-                                        </div>
-                                    ) : null}
+                        ) : null}
+                </div>
+                <div className='addEventOption'>
+                    <button className='filteringButton addEvent-filtering' onClick={handleOpenCategory}><img className='leftIcon' src={category}/><div className='filteringTitle'>{selectedCategory}</div><img className='rightIcon' src={arrow}/></button>
+                    
+                        {openCategory ? (
+                            <div className="menu">
+                                {
+                                categoryList.map((val,key)=>{
+                                    return(
+                                        <button className='drop-down-btn' key={key} onClick={()=>selectCategory(val.description,val.typeID)}>{val.description}</button>
+                                    )
+                                })
+                            }
                             </div>
-                            <GreenInput value={imgURL} label="Link do zdjęcia" onChange={(e)=>setImgURL(e.target.value)} fullWidth type="text"></GreenInput>
-                            
-                            <FormControlLabel
-                            control={<Checkbox />}
-                            // onChange={(e)=>setAdultsOnly(e.target.value)}
-                            label="18+"
-                            labelPlacement="start"
+                        ) : null}
+                </div>
+                <GreenInput value={imgURL} label="Link do zdjęcia" onChange={(e)=>setImgURL(e.target.value)} fullWidth type="text"></GreenInput>
+                
+                <FormControlLabel
+                control={<Checkbox />}
+                // onChange={(e)=>setAdultsOnly(e.target.value)}
+                label="18+"
+                labelPlacement="start"
+                />
+                {/* <label htmlFor='imageInput' className="main-btn">
+                    <p>Dodaj zdjęcie</p>
+                </label>
+                <input id="imageInput" style={{display:'none'}} type="file" className="main-btn"></input> */}
+
+                <button className="main-btn"  onClick={()=>addNewEvent()}>Dodaj</button>
+
+            </div>
+            
+</div>
+        </div>
+            
+
+        <div className="evntPreview">
+                            <EventComponent 
+                                eventTitle={title} 
+                                eventText={description}
+                                eventImg={imgURL}
+                                eventDate={date}
+                                eventPlace={selecredLocation}
+                                disableBuy={true}
                             />
-                            {/* <label htmlFor='imageInput' className="main-btn">
-                                <p>Dodaj zdjęcie</p>
-                            </label>
-                            <input id="imageInput" style={{display:'none'}} type="file" className="main-btn"></input> */}
-
-                            <button className="main-btn"  onClick={()=>addNewEvent()}>Dodaj</button>
-
+                            
                         </div>
-                    </div>
+        </div>
+
     );
 }
 function AddEvent(){

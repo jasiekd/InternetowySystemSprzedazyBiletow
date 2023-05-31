@@ -10,6 +10,11 @@ import Event from "../view/Event";
 import BuyTicket from "../view/BuyTicket";
 import UserProfile from "../view/UserProfile";
 import AddEvent from "../view/AddEvent";
+import MyEvents from "../view/MyEvents";
+import EventsApproval from "../view/EventsApproval";
+import OrganisersApproval from "../view/OrganisersApproval";
+import AddLocalization from "../view/AddLocalization";
+import AddCategory from "../view/AddCategory"
 
 const router = createBrowserRouter([
     {
@@ -48,6 +53,26 @@ const router = createBrowserRouter([
         path: "/add-event",
         element: <AddEvent/>
     },
+    {
+        path: "/my-events",
+        element: <MyEvents/>
+    },
+    {
+        path: "/events-approval",
+        element: <EventsApproval/>
+    },
+    {
+        path: "/organisers-approval",
+        element: <OrganisersApproval/>
+    },
+    {
+        path: "/add-localization",
+        element: <AddLocalization/>
+    },
+    {
+        path: "/add-category",
+        element: <AddCategory/>
+    }
 ]);
 
 export default router;
