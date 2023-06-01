@@ -9,7 +9,15 @@ export default class LocationsService{
                 locationID: locationID,
                 name: name
             })
-            console.log(response)
+            return response
+        }catch(e)
+        {
+            return e.response
+        }
+    }
+    async getLocation(id){
+        try{
+            const response = await axios.get(HostName+'/api/Locations/'+id,{})
             return response
         }catch(e)
         {

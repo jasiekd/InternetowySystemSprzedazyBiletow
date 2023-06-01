@@ -20,13 +20,15 @@ import arrow from "../images/arrow.png";
 import "../styles/SearchList.css";
 import Pagination from '@mui/material/Pagination';
 import EventsController from '../controllers/Events';
+import { useLocation } from 'react-router-dom';
+import moment from 'moment';
+import LocationsController from '../controllers/LocationsController';
 
-function FilteringOptions({getTypesOfEvents,getEventLocations}){
+function FilteringOptions({getTypesOfEvents,getEventLocations,DateFrom,DateTo,PriceTo,PriceFrom,Place,Type}){
     const [openDate, setOpenDate] = React.useState(false);
     const [openPlace, setOpenPlace] = React.useState(false);
     const [openCategory, setOpenCategory] = React.useState(false);
     const [openPrice, setOpenPrice] = React.useState(false);
-
     const handleOpenDate = () => {
         setOpenDate(!openDate);
     };
@@ -59,36 +61,79 @@ function FilteringOptions({getTypesOfEvents,getEventLocations}){
         })
     },[])
 
-    const selectLocation = (name) =>{
-        setSelectedLocation(name);
-        handleOpenPlace();
+    const selectLocation = (loc) =>{
+        if(loc === null)
+        {
+            setSelectedLocation("wszystkie");
+            Place(null)
+            handleOpenPlace(null);
+        }else{
+            setSelectedLocation(loc.name);
+        Place(loc.locationID)
+        handleOpenPlace(loc.locationID);
+        }
+        
     }
-    const selectCategory = (name) =>{
-        setSelectedCategory(name);
-        handleOpenCategory();
+    const selectCategory = (type) =>{
+        if(type === null){
+            setSelectedCategory("wszystki");
+            Type(null);
+            handleOpenCategory();
+        }else{
+            setSelectedCategory(type.description);
+            Type(type.typeID);
+            handleOpenCategory();
+        }
+       
     }
     const selectDate = () =>{
-        if(dateFrom!==""&&dateTo!=="")
-            setSelectedDate(dateFrom+" - "+dateTo);
+            if(dateFrom === null)
+            {
+                setSelectedDate("do "+dateTo);
+            }
+            else if(dateTo === null)
+           {
+            setSelectedDate("od "+dateFrom);
+           }
+            DateFrom(dateFrom);
+            DateTo(dateTo);
+           
         handleOpenDate();
     }
     const deleteDate = () =>{
         setSelectedDate("Data");
         handleOpenDate();
-        setDateTo("");
-        setDateFrom("");
+        setDateTo(null);
+        setDateFrom(null);
+        DateFrom(null);
+        DateTo(null)
+        
     }
 
     const selectPrice = () =>{
-        if(priceFrom!==""&&priceTo!=="")
-            setSelectedPrice(priceFrom+" - "+priceTo);
+
+        if(priceFrom === null)
+        {
+            setSelectedPrice("do "+priceTo);
+        }
+        else if(priceTo === null)
+        {
+            setSelectedPrice("od "+priceFrom);
+        }
+            
+            PriceFrom(priceFrom);
+            PriceTo(priceTo);
+    
+            
         handleOpenPrice();
     }
     const deletePrice = () =>{
         setSelectedPrice("Cena");
         handleOpenPrice();
-        setPriceFrom("");
-        setPriceTo("");
+        setPriceFrom(null);
+        setPriceTo(null);
+        PriceFrom(null);
+        PriceTo(null);
     }
     return(
             <div className='filteringOptions'>
@@ -115,11 +160,11 @@ function FilteringOptions({getTypesOfEvents,getEventLocations}){
                 
                     {openPlace ? (
                         <div className="menu">
-                            <button className='drop-down-btn' key={-1} onClick={()=>selectLocation("Miejsce")}>wszystkie</button>
+                            <button className='drop-down-btn' key={-1} onClick={()=>selectLocation(null)}>wszystkie</button>
                             {
                                 locationsList.map((val,key)=>{
                                     return(
-                                        <button className='drop-down-btn' key={key} onClick={()=>selectLocation(val.name)}>{val.name}</button>
+                                        <button className='drop-down-btn' key={key} onClick={()=>selectLocation(val)}>{val.name}</button>
                                     )
                                 })
                             }
@@ -131,11 +176,11 @@ function FilteringOptions({getTypesOfEvents,getEventLocations}){
                 
                     {openCategory ? (
                         <div className="menu">
-                            <button className='drop-down-btn' key={-1} onClick={()=>selectCategory("Kategoria")}>wszystkie</button>
+                            <button className='drop-down-btn' key={-1} onClick={()=>selectCategory(null)}>wszystkie</button>
                             {
                                 categoryList.map((val,key)=>{
                                     return(
-                                        <button className='drop-down-btn' key={key} onClick={()=>selectCategory(val.description)}>{val.description}</button>
+                                        <button className='drop-down-btn' key={key} onClick={()=>selectCategory(val)}>{val.description}</button>
                                     )
                                 })
                             }
@@ -161,67 +206,99 @@ function FilteringOptions({getTypesOfEvents,getEventLocations}){
         </div>
     )
 }
+function RenderLocation({getLocation,locationID}){
+    const [name,setName] = React.useState("");
+    React.useEffect(()=>{
+        getLocation(locationID).then(r=>{
+            setName(r.name)
+        })
+    },[locationID])
+    return(
+        name
+    )
+}
 
-export default function SearchList() {
+function SearchEvents({phrase,search,dateFrom,dateTo,priceTo,priceFrom,place,type}){
 
     const navigate = useNavigate();
-    
+    const [events,setEvents] = React.useState();
+    const [pageCount,setPageCount] = React.useState(1);
+    React.useEffect(()=>{
 
-    const eventList =[
-        {
-            title: "item 1",
-        },
-        {
-            title: "item 2",
-        },
-        {
-            title: "item 3",
-        },
-        {
-            title: "item 4",
-        },
-        {
-            title: "item 5",
-        },
-        {
-            title: "item 6",
-        },
-        {
-            title: "item 7",
-        },
-        {
-            title: "item 8",
-        }
-    ]
+        search(phrase,priceFrom,priceTo,dateFrom,dateTo,place,type,pageCount,10).then(r=>{
+            setEvents(r);
+            
+        })
+    },[phrase,dateFrom,dateTo,priceTo,priceFrom,place,type,pageCount])
+
+
+    return(
+        <div className='searchList'>
+                {
+                    events!==undefined?
+                        
+                        events.value.events.map((val,key)=>{
+                           
+                            return(
+                                <div className='event-on-list'>
+                                    <div className='event-list-img'><img src={val.imgURL}/></div>
+                                    <div className='event-list-info'>
+                                        <div className='event-list-title'>{val.title}</div>
+                                        <div className='event-list-placeTime'>
+                                            <div className='event-list-time'>{moment(val.dateCreated).format("DD-MM-YYYY")}</div>
+                                            <div className='event-list-place'><LocationsController><RenderLocation locationID={val.locationID}/></LocationsController></div>
+                                        </div>
+                                    </div>
+                                    <div className='event-list-price'>już od {val.ticketPrice}PLN</div>
+                                    <div className='buy-option'><button className='main-btn' onClick={()=>navigate("/event")}>Kup teraz</button></div>
+                                </div>
+                            )
+                        })
+                        
+                        
+                    :
+                    null
+                }  
+                {
+                    events!==undefined?
+                    <Pagination count={Math.ceil(events.value.totalCount/10)} size='large' onChange={(e,v)=>{setPageCount(v)}}/>
+                    :
+                    null
+                }
+            </div>
+    )
+}
+export default function SearchList() {
+    const [dateFrom,setDateFrom] = React.useState(null);
+    const [dateTo,setDateTo] = React.useState(null);
+    const [priceFrom,setPriceFrom] = React.useState(null);
+    const [priceTo,setPriceTo] = React.useState(null);
+    const [place,setPlace] = React.useState(null);
+    const [type,setType] = React.useState(null);
+  
+ 
+    const location = useLocation();
+    const [phrase,setPhrase] = React.useState("");
+    React.useEffect(()=>{
+        setPhrase(location.state.phrase);
+    },[location.state.phrase])
+
+   
     return (
 
         <div className="App">
             <Header/>
         <main className='content'>
-            <EventsController>
-                <FilteringOptions/>
+            
+            <EventsController >
+                <FilteringOptions DateFrom={setDateFrom} DateTo={setDateTo} PriceTo={setPriceTo} PriceFrom={setPriceFrom} Place={setPlace} Type={setType}/>
             </EventsController>
-            <div className='searchList'>
-                {
-                    eventList.map((val,key)=>{
-                        return(
-                            <div className='event-on-list'>
-                                <div className='event-list-img'><img src={exampleEvent}/></div>
-                                <div className='event-list-info'>
-                                    <div className='event-list-title'>Lorem ipsum nazwa</div>
-                                    <div className='event-list-placeTime'>
-                                        <div className='event-list-time'>12.12.2023</div>
-                                        <div className='event-list-place'>Kielce</div>
-                                    </div>
-                                </div>
-                                <div className='event-list-price'>już od 80PLN</div>
-                                <div className='buy-option'><button className='main-btn' onClick={()=>navigate("/event")}>Kup teraz</button></div>
-                            </div>
-                        )
-                    })
-                }  
-                <Pagination count={10} size='large'/>
-            </div>
+
+
+            <EventsController >
+                <SearchEvents phrase={phrase} dateFrom={dateFrom} dateTo={dateTo} priceTo={priceTo} priceFrom={priceFrom} place={place} type={type}/>
+            </EventsController>
+
         </main>
         <div className='App-footer'>
             <Footer/>

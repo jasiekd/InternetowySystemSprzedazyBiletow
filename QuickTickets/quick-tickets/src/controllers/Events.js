@@ -75,11 +75,24 @@ export default function EventsController({children}){
         }
     }
 
+    const search = async(searchPhrase,minPrice,maxPrice,startDate,endDate,locationId,typeId,pageIndex,pageSize) =>{
+        const response = await gateway.search(searchPhrase,minPrice,maxPrice,startDate,endDate,locationId,typeId,pageIndex,pageSize);
+
+        if(response.status === 200)
+        {
+            return response.data
+        }
+        else{
+
+        }
+    } 
+
     return React.cloneElement(children,{
         onAddEvent:addEvent,
         getHotEvents,
         getHotLocations,
         getTypesOfEvents,
-        getEventLocations
+        getEventLocations,
+        search,
     })
 }

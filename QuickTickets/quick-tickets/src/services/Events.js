@@ -87,4 +87,23 @@ export default class EventsService{
             return error.response;
         }
     }
+    async search(searchPhrase,minPrice,maxPrice,startDate,endDate,locationId,typeId,pageIndex,pageSize){
+        try{
+            const response = await axios.post(HostName+'/api/Events/search',{
+                searchPhrase: searchPhrase,
+                minPrice: minPrice,
+                maxPrice: maxPrice,
+                startDate: startDate,
+                endDate: endDate,
+                locationId: locationId,
+                typeId: typeId,
+                pageIndex: pageIndex,
+                pageSize: pageSize
+            });
+            return response;
+        }catch(error)
+        {
+            return error.response;
+        }
+    }
 }

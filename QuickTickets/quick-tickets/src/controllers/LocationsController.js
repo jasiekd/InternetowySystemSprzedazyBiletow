@@ -6,7 +6,6 @@ export default function LocationsController({children}){
 
     const addLocations = async(locationID,name,description,imgUrl) =>{
         const response = await gateway.addLocation(locationID,name,description,imgUrl)
-        console.log(response)
         if(response.status === 201)
         {
             Swal.fire({
@@ -27,8 +26,20 @@ export default function LocationsController({children}){
             return false;
         }
     }
+    
+    const getLocation = async(id) =>{
+        const response = await gateway.getLocation(id);
+
+        if(response.status === 200)
+        {
+            return response.data;
+        }
+
+    }
 
     return React.cloneElement(children,{
-        addLocations
+        addLocations,
+        getLocation
     })
+
 }

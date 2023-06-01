@@ -30,11 +30,19 @@ const InputStyled = styled(TextField)({
   });
 
 export default function SearchInput() {
+  const [phrase,setPhrase] = React.useState("");
   const navigate = useNavigate();
     return(
         <div className='search-content'>
-            <InputStyled id="filled-basic" label="Szukaj wydarzenia..." variant="outlined" fullWidth/>
-            <button className='search-button' onClick={()=>navigate("/search-list")}>
+            <InputStyled 
+              id="filled-basic" 
+              label="Szukaj wydarzenia..." 
+              variant="outlined" 
+              fullWidth 
+              value={phrase}
+              onChange={(e)=>setPhrase(e.target.value)}
+            />
+            <button className='search-button' onClick={()=>navigate("/search-list",{state:{phrase:phrase}})}>
                 <img src={searchIcon}/>
             </button>
         </div>
