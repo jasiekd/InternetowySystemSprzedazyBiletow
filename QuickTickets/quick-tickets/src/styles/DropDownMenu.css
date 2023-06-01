@@ -17,6 +17,8 @@
     gap:1rem;
     margin-top: 3.8rem;
     z-index: 100;
+    height: 20rem;
+    overflow-x: auto;
   }
   .drop-down-btn{
     background-color: white;

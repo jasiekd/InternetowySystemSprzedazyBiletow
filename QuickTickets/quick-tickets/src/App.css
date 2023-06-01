@@ -233,7 +233,7 @@ body{
   cursor: pointer;
 }
 .place-event:hover{
-  transform: scale(1.2);
+  transform: scale(0.96);
   
 }
 .place-info{
@@ -245,9 +245,12 @@ body{
   width: 100%;
   padding: 0;
   margin: 0;
+  width: 420px;
+  height: 280px;
   display: block;
   border: none;
   border-radius: 0.5rem;
+  object-fit: cover;
 }
 
 .place-title{

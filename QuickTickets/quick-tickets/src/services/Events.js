@@ -13,9 +13,9 @@ export default class EventsService{
                 description: data.description,
                 date:data.date,
                 isActive:true,
-                adultsOnly:true,
-                typeID:1,
-                locationID:1,
+                adultsOnly:data.adultsOnly,
+                typeID:data.typeID,
+                locationID:data.locationID,
                 imgURL:data.imgURL
             });
            // console.log("test");

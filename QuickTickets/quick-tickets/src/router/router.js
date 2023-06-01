@@ -15,6 +15,7 @@ import EventsApproval from "../view/EventsApproval";
 import OrganisersApproval from "../view/OrganisersApproval";
 import AddLocalization from "../view/AddLocalization";
 import AddCategory from "../view/AddCategory"
+import AddAdmin from "../view/AddAdmin";
 
 const router = createBrowserRouter([
     {
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
     {
         path: "/add-category",
         element: <AddCategory/>
+    },
+    {
+        path: "/add-admin",
+        element: <AddAdmin/>
     }
 ]);
 

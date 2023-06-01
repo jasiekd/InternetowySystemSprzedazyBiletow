@@ -3,42 +3,58 @@ import '../styles/UserProfile.css';
 import Header from '../components/Header';
 import { GreenInput } from "../components/GreenInput";
 import Footer from '../components/Footer';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import { useState, useEffect } from 'react';
-import LocationsController from '../controllers/Locations.js';
 import '../styles/DropDownMenu.css';
-import place from "../images/place.png";
-import arrow from "../images/arrow.png"
-import category from "../images/category.png";
 import '../styles/AddEvent.css';
-import EventComponent from "../components/EventComponent";
-import LocationComponent from "../components/LocationComponent";
-
-function CategoryForm(){
+import { useNavigate } from "react-router-dom";
+import { checkIsLogged } from "../controllers/Login";
+import TypesOfEventsController from "../controllers/TypesOfEventsController";
+function CategoryForm({addCategory}){
     const [title,setTitle] = useState("");
+
+    const onAddCategory = () =>{
+        addCategory(0,title).then(r=>{
+            if(r)
+                setTitle("");
+        })
+    }
+
     return(
         <div className="content-data">
             
             <div className="content-data-column formColumn" >
                 <h2>Nazwa kategorii</h2>    
                 <GreenInput value={title} label="Nazwa" onChange={(e)=>setTitle(e.target.value)} fullWidth type="text" ></GreenInput>
-                <button className="main-btn"  >Dodaj</button>
+                <button className="main-btn"  onClick={()=>onAddCategory()}>Dodaj</button>
 
             </div>    
         </div>
     );
 }
 function AddCategory(){
-    
+    const navigate = useNavigate()
+    const [ready,setReady] = useState(false);
+
+    useEffect(()=>{
+        if(checkIsLogged()==='1')
+            setReady(true);
+        else
+            navigate("/home");
+    })
+
     return(
         <div className="App">
             <Header/>
-            <main className='content'>
-                
-                    <CategoryForm />
-                
-            </main>
+            {
+                ready?
+                <main className='content'>
+                    <TypesOfEventsController>
+                        <CategoryForm /> 
+                    </TypesOfEventsController>
+                </main>
+                :
+                null
+            }
             <div className='App-footer'>
                 <Footer/>
             </div>

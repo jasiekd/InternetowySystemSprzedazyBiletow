@@ -1,14 +1,15 @@
-import RegisterService from "../services/Register";
+
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import React from "react";
+import AccountService from "../services/AccountService";
 export default function RegisterController({children}){
     const navigate = useNavigate();
 
     const register = async (registerData,setErrorStatus,setErrorText)=>{
         console.log(registerData);
         
-        const gateway = new RegisterService();
+        const gateway = new AccountService();
         const response = await gateway.register(registerData);
         console.log(response);
         if(response.status === 201)

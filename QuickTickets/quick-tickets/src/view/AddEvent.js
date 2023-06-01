@@ -14,25 +14,28 @@ import category from "../images/category.png";
 import '../styles/AddEvent.css';
 import EventComponent from "../components/EventComponent";
 import LocationComponent from "../components/LocationComponent";
-
+import { useNavigate } from "react-router-dom";
+import { checkIsLogged } from "../controllers/Login";
 function EventForm({onAddEvent,getTypesOfEvents,getEventLocations}){
     const [title,setTitle] = useState("");
     const [seats,setSeats] = useState(0);
     const [ticketPrice,setTicketPrice] = useState(0);
     const [description,setDescription] = useState("");
     const [date,setDate] = useState("");
-    const [adultsOnly,setAdultsOnly] = useState(null);
+    const [adultsOnly,setAdultsOnly] = useState(true);
     const [imgURL,setImgURL] = useState("");
 
     const addNewEvent=()=>{
         onAddEvent({title,seats,ticketPrice,description,date,adultsOnly,imgURL,typeID,locationID}).then((result)=>{
-            setTitle("");
+           /* setTitle("");
             setSeats(0);
             setTicketPrice(0);
             setDescription("");
             setDate("");
             setAdultsOnly(null);
             setImgURL("");
+            setSelectedCategory("Kategoria");
+            setSelectedLocation("Miejsce");*/
         });
       
     
@@ -80,14 +83,8 @@ function EventForm({onAddEvent,getTypesOfEvents,getEventLocations}){
             <div className="content-data-column formColumn" >
                 <h2>Dane wydarzenia</h2>    
                 <GreenInput value={title} label="Tytuł" onChange={(e)=>setTitle(e.target.value)} fullWidth type="text" ></GreenInput>
-                <GreenInput value={seats} label="Ilość miejsc" onChange={(e)=>setSeats(e.target.value)} fullWidth type="number" ></GreenInput>
-                <GreenInput value={ticketPrice} label="Cena biletu" onChange={(e)=>setTicketPrice(e.target.value)} fullWidth type="number" ></GreenInput>
-                <GreenInput value={description} label="Opis" onChange={(e)=>setDescription(e.target.value)} fullWidth type="text" multiline rows={4} maxRows={40}></GreenInput>
-                <GreenInput value={date} label="" onChange={(e)=>setDate(e.target.value)} fullWidth type="date"></GreenInput>
                 <div className='addEventOption'>
-                    <button className='filteringButton addEvent-filtering' onClick={handleOpenPlace}><img className='leftIcon' src={place}/><div className='filteringTitle'>{selecredLocation}</div><img className='rightIcon' src={arrow}/></button>
-                    
-                        {openPlace ? (
+                {openPlace ? (
                             <div className="menu">
                                 {
                                 locationsList.map((val,key)=>{
@@ -98,11 +95,12 @@ function EventForm({onAddEvent,getTypesOfEvents,getEventLocations}){
                             }
                             </div>
                         ) : null}
+                    <button className='filteringButton addEvent-filtering' onClick={handleOpenPlace}><img className='leftIcon' src={place}/><div className='filteringTitle'>{selecredLocation}</div><img className='rightIcon' src={arrow}/></button>
+                    
+                       
                 </div>
                 <div className='addEventOption'>
-                    <button className='filteringButton addEvent-filtering' onClick={handleOpenCategory}><img className='leftIcon' src={category}/><div className='filteringTitle'>{selectedCategory}</div><img className='rightIcon' src={arrow}/></button>
-                    
-                        {openCategory ? (
+                {openCategory ? (
                             <div className="menu">
                                 {
                                 categoryList.map((val,key)=>{
@@ -113,14 +111,23 @@ function EventForm({onAddEvent,getTypesOfEvents,getEventLocations}){
                             }
                             </div>
                         ) : null}
+                    <button className='filteringButton addEvent-filtering' onClick={handleOpenCategory}><img className='leftIcon' src={category}/><div className='filteringTitle'>{selectedCategory}</div><img className='rightIcon' src={arrow}/></button>
+                    
+                        
                 </div>
+                <GreenInput value={seats} label="Ilość miejsc" onChange={(e)=>setSeats(e.target.value)} fullWidth type="number" ></GreenInput>
+                <GreenInput value={ticketPrice} label="Cena biletu" onChange={(e)=>setTicketPrice(e.target.value)} fullWidth type="number" ></GreenInput>
+                <GreenInput value={description} label="Opis" onChange={(e)=>setDescription(e.target.value)} fullWidth type="text" multiline rows={4} maxRows={40}></GreenInput>
+                <GreenInput value={date} label="" onChange={(e)=>setDate(e.target.value)} fullWidth type="date"></GreenInput>
+                
                 <GreenInput value={imgURL} label="Link do zdjęcia" onChange={(e)=>setImgURL(e.target.value)} fullWidth type="text"></GreenInput>
                 
                 <FormControlLabel
-                control={<Checkbox />}
-                // onChange={(e)=>setAdultsOnly(e.target.value)}
-                label="18+"
-                labelPlacement="start"
+                    control={<Checkbox />}
+                    onClick={()=>setAdultsOnly(!adultsOnly)}
+                    checked={adultsOnly}
+                    label="18+"
+                    labelPlacement="start"
                 />
                 {/* <label htmlFor='imageInput' className="main-btn">
                     <p>Dodaj zdjęcie</p>
@@ -151,15 +158,29 @@ function EventForm({onAddEvent,getTypesOfEvents,getEventLocations}){
     );
 }
 function AddEvent(){
-    
+    const navigate = useNavigate()
+    const [ready,setReady] = useState(false);
+
+    useEffect(()=>{
+        if(checkIsLogged()==='3')
+            setReady(true);
+        else
+            navigate("/home");
+    })
     return(
         <div className="App">
             <Header/>
-            <main className='content'>
-                <EventsController>
-                    <EventForm />
-                </EventsController>
-            </main>
+            {
+                ready?
+                <main className='content'>
+                    <EventsController>
+                        <EventForm />
+                    </EventsController>
+                </main>
+                :
+                null
+            }
+            
             <div className='App-footer'>
                 <Footer/>
             </div>

@@ -8,12 +8,11 @@
 }
 .eventForm{
     width: 50%;
-    height: 61rem;
+
 }
 .evntPreview{
     width: 50%;
     background-color: #E7E7E7;
-    height: 61rem;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -23,5 +22,7 @@
 }
 .addEventContent{
     display: flex;
-    gap:2rem
+    gap:2rem;
+    align-items: center;
+    justify-content: center;
 }

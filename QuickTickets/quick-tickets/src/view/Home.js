@@ -67,7 +67,7 @@ function MostPopularPlaces({getHotLocations}){
                 
                 return(
                     <div className="place-event">
-                        <img className='place-img' src={logo}  alt=""/>
+                        <img className='place-img' src={val.imgURL}  alt=""/>
                         <div className="place-info">
                             <div className="place-title">
                                 {val.name}

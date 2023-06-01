@@ -13,8 +13,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import PersonAdd from '@mui/icons-material/PersonAdd';
-import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { checkIsLogged,logOut } from '../controllers/Login';
 
@@ -90,35 +88,58 @@ export default function Header({isLogged}) {
                             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                         >
+
                             <MenuItem onClick={()=>navigate("/user-profile")}>
                                 Profil
                             </MenuItem>
-                            <MenuItem onClick={()=>navigate("/add-event")}>
-                                Dodaj wydarzenie
-                            </MenuItem>
-                            <MenuItem onClick={()=>navigate("/add-localization")}>
-                                Dodaj lokalizacje
-                            </MenuItem>
-                            <MenuItem onClick={()=>navigate("/add-event")}>
-                                Dodaj kategorie
-                            </MenuItem>
-                            <Divider />
-                            <MenuItem onClick={()=>navigate("/register")}>
-                                Dodaj administratora
-                            </MenuItem>
-                            <Divider />
-                            <MenuItem onClick={()=>navigate("/organisers-approval")}>
-                                Zatwierdzanie organizatorów
-                            </MenuItem>
-                            <MenuItem onClick={()=>navigate("/events-approval")}>
-                                Zatwierdzanie wydarzeń
-                            </MenuItem>
-                            <MenuItem onClick={()=>navigate("/my-events")}>
-                                Moje wydarzenia
-                            </MenuItem>
-                            <MenuItem onClick={()=>navigate("/add-event")}>
-                                Zostań organizatorem
-                            </MenuItem>
+                            {
+                                checkIsLogged()==="2"?
+                                <>
+                                     <MenuItem onClick={()=>navigate("/add-event")}>
+                                        Zostań organizatorem
+                                    </MenuItem>
+                                </> 
+                                :
+                                null
+                            }
+                            
+                            
+                            {
+                                checkIsLogged()==="3"?
+                                <>
+                                    <MenuItem onClick={()=>navigate("/add-event")}>
+                                        Dodaj wydarzenie
+                                    </MenuItem>
+                                    <MenuItem onClick={()=>navigate("/my-events")}>
+                                        Moje wydarzenia
+                                    </MenuItem>
+                                </>
+                                :
+                                null
+                            }
+                            
+                            {
+                                checkIsLogged()==="1"?
+                                <>
+                                    <MenuItem onClick={()=>navigate("/add-localization")}>
+                                        Dodaj lokalizacje
+                                    </MenuItem>
+                                    <MenuItem onClick={()=>navigate("/add-category")}>
+                                        Dodaj kategorie
+                                    </MenuItem>
+                                    <MenuItem onClick={()=>navigate("/add-admin")}>
+                                        Dodaj administratora
+                                    </MenuItem>
+                                    <MenuItem onClick={()=>navigate("/organisers-approval")}>
+                                        Zatwierdzanie organizatorów
+                                    </MenuItem>
+                                    <MenuItem onClick={()=>navigate("/events-approval")}>
+                                        Zatwierdzanie wydarzeń
+                                    </MenuItem>
+                                </>
+                                :
+                                null
+                            }
                             <Divider />
                         
                             <MenuItem onClick={logOut}>
