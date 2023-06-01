@@ -88,31 +88,43 @@ namespace QuickTickets.Api.Data
                 {
                     LocationID = 1,
                     Name = "Kielce",
+                    Description = "Kielce to miasto położone w środkowej Polsce, stolica województwa świętokrzyskiego. Znajduje się w malowniczym regionie Gór Świętokrzyskich, co czyni je atrakcyjnym miejscem dla turystów lubiących kontakt z naturą. Miasto jest ważnym centrum gospodarczym i kulturalnym regionu. Charakterystycznymi punktami Kielc są Pałac Biskupów Krakowskich, Katedra św. Aleksandra, Zamek Królewski oraz Starówka z licznymi zabytkami. Miasto słynie także z jednej z najstarszych polskich uczelni - Politechniki Świętokrzyskiej.",
+                    ImgURL = "https://iili.io/Hr6wMDx.png"
                 },
                 new LocationsEntity
                 {
                     LocationID = 2,
                     Name = "Kraków",
+                    Description = "Kraków to jedno z najważniejszych miast Polski, położone w południowej części kraju nad rzeką Wisłą. Jest to miasto o ogromnym znaczeniu historycznym, kulturalnym i artystycznym. Stare Miasto w Krakowie zostało wpisane na Listę Światowego Dziedzictwa UNESCO i jest pełne pięknych zabytków, takich jak Wawel - zamek królewski z katedrą, Sukiennice na Rynku Głównym, Kościół Mariacki czy Barbakan. Kraków jest również ważnym ośrodkiem akademickim, z takimi instytucjami jak Uniwersytet Jagielloński, co przyciąga studentów z całego kraju i zagranicy.",
+                    ImgURL = "https://iili.io/Hr6whiB.png"
                 },
                 new LocationsEntity
                 {
                     LocationID = 3,
                     Name = "Warszawa",
+                    Description = "Warszawa to stolica Polski i największe miasto w kraju, położone w centralnej części Polski nad rzeką Wisłą. Jest to dynamiczne miasto o bogatej historii i kulturze. Pomimo zniszczeń w czasie II wojny światowej, Warszawa odbudowała się i stała się nowoczesnym centrum gospodarczym i finansowym. W mieście można znaleźć wiele ważnych zabytków, takich jak Zamek Królewski, Stare Miasto, Pałac Kultury i Nauki, a także liczne muzea i teatry. Warszawa jest także siedzibą wielu instytucji państwowych i międzynarodowych.",
+                    ImgURL = "https://iili.io/Hr6wNl1.png"
                 },
                 new LocationsEntity
                 {
                     LocationID = 4,
                     Name = "Katowice",
+                    Description = "Katowice to miasto położone w południowej Polsce, w województwie śląskim. Jest to ważne centrum przemysłowe i kulturalne regionu. Katowice słyną głównie z przemysłu górniczego i hutniczego, ale w ostatnich latach stały się również miejscem wielu nowoczesnych inwestycji i wydarzeń kulturalnych. W mieście znajduje się wiele zabytków przemysłowych, takich jak kopalnie i huty, które często są przekształcane w nowoczesne centra kulturalne i biznesowe. Katowice są także siedzibą Śląskiego Uniwersytetu Medycznego oraz Filharmonii Śląskiej.",
+                    ImgURL = "https://iili.io/Hr6wXVV.jpg"
                 },
                 new LocationsEntity
                 {
                     LocationID = 5,
                     Name = "Łódź",
+                    Description = "Łódź to trzecie co do wielkości miasto w Polsce, położone w środkowej części kraju. W przeszłości było ważnym ośrodkiem tekstylnym, co nadal widać w postindustrialnym krajobrazie miasta. Łódź jest znana z bogatej historii przemysłowej i filmowej. W mieście można znaleźć wiele interesujących zabytków, takich jak Pałac Izraela Poznańskiego, dawne fabryki przekształcone w galerie sztuki czy Manufaktura - kompleks handlowo-rozrywkowy. Łódź jest również siedzibą wielu uczelni, w tym Uniwersytetu Łódzkiego.",
+                    ImgURL = "https://iili.io/Hr6wwKP.jpg"
                 },
                 new LocationsEntity
                 {
                     LocationID = 6,
                     Name = "Gdańsk",
+                    Description = "Gdańsk to miasto portowe położone nad Morzem Bałtyckim, na północy Polski. Jest to jedno z najważniejszych historycznych miast Polski. Gdańsk ma bogatą przeszłość jako ważny port handlowy i centrum kultury, co widać w pięknej architekturze zabytkowej. Główne atrakcje to Długi Targ z fontanną Neptuna, Bazylika Mariacka, Złota Brama oraz historyczne Stocznie Gdańskie. Miasto odgrywało również ważną rolę w historii Polski, jako miejsce, gdzie rozpoczęła się Solidarność, ruch przyczyniający się do upadku komunizmu w Europie Środkowo-Wschodniej.",
+                    ImgURL = "https://iili.io/Hr6wWoQ.jpg"
                 }
             );
 

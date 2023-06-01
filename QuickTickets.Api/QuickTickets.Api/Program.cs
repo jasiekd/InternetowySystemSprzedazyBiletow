@@ -23,7 +23,9 @@ namespace QuickTickets.Api
                   policy => {
                       policy.WithOrigins("http://localhost:7235", "http://localhost:3000")
                 .AllowAnyHeader()
-                .AllowAnyMethod();
+                .WithMethods("GET", "POST")
+                .AllowAnyMethod()
+                .AllowCredentials();
                   });
             });
 
@@ -77,13 +79,15 @@ namespace QuickTickets.Api
 
             app.UseHttpsRedirection();
 
+            app.UseCors(MyAllowSpecificOrigins);
+
+            app.UseAuthentication();
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
-            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
 

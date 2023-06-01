@@ -29,14 +29,14 @@ namespace QuickTickets.Api.Controllers
         }
 
         [HttpPost("addEvent")]
-        public async Task<IActionResult> PostEventEntity(CreateEventDto createEventDto)
+        [Authorize]
+        public async Task<IActionResult> PostEventEntity([FromBody] CreateEventDto createEventDto)
         {
             if (_context.Events == null)
             {
                 return NotFound();
             }
             Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            //Guid userId = Guid.Parse("7A8D0B4E-5D46-4E9D-AB7B-6BC665B11953");
             EventsEntity eventEntity = new EventsEntity { 
                 EventID = 0,
                 Title = createEventDto.Title,
@@ -75,7 +75,7 @@ namespace QuickTickets.Api.Controllers
             return Ok(eventInfo);
         }
 
-        [HttpGet("getHotEvents/")]
+        [HttpGet("getHotEvents")]
         public async Task<ActionResult<IEnumerable<EventInfoDto>>> getHotEvents()
         {
             if (_context.Events == null)
@@ -92,7 +92,7 @@ namespace QuickTickets.Api.Controllers
             return Ok(eventsInfo);
         }
 
-        [HttpGet("getHotLocations/")]
+        [HttpGet("getHotLocations")]
         public async Task<ActionResult<IEnumerable<LocationsEntity>>> getHotLocations()
         {
             if (_context.Events == null)
@@ -108,6 +108,15 @@ namespace QuickTickets.Api.Controllers
 
             return Ok(eventsInfo);
         }
+
+        [HttpPost("search")]
+        public async Task<IActionResult> SearchEvents([FromBody]SearchEventDto searchEventDto)
+        {
+            var result = await _eventsService.GetForSearch(searchEventDto);
+            return Ok(result);
+        }
+
+
 
         // GET: api/Events/5
         [HttpGet("{id}")]

@@ -1,7 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using QuickTickets.Api.Data;
 using QuickTickets.Api.Dto;
 using QuickTickets.Api.Entities;
+using System.Drawing.Printing;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace QuickTickets.Api.Services
 {
@@ -84,6 +87,8 @@ namespace QuickTickets.Api.Services
                 {
                     LocationID = g.Key,
                     LocationName = g.First().Location.Name,
+                    LocationDescription = g.First().Location.Description,
+                    LocationImgURL = g.First().Location.ImgURL,
                     EventCount = g.Count()
                 })
                 .OrderByDescending(x => x.EventCount)
@@ -101,7 +106,9 @@ namespace QuickTickets.Api.Services
                 ListOfLocationInfo.Add(new LocationsEntity
                 {
                     LocationID= temp.LocationID,
-                    Name = temp.LocationName
+                    Name = temp.LocationName,
+                    Description= temp.LocationDescription,
+                    ImgURL = temp.LocationImgURL,
                 });
             }
             return ListOfLocationInfo;
@@ -113,6 +120,74 @@ namespace QuickTickets.Api.Services
             //zliczenie ticketow dla danego id wydarzenia
             int occupiedSeats = 10;
             return occupiedSeats;
+        }
+
+        public async Task<IActionResult> GetForSearch(SearchEventDto searchEventDto)
+        {
+            try
+            {
+                var data = _context.Events.AsQueryable().Where(e => e.IsActive == true);
+
+                if(!string.IsNullOrEmpty(searchEventDto.searchPhrase))
+                {
+                    data = data.Where(e =>
+                    e.Title.Contains(searchEventDto.searchPhrase) ||
+                    e.Description.Contains(searchEventDto.searchPhrase));
+                }
+
+                if (searchEventDto.minPrice.HasValue)
+                {
+                    data = data.Where(e => e.TicketPrice >= searchEventDto.minPrice.Value);
+                }
+
+                if (searchEventDto.maxPrice.HasValue)
+                {
+                    data = data.Where(e => e.TicketPrice <= searchEventDto.maxPrice.Value);
+                }
+
+                if (searchEventDto.startDate.HasValue)
+                {
+                    data = data.Where(e => e.Date >= searchEventDto. startDate.Value);
+                }
+
+                if (searchEventDto.endDate.HasValue)
+                {
+                    data = data.Where(e => e.Date <= searchEventDto.endDate.Value);
+                }
+
+                if (searchEventDto.locationId.HasValue)
+                {
+                    data = data.Where(e => e.LocationID == searchEventDto.locationId.Value);
+                }
+
+                if (searchEventDto.typeId.HasValue)
+                {
+                    data = data.Where(e => e.TypeID == searchEventDto.typeId.Value);
+                }
+
+                var totalCount = await data.CountAsync();
+                var totalPages = (int)Math.Ceiling(totalCount / (double)searchEventDto.pageSize);
+
+                data = data.Skip((searchEventDto.pageIndex - 1) * searchEventDto.pageSize).Take(searchEventDto.pageSize);
+
+                var events = await data.ToListAsync();
+
+                var result = new
+                {
+                    TotalCount = totalCount,
+                    TotalPages = totalPages,
+                    PageIndex = searchEventDto.pageIndex,
+                    PageSize = searchEventDto.pageSize,
+                    Events = events
+                };
+
+                return new OkObjectResult(result);
+
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
         }
     }
 }
