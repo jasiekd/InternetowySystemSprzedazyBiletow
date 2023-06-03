@@ -159,6 +159,15 @@ namespace QuickTickets.Api.Controllers
             return Ok(result);
         }
 
+        [HttpPost("GetOrganisatorEvents")]
+        public async Task<IActionResult> GetOrganisatorEvents([FromBody] PaginationDto paginationDto, string statusChoice)
+        {
+            Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var result = await _eventsService.GetOrganisatorEvents(paginationDto, userId, statusChoice);
+            return Ok(result);
+        }
+
+
 
         // GET: api/Events/5
         [HttpGet("{id}")]

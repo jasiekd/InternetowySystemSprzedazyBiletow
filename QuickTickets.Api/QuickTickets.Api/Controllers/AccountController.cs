@@ -89,23 +89,26 @@ namespace QuickTickets.Api.Controllers
         }
 
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAccountEntity(Guid id, AccountEntity accountEntity)
+        [HttpPut("UpdateAccount")]
+        public async Task<IActionResult> UpdateAccount(RegisterInfoDto registerInfoDto)
         {
-            if (id != accountEntity.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(accountEntity).State = EntityState.Modified;
+            Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            AccountEntity accountEntity = await _context.Accounts.FindAsync(userId);
+            accountEntity.Surname = registerInfoDto.Surname;
+            accountEntity.Name = registerInfoDto.Name;
+            accountEntity.Login = registerInfoDto.Login;
+            accountEntity.DateOfBirth = registerInfoDto.DateOfBirth;
+            accountEntity.Password = registerInfoDto.Password;
+            accountEntity.Email = registerInfoDto.Email;
 
             try
             {
+                _context.Accounts.Update(accountEntity);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AccountEntityExists(id))
+                if (!AccountEntityExists(userId))
                 {
                     return NotFound();
                 }
@@ -115,7 +118,7 @@ namespace QuickTickets.Api.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok();
         }
 
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

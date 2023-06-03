@@ -25,24 +25,8 @@ namespace QuickTickets.Api.Services
             {
                 return null;
             }
-
-            EventInfoDto eventInfoDto = new EventInfoDto { 
-                EventID = id,
-                Title = eventsEntity.Title,
-                Seats = eventsEntity.Seats,
-                OccupiedSeats = CountOccupiedSeats(eventsEntity.Seats, id),
-                TicketPrice= eventsEntity.TicketPrice,
-                Description= eventsEntity.Description,
-                Date= eventsEntity.Date,
-                IsActive= eventsEntity.IsActive,
-                AdultsOnly= eventsEntity.AdultsOnly,
-                Type = eventsEntity.Type,
-                Location = eventsEntity.Location,
-                ImgURL= eventsEntity.ImgURL,
-                OwnerID= eventsEntity.OwnerID
-            };
-
-            return eventInfoDto;
+            
+            return GetEventInfoDto(eventsEntity);
         }
 
         public async Task<IEnumerable<EventInfoDto>> getHotEventsInfo()
@@ -57,22 +41,7 @@ namespace QuickTickets.Api.Services
 
             foreach(var temp in eventsEntity)
             {
-                ListOfEventsInfo.Add(new EventInfoDto
-                {
-                    EventID = temp.EventID,
-                    Title = temp.Title,
-                    Seats = temp.Seats,
-                    OccupiedSeats = CountOccupiedSeats(temp.Seats, temp.EventID),
-                    TicketPrice = temp.TicketPrice,
-                    Description = temp.Description,
-                    Date = temp.Date,
-                    IsActive = temp.IsActive,
-                    AdultsOnly = temp.AdultsOnly,
-                    Type = temp.Type,
-                    Location = temp.Location,
-                    ImgURL = temp.ImgURL,
-                    OwnerID = temp.OwnerID
-                });
+                ListOfEventsInfo.Add(GetEventInfoDto(temp));
             }
             return ListOfEventsInfo;
 
@@ -127,7 +96,7 @@ namespace QuickTickets.Api.Services
         {
             try
             {
-                var data = _context.Events.AsQueryable().Where(e => e.IsActive == true && e.Status == StatusEnum.Confirmed.ToString());
+                var data = _context.Events.AsQueryable().Include(e => e.Type).Include(x => x.Location).Where(e => e.IsActive == true && e.Status == StatusEnum.Confirmed.ToString());
 
                 if(!string.IsNullOrEmpty(searchEventDto.searchPhrase))
                 {
@@ -165,24 +134,8 @@ namespace QuickTickets.Api.Services
                 {
                     data = data.Where(e => e.TypeID == searchEventDto.typeId.Value);
                 }
-
-                var totalCount = await data.CountAsync();
-                var totalPages = (int)Math.Ceiling(totalCount / (double)searchEventDto.pageSize);
-
-                data = data.Skip((searchEventDto.pageIndex - 1) * searchEventDto.pageSize).Take(searchEventDto.pageSize);
-
-                var events = await data.ToListAsync();
-
-                var result = new
-                {
-                    TotalCount = totalCount,
-                    TotalPages = totalPages,
-                    PageIndex = searchEventDto.pageIndex,
-                    PageSize = searchEventDto.pageSize,
-                    Events = events
-                };
-
-                return new OkObjectResult(result);
+                
+                return await GetPaginatedEvents(searchEventDto, data);
 
             }
             catch(Exception ex)
@@ -194,26 +147,10 @@ namespace QuickTickets.Api.Services
         {
             try
             {
-                var data = _context.Events.AsQueryable().Where(e => e.Status == StatusEnum.Pending.ToString());
+                var data = _context.Events.AsQueryable().Include(e => e.Type).Include(x => x.Location).Where(e => e.Status == StatusEnum.Pending.ToString());
 
 
-                var totalCount = await data.CountAsync();
-                var totalPages = (int)Math.Ceiling(totalCount / (double)paginationDto.pageSize);
-
-                data = data.Skip((paginationDto.pageIndex - 1) * paginationDto.pageSize).Take(paginationDto.pageSize);
-
-                var events = await data.ToListAsync();
-
-                var result = new
-                {
-                    TotalCount = totalCount,
-                    TotalPages = totalPages,
-                    PageIndex = paginationDto.pageIndex,
-                    PageSize = paginationDto.pageSize,
-                    Events = events
-                };
-
-                return new OkObjectResult(result);
+                return await GetPaginatedEvents(paginationDto, data);
 
             }
             catch (Exception ex)
@@ -221,5 +158,67 @@ namespace QuickTickets.Api.Services
                 throw;
             }
         }
+        public async Task<IActionResult> GetOrganisatorEvents(PaginationDto paginationDto, Guid guid, string statusChoice)
+        {
+            try
+            {
+                var data = _context.Events.AsQueryable().Include(e => e.Type).Include(x => x.Location).Where(e => e.Status == statusChoice && e.OwnerID == guid);
+
+
+                return await GetPaginatedEvents(paginationDto, data);
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+        private async Task<IActionResult> GetPaginatedEvents(PaginationDto paginationDto, IQueryable<EventsEntity> data)
+        {
+            var totalCount = await data.CountAsync();
+            var totalPages = (int)Math.Ceiling(totalCount / (double)paginationDto.pageSize);
+
+            data = data.Skip((paginationDto.pageIndex - 1) * paginationDto.pageSize).Take(paginationDto.pageSize);
+
+            List<EventInfoDto> eventList = new List<EventInfoDto>();
+
+            foreach(var temp in await data.ToListAsync())
+            {
+                eventList.Add(GetEventInfoDto(temp));
+            }
+
+            var result = new
+            {
+                TotalCount = totalCount,
+                TotalPages = totalPages,
+                PageIndex = paginationDto.pageIndex,
+                PageSize = paginationDto.pageSize,
+                Events = eventList
+            };
+            return new OkObjectResult(result);
+        }
+        private EventInfoDto GetEventInfoDto(EventsEntity eventsEntity)
+        {
+            return new EventInfoDto
+                    {
+                        EventID = eventsEntity.EventID,
+                        Title = eventsEntity.Title,
+                        Seats = eventsEntity.Seats,
+                        OccupiedSeats = CountOccupiedSeats(eventsEntity.Seats, eventsEntity.EventID),
+                        TicketPrice = eventsEntity.TicketPrice,
+                        Description = eventsEntity.Description,
+                        Date = eventsEntity.Date,
+                        IsActive = eventsEntity.IsActive,
+                        AdultsOnly = eventsEntity.AdultsOnly,
+                        Type = eventsEntity.Type,
+                        Location = eventsEntity.Location,
+                        ImgURL = eventsEntity.ImgURL,
+                        OwnerID = eventsEntity.OwnerID
+                    };
+            
+        }
+
+
+
     }
 }
