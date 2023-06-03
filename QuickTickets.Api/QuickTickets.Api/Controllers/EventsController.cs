@@ -116,6 +116,48 @@ namespace QuickTickets.Api.Controllers
             return Ok(result);
         }
 
+        [HttpPost("AcceptEvent")]
+        public async Task<IActionResult> AcceptEvent([FromBody] long id)
+        {
+            EventsEntity events = await _context.Events.FindAsync(id);
+
+            if (events == null)
+            {
+                return NotFound();
+            }
+            events.Status = StatusEnum.Confirmed.ToString();
+            events.DateModified = DateTime.Now;
+
+            _context.Events.Update(events);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+        [HttpPost("CancelEvent")]
+        public async Task<IActionResult> CancelEvent([FromBody] long id)
+        {
+            EventsEntity events = await _context.Events.FindAsync(id);
+
+            if (events == null)
+            {
+                return NotFound();
+            }
+            events.Status = StatusEnum.Cancelled.ToString();
+            events.DateModified = DateTime.Now;
+
+            _context.Events.Update(events);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+
+        [HttpPost("GetPendingEvents")]
+        public async Task<IActionResult> GetPendingEvents([FromBody] PaginationDto paginationDto)
+        {
+            var result = await _eventsService.GetPendingEvents(paginationDto);
+            return Ok(result);
+        }
 
 
         // GET: api/Events/5

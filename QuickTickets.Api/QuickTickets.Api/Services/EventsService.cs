@@ -4,6 +4,7 @@ using QuickTickets.Api.Data;
 using QuickTickets.Api.Dto;
 using QuickTickets.Api.Entities;
 using System.Drawing.Printing;
+using System.Runtime.CompilerServices;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace QuickTickets.Api.Services
@@ -18,7 +19,7 @@ namespace QuickTickets.Api.Services
 
         public async Task<EventInfoDto> GetEventInfo(long id)
         {
-            var eventsEntity = await _context.Events.Include(x => x.Type).Include(x => x.Location).FirstOrDefaultAsync(x => x.EventID == id);
+            var eventsEntity = await _context.Events.Include(x => x.Type).Include(x => x.Location).Where(x => x.IsActive == true && x.Status == StatusEnum.Confirmed.ToString()).FirstOrDefaultAsync(x => x.EventID == id);
 
             if(eventsEntity == null)
             {
@@ -46,7 +47,7 @@ namespace QuickTickets.Api.Services
 
         public async Task<IEnumerable<EventInfoDto>> getHotEventsInfo()
         {
-            var eventsEntity = await _context.Events.Include(x => x.Type).Include(x => x.Location).Where(x => x.IsActive == true).OrderByDescending(x => x.Date).Take(4).ToListAsync();
+            var eventsEntity = await _context.Events.Include(x => x.Type).Include(x => x.Location).Where(x => x.IsActive == true && x.Status == StatusEnum.Confirmed.ToString()).OrderByDescending(x => x.Date).Take(4).ToListAsync();
             if (eventsEntity == null)
             {
                 return null;
@@ -126,7 +127,7 @@ namespace QuickTickets.Api.Services
         {
             try
             {
-                var data = _context.Events.AsQueryable().Where(e => e.IsActive == true);
+                var data = _context.Events.AsQueryable().Where(e => e.IsActive == true && e.Status == StatusEnum.Confirmed.ToString());
 
                 if(!string.IsNullOrEmpty(searchEventDto.searchPhrase))
                 {
@@ -185,6 +186,37 @@ namespace QuickTickets.Api.Services
 
             }
             catch(Exception ex)
+            {
+                throw;
+            }
+        }
+        public async Task<IActionResult> GetPendingEvents(PaginationDto paginationDto)
+        {
+            try
+            {
+                var data = _context.Events.AsQueryable().Where(e => e.Status == StatusEnum.Pending.ToString());
+
+
+                var totalCount = await data.CountAsync();
+                var totalPages = (int)Math.Ceiling(totalCount / (double)paginationDto.pageSize);
+
+                data = data.Skip((paginationDto.pageIndex - 1) * paginationDto.pageSize).Take(paginationDto.pageSize);
+
+                var events = await data.ToListAsync();
+
+                var result = new
+                {
+                    TotalCount = totalCount,
+                    TotalPages = totalPages,
+                    PageIndex = paginationDto.pageIndex,
+                    PageSize = paginationDto.pageSize,
+                    Events = events
+                };
+
+                return new OkObjectResult(result);
+
+            }
+            catch (Exception ex)
             {
                 throw;
             }
