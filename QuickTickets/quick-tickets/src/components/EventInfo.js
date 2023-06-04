@@ -1,12 +1,20 @@
 import React from "react";
 import '../styles/ChooseTicket.css';
-import exampleEvent from "../images/example-event.png";
-export default function EventInfo(){
+import moment from "moment";
+export default function EventInfo({eventData}){
     return(
         <div className="buy-event-info">
-            <div className="buy-title">Lorem ipsum nazwa</div>
-            <div>12.12.2023 Kielce</div>
-            <img src={exampleEvent}/>
+            {
+                eventData?
+                <>
+                    <div className="buy-title">{eventData.title}</div>
+                    <div>{moment(eventData.date).format("DD-MM-YYYY")} {eventData.location.name}</div>
+                    <img src={eventData.imgURL}/>
+                </>
+                :
+                null
+            }
+            
         </div>
     )
 }

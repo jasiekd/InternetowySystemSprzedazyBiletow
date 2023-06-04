@@ -16,6 +16,7 @@ import OrganisersApproval from "../view/OrganisersApproval";
 import AddLocalization from "../view/AddLocalization";
 import AddCategory from "../view/AddCategory"
 import AddAdmin from "../view/AddAdmin";
+import EventsController from "../controllers/Events";
 
 const router = createBrowserRouter([
     {
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/event",
-        element: <Event/>
+        element: <EventsController><Event/></EventsController>
     },
     {
         path: "/buy-ticket",
@@ -56,11 +57,11 @@ const router = createBrowserRouter([
     },
     {
         path: "/my-events",
-        element: <MyEvents/>
+        element: <EventsController><MyEvents/></EventsController> 
     },
     {
         path: "/events-approval",
-        element: <EventsApproval/>
+        element: <EventsController><EventsApproval/></EventsController>
     },
     {
         path: "/organisers-approval",

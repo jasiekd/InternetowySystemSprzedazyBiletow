@@ -4,7 +4,7 @@ import '../styles/FillInData.css';
 import { GreenInput } from "./GreenInput";
 import exampleEvent from "../images/example-event.png";
 import EventInfo from "./EventInfo";
-export default function FillInData(){
+export default function FillInData({eventData}){
     return(
         <div className="choose-ticket">
         <div className="buy-form">
@@ -17,7 +17,7 @@ export default function FillInData(){
                 <GreenInput label="Email" fullWidth type="email" ></GreenInput>
              </div>   
         </div>
-        <EventInfo/>
+        <EventInfo eventData={eventData}/>
      </div>
     )
 }

@@ -24,7 +24,7 @@ import { useLocation } from 'react-router-dom';
 import moment from 'moment';
 import LocationsController from '../controllers/LocationsController';
 
-function FilteringOptions({getTypesOfEvents,getEventLocations,DateFrom,DateTo,PriceTo,PriceFrom,Place,Type}){
+function FilteringOptions({getTypesOfEvents,getEventLocations,DateFrom,DateTo,PriceTo,PriceFrom,Place,Type,preSetLocation}){
     const [openDate, setOpenDate] = React.useState(false);
     const [openPlace, setOpenPlace] = React.useState(false);
     const [openCategory, setOpenCategory] = React.useState(false);
@@ -62,15 +62,16 @@ function FilteringOptions({getTypesOfEvents,getEventLocations,DateFrom,DateTo,Pr
     },[])
 
     const selectLocation = (loc) =>{
+        ///console.log()
         if(loc === null)
         {
             setSelectedLocation("wszystkie");
             Place(null)
-            handleOpenPlace(null);
+            handleOpenPlace();
         }else{
             setSelectedLocation(loc.name);
-        Place(loc.locationID)
-        handleOpenPlace(loc.locationID);
+            Place(loc.locationID)
+            handleOpenPlace();
         }
         
     }
@@ -135,6 +136,18 @@ function FilteringOptions({getTypesOfEvents,getEventLocations,DateFrom,DateTo,Pr
         PriceFrom(null);
         PriceTo(null);
     }
+    React.useEffect(()=>{
+        if(preSetLocation!==null && preSetLocation!==undefined)
+        {
+
+
+                setSelectedLocation(preSetLocation.name);
+                Place(preSetLocation.locationID)
+            
+            
+        }
+
+    },[preSetLocation])
     return(
             <div className='filteringOptions'>
             <div className='filteringElement'>
@@ -206,17 +219,6 @@ function FilteringOptions({getTypesOfEvents,getEventLocations,DateFrom,DateTo,Pr
         </div>
     )
 }
-function RenderLocation({getLocation,locationID}){
-    const [name,setName] = React.useState("");
-    React.useEffect(()=>{
-        getLocation(locationID).then(r=>{
-            setName(r.name)
-        })
-    },[locationID])
-    return(
-        name
-    )
-}
 
 function SearchEvents({phrase,search,dateFrom,dateTo,priceTo,priceFrom,place,type}){
 
@@ -227,6 +229,7 @@ function SearchEvents({phrase,search,dateFrom,dateTo,priceTo,priceFrom,place,typ
 
         search(phrase,priceFrom,priceTo,dateFrom,dateTo,place,type,pageCount,10).then(r=>{
             setEvents(r);
+            console.log(r);
             
         })
     },[phrase,dateFrom,dateTo,priceTo,priceFrom,place,type,pageCount])
@@ -238,7 +241,7 @@ function SearchEvents({phrase,search,dateFrom,dateTo,priceTo,priceFrom,place,typ
                     events!==undefined?
                         
                         events.value.events.map((val,key)=>{
-                           
+                            console.log(val)
                             return(
                                 <div className='event-on-list'>
                                     <div className='event-list-img'><img src={val.imgURL}/></div>
@@ -246,11 +249,11 @@ function SearchEvents({phrase,search,dateFrom,dateTo,priceTo,priceFrom,place,typ
                                         <div className='event-list-title'>{val.title}</div>
                                         <div className='event-list-placeTime'>
                                             <div className='event-list-time'>{moment(val.dateCreated).format("DD-MM-YYYY")}</div>
-                                            <div className='event-list-place'><LocationsController><RenderLocation locationID={val.locationID}/></LocationsController></div>
+                                            <div className='event-list-place'>{val.location.name}</div>
                                         </div>
                                     </div>
                                     <div className='event-list-price'>już od {val.ticketPrice}PLN</div>
-                                    <div className='buy-option'><button className='main-btn' onClick={()=>navigate("/event")}>Kup teraz</button></div>
+                                    <div className='buy-option'><button className='main-btn' onClick={()=>navigate("/event",{state:{eventId:val.eventID}})}>Kup teraz</button></div>
                                 </div>
                             )
                         })
@@ -269,19 +272,39 @@ function SearchEvents({phrase,search,dateFrom,dateTo,priceTo,priceFrom,place,typ
     )
 }
 export default function SearchList() {
+    const navigate = useNavigate();
     const [dateFrom,setDateFrom] = React.useState(null);
     const [dateTo,setDateTo] = React.useState(null);
     const [priceFrom,setPriceFrom] = React.useState(null);
     const [priceTo,setPriceTo] = React.useState(null);
     const [place,setPlace] = React.useState(null);
     const [type,setType] = React.useState(null);
-  
+    const [preSetLocation,setPreSetLocation] = React.useState();
  
     const location = useLocation();
     const [phrase,setPhrase] = React.useState("");
+ 
     React.useEffect(()=>{
-        setPhrase(location.state.phrase);
-    },[location.state.phrase])
+
+            if(location.state === null || location.state.phrase === null )
+            {
+                 navigate("/home")
+            }
+            else{
+                setPhrase(location.state.phrase);
+                console.log("cos "+location.state.location)
+                if(location.state.location !== null)
+                {
+                    //setPlace(location.state.location.locationID)
+                    setPreSetLocation(location.state.location)
+                }
+                
+            }   
+             
+
+        
+       
+    },[location.state])
 
    
     return (
@@ -291,7 +314,7 @@ export default function SearchList() {
         <main className='content'>
             
             <EventsController >
-                <FilteringOptions DateFrom={setDateFrom} DateTo={setDateTo} PriceTo={setPriceTo} PriceFrom={setPriceFrom} Place={setPlace} Type={setType}/>
+                <FilteringOptions DateFrom={setDateFrom} DateTo={setDateTo} PriceTo={setPriceTo} PriceFrom={setPriceFrom} Place={setPlace} Type={setType} preSetLocation={preSetLocation}/>
             </EventsController>
 
 

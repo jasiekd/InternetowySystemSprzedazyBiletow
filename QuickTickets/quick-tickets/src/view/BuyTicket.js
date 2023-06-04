@@ -1,15 +1,13 @@
 import * as React from 'react';
 import Footer from '../components/Footer';
 import "../styles/MainStyle.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Header from '../components/Header';
-import exampleEvent from "../images/example-event.png";
 import "../styles/BuyTicket.css";
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import ChooseTicket from '../components/ChooseTicket';
 import FillInData from '../components/FillInData';
@@ -20,9 +18,10 @@ import SummaryBuy from '../components/SummaryBuy';
 
 export default function BuyTicket() {
     const [ticketsCounter,setTicketCounter] = React.useState(0);
-
+    const [eventData,setEventData] = React.useState();
+    const location = useLocation();
     const steps = ['Wybierz bilety', 'Uzupełnij dane', 'Zapłać','Podsumowanie'];
-    const buyPages = [<ChooseTicket counter={ticketsCounter} setCounter={setTicketCounter}/>,<FillInData/>,<Pay counter={ticketsCounter}/>,<SummaryBuy/>];
+    const buyPages = [<ChooseTicket eventData={eventData} counter={ticketsCounter} setCounter={setTicketCounter}/>,<FillInData eventData={eventData}/>,<Pay eventData={eventData} counter={ticketsCounter}/>,<SummaryBuy eventData={eventData}/>];
 
     const navigate = useNavigate();
     const [activeStep, setActiveStep] = React.useState(0);
@@ -69,7 +68,14 @@ export default function BuyTicket() {
         }
       },[activeStep]);
 
-
+      React.useEffect(()=>{
+        if(location.state === null){
+            navigate('/home')
+        }
+        else{
+            setEventData(location.state.event)
+        }
+      },[])
     return (
 
         <div className="App">

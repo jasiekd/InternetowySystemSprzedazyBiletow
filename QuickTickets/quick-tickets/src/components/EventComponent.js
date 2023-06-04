@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import people from '../images/people.png'
-export default function EventComponent({eventImg,eventTitle,eventDate,eventPlace,eventText, disableBuy}){
+export default function EventComponent({eventImg,eventTitle,eventDate,eventPlace,eventText, disableBuy,eventData}){
     const navigate = useNavigate();
     return(
             <div className='event-info'>
@@ -53,7 +53,7 @@ export default function EventComponent({eventImg,eventTitle,eventDate,eventPlace
                             
                             }
                         </div>
-                        <button className='main-btn' onClick={()=>navigate("/buy-ticket")} disabled={disableBuy}>Kup teraz</button>
+                        <button className='main-btn' onClick={()=>navigate("/buy-ticket",{state:{event:eventData}})} disabled={disableBuy}>Kup teraz</button>
                     </div>
                 </div>     
             </div>          
