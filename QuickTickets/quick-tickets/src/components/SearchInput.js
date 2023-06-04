@@ -42,7 +42,7 @@ export default function SearchInput() {
               value={phrase}
               onChange={(e)=>setPhrase(e.target.value)}
             />
-            <button className='search-button' onClick={()=>navigate("/search-list",{state:{phrase:phrase}})}>
+            <button className='search-button' onClick={()=>navigate("/search-list",{state:{phrase:phrase,location:null}})}>
                 <img src={searchIcon}/>
             </button>
         </div>

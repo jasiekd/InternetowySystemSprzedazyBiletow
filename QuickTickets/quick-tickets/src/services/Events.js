@@ -106,4 +106,66 @@ export default class EventsService{
             return error.response;
         }
     }
+    async getEvent(eventId){
+        try{
+            const response = await axios.get(HostName+'/api/Events/getEvent/'+eventId)
+            return response;
+        }catch(error){
+            return error.response;
+        }
+    }
+    async getPendingEvents(pageIndex,pageSize){
+        try{
+            const response = await axios.post(HostName+'/api/Events/GetPendingEvents',{
+                pageIndex: pageIndex,
+                pageSize: pageSize
+              });
+            return response;
+        }catch(error)
+        {
+            return error.response;
+        }
+    }
+    async acceptEvent(id){
+        try{
+            const response = await axios.post(HostName+"/api/Events/AcceptEvent",id,{
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: '*/*',
+                  
+                }
+            })
+            return response;
+        }
+        catch(error){
+            return error.response
+        }
+    }
+    async cancelEvent(id){
+        try{
+            const response = await axios.post(HostName+"/api/Events/CancelEvent",id,{
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: '*/*',
+                  
+                }
+            })
+            return response
+        }
+        catch(error){
+            return error.response
+        }
+    }
+
+    async getOrganisatorEvents(pageIndex,pageSize,status){
+        try{
+            const response = await axios.post(HostName+"/api/Events/GetOrganisatorEvents?statusChoice=Cancelled",{
+                pageIndex: pageIndex,
+                pageSize: pageSize
+            })
+            return response;
+        }catch(error){
+            return error.response;
+        }
+    }
 }

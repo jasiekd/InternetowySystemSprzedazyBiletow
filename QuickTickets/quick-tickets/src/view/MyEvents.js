@@ -4,54 +4,21 @@ import exampleEvent from "../images/example-event.png";
 import "../styles/MainStyle.css";
 import { useNavigate } from "react-router-dom";
 import Header from '../components/Header';
-import Select from '@mui/material/Select';
-import { GreenInput } from '../components/GreenInput';
-import MenuItem from '@mui/material/MenuItem';
 import "../styles/DropDownMenu.css";
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import calendar from "../images/calendar.png";
-import place from "../images/place.png";
-import category from "../images/category.png";
-import price from "../images/price.png";
-import arrow from "../images/arrow.png";
 import "../styles/SearchList.css";
 import Pagination from '@mui/material/Pagination';
-import EventsController from '../controllers/Events';
-
-export default function MyEvents(){
+import moment from 'moment';
+export default function MyEvents({getOrganisatorEvents}){
     const navigate = useNavigate();
-    
-
-    const eventList =[
-        {
-            title: "item 1",
-        },
-        {
-            title: "item 2",
-        },
-        {
-            title: "item 3",
-        },
-        {
-            title: "item 4",
-        },
-        {
-            title: "item 5",
-        },
-        {
-            title: "item 6",
-        },
-        {
-            title: "item 7",
-        },
-        {
-            title: "item 8",
-        }
-    ]
-
+    const [myEvents,setMyEvents] = React.useState();
+    const [pageCount,setPageCount] = React.useState(1);
+   
+    React.useEffect(()=>{
+        getOrganisatorEvents(pageCount,10).then(r=>{
+            console.log(r);
+            setMyEvents(r)
+        })
+    },[pageCount])
     return(
         <div className="App">
         <Header/>
@@ -60,24 +27,34 @@ export default function MyEvents(){
         <div className='searchList'>
             <div className='title'>Moje wydarzenia</div>
             {
-                eventList.map((val,key)=>{
-                    return(
-                        <div className='event-on-list'>
-                            <div className='event-list-img'><img src={exampleEvent}/></div>
-                            <div className='event-list-info'>
-                                <div className='event-list-title'>Lorem ipsum nazwa</div>
-                                <div className='event-list-placeTime'>
-                                    <div className='event-list-time'>12.12.2023</div>
-                                    <div className='event-list-place'>Kielce</div>
+                myEvents?
+                    myEvents.value.events.map((val,key)=>{
+                        return(
+                            <div className='event-on-list'>
+                                <div className='event-list-img'><img src={val.imgURL}/></div>
+                                <div className='event-list-info'>
+                                    <div className='event-list-title'>{val.title}</div>
+                                    <div className='event-list-placeTime'>
+                                        <div className='event-list-time'>{moment(val.dateCreated).format("DD-MM-YYYY")}</div>
+                                        <div className='event-list-place'>{val.location.name}</div>
+                                    </div>
                                 </div>
+                                <div className='event-list-price'>już od {val.ticketPrice}PLN</div>
+                                <div className='buy-option'><button className='main-btn' onClick={()=>navigate("/event")}>Zobacz</button></div>
                             </div>
-                            <div className='event-list-price'>już od 80PLN</div>
-                            <div className='buy-option'><button className='main-btn' onClick={()=>navigate("/event")}>Zobacz</button></div>
-                        </div>
-                    )
-                })
+                        )
+                    })
+                :
+                null
+                
             }  
-            <Pagination count={10} size='large'/>
+            {
+                myEvents?
+                <Pagination count={Math.ceil(myEvents.value.totalCount/10)} size='large' onChange={(e,v)=>{setPageCount(v)}}/>
+                :
+                null
+            }
+            
         </div>
     </main>
     <div className='App-footer'>

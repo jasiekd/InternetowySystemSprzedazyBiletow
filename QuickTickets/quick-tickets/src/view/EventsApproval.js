@@ -6,37 +6,34 @@ import { useNavigate } from "react-router-dom";
 import Header from '../components/Header';
 import "../styles/SearchList.css";
 import Pagination from '@mui/material/Pagination';
-
-export default function EventsApproval(){
+import moment from 'moment';
+export default function EventsApproval({getPendingEvents,cancleEvent,acceptEvent}){
     const navigate = useNavigate();
     
 
-    const eventList =[
-        {
-            title: "item 1",
-        },
-        {
-            title: "item 2",
-        },
-        {
-            title: "item 3",
-        },
-        {
-            title: "item 4",
-        },
-        {
-            title: "item 5",
-        },
-        {
-            title: "item 6",
-        },
-        {
-            title: "item 7",
-        },
-        {
-            title: "item 8",
-        }
-    ]
+    const [update,setUpdate] = React.useState(true);
+    const [pageCount,setPageCount] = React.useState(1);
+    const [pendingEvents,setPendingEvents] = React.useState();
+    React.useEffect(()=>{
+        getPendingEvents(pageCount,10).then(r=>{
+            console.log(r);
+            setPendingEvents(r);
+        })
+    },[pageCount,update])
+
+
+    const onAcceptEvent = (id,key) =>{
+        acceptEvent(id).then(r=>{
+            setUpdate(!update)
+        })
+    }
+
+    const onCancleEvent = (id,key) =>{
+        cancleEvent(id).then(r=>{
+            setUpdate(!update)
+        })
+    }
+
 
     return(
         <div className="App">
@@ -46,33 +43,44 @@ export default function EventsApproval(){
         <div className='searchList'>
             <div className='title'>Zatwierdzanie wydarzeń</div>
             {
-                eventList.map((val,key)=>{
-                    return(
-                        <div className='event-on-list'>
-                            <div className='event-list-img'><img src={exampleEvent}/></div>
-                            <div className='event-list-info'>
-                                <div className='event-list-title'>Lorem ipsum nazwa</div>
-                                <div className='event-list-placeTime'>
-                                    <div className='event-list-time'>12.12.2023</div>
-                                    <div className='event-list-place'>Kielce</div>
+                pendingEvents?
+                    
+                    pendingEvents.events.map((val,key)=>{
+                        return(
+                            <div className='event-on-list' key={key}>
+                                <div className='event-list-img'><img src={val.imgURL}/></div>
+                                <div className='event-list-info'>
+                                    <div className='event-list-title'>{val.title}</div>
+                                    <div className='event-list-placeTime'>
+                                        <div className='event-list-time'>{moment(val.date).format("DD-MM-YYYY")}</div>
+                                        <div className='event-list-place'>{val.location.name}</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className='event-list-price'>już od 80PLN</div>
-                            <div className='approve-section'>
-                                <button className='main-btn'>Zatwierdź</button>
-                            </div>
-                            <div className='buy-option'>
+                                <div className='event-list-price'>już od {val.ticketPrice}PLN</div>
+                                <div className='approve-section'>
+                                    <button className='main-btn' onClick={()=>onAcceptEvent(val.eventID,key)}>Zatwierdź</button>
+                                    <button className='main-btn' onClick={()=>onCancleEvent(val.eventID,key)}>Odrzuć</button>
+                                </div>
+                                <div className='buy-option'>
+                                     
+                                    <button className='main-btn' onClick={()=>navigate("/event")}>Zobacz</button>
+                                </div>
+                                
+                                
 
-                                <button className='main-btn' onClick={()=>navigate("/event")}>Zobacz</button>
                             </div>
-                            
-                            
-
-                        </div>
-                    )
-                })
+                        )
+                    })
+                :
+                    null
             }  
-            <Pagination count={10} size='large'/>
+            {
+                pendingEvents?
+                <Pagination count={Math.ceil(pendingEvents.totalCount/10)} size='large' onChange={(e,v)=>{setPageCount(v)}}/>
+                :
+                null
+            }
+           
         </div>
     </main>
     <div className='App-footer'>

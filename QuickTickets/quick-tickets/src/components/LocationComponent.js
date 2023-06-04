@@ -1,5 +1,7 @@
+import { useNavigate } from 'react-router-dom'
 import people from '../images/people.png'
-export default function LocationComponent({localImg,localText,localTitle}){
+export default function LocationComponent({localImg,localText,localTitle,location,disableSearch}){
+    const navigate = useNavigate();
     return(
         <div className='event-place'>
                 <div className='event-title-header' style={{paddingLeft:"2rem"}}>Lokalizacja</div>
@@ -29,7 +31,7 @@ export default function LocationComponent({localImg,localText,localTitle}){
                             "Opis lokalizacji"
                         
                         }</div>
-                        <button className='main-btn'>Więcej wydarzeń</button>
+                        <button className='main-btn' onClick={()=>navigate("/search-list",{state:{phrase:"",location:location}})} disabled={disableSearch}>Więcej wydarzeń</button>
                     </div>
                 </div>
             </div>

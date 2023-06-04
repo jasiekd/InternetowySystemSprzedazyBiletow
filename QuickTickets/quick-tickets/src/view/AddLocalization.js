@@ -45,6 +45,7 @@ function LocationForm({addLocations}){
                     localText={description}
                     localTitle={title}
                     localImg={imgURL}
+                    disableSearch={true}
                 />                  
             </div>
         </div>
