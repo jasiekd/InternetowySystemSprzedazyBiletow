@@ -14,6 +14,7 @@ export default class AccountService{
 
             const rawDecodedToken = jwtDecode(response.data.accessToken);
             localStorage.roleId = rawDecodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+            localStorage.uId = rawDecodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
             console.log(localStorage.roleId);
             
             axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`;
@@ -36,10 +37,12 @@ export default class AccountService{
 
             const rawDecodedToken = jwtDecode(response.data.accessToken);
             localStorage.roleId = rawDecodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+            localStorage.uId = rawDecodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
+
             console.log(localStorage.roleId);
 
             axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`;
-            this.getUser();
+            // this.getUser();
             return response;
         }catch(error){
             return error.response

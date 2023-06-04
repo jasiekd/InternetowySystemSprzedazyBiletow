@@ -15,6 +15,37 @@
 .main-btn:hover{
     background-color: #addb70;
 }
+
+.main-btn2{
+    background-color: #93BB60;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+    border-radius: 0.8rem;
+    border: none;
+    color: white;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.5s ease;
+
+    font-size: clamp(0.1rem,1.5rem,2rem);
+    white-space:nowrap;
+    word-break:keep-all;
+
+
+}
+.main-btn2:hover{
+    background-color: #addb70;
+}
+
+
+
+
+
+
+
+
 .main-btn-negative{
     color: #93BB60;
     background-color: white;

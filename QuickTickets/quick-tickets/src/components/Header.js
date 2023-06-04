@@ -15,7 +15,39 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Logout from '@mui/icons-material/Logout';
 import { checkIsLogged,logOut } from '../controllers/Login';
+import Swal from 'sweetalert2';
+import OrganiserApplicationController from "../controllers/OrganiserApplicationController";
 
+function BecomeOrganiser({addOrganiserApplication}){
+
+    const onaddOrganiserApplication = () =>{
+        Swal.fire({
+            input: 'textarea',
+            inputLabel: 'Zostań organizatorem',
+            inputPlaceholder: 'Wpisz dane organizatora',
+            inputAttributes: {
+              'aria-label': 'Type your message here'
+            },
+            confirmButtonText: 'Aplikuj',
+            confirmButtonColor: '#93BB60',
+            cancelButtonText: 'Anuluj',
+            showCancelButton: true,
+            showCloseButton: true
+          }).then((result) => 
+          {
+            if (!result.value) return;
+                const description = result.value;
+                addOrganiserApplication(description);
+        })
+    }
+
+
+    return(
+        <MenuItem onClick={()=>onaddOrganiserApplication()}>
+            Zostań organizatorem
+        </MenuItem>
+    );
+}
 
 export default function Header({isLogged}) {
     const navigate = useNavigate();
@@ -37,6 +69,7 @@ export default function Header({isLogged}) {
                     <SearchInput />  
                 </div>
                 {
+                    
                     checkIsLogged()?
                     <React.Fragment>
                         <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -94,11 +127,9 @@ export default function Header({isLogged}) {
                             </MenuItem>
                             {
                                 checkIsLogged()==="2"?
-                                <>
-                                     <MenuItem onClick={()=>navigate("/add-event")}>
-                                        Zostań organizatorem
-                                    </MenuItem>
-                                </> 
+                                <OrganiserApplicationController>
+                                    <BecomeOrganiser />
+                                </OrganiserApplicationController> 
                                 :
                                 null
                             }

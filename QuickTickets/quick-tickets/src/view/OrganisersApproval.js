@@ -7,63 +7,105 @@ import Header from '../components/Header';
 import "../styles/DropDownMenu.css";
 import "../styles/SearchList.css";
 import Pagination from '@mui/material/Pagination';
+import OrganiserApplicationController from "../controllers/OrganiserApplicationController";
+import { useEffect, useState } from "react";
+
+function ShowOrganisers({getOrganiserApplication,acceptOrganiserApplication,cancelOrganiserApplication}){
+    
+    const [organisersToAprove,setOrganisersToAprove] = useState();
+    const [pageIndex,setpageIndex] = useState(1);
+
+        useEffect(  () => {
+            getOrganiserApplication(pageIndex,3).then((result)=>{
+                setOrganisersToAprove(result);
+            });
+        },[pageIndex]);
+
+        const onAcceptOrganiserApplication=(id)=>{
+            acceptOrganiserApplication(id).then((result)=>{
+                if(!result)
+                    return;
+                getOrganiserApplication(pageIndex,3).then((result)=>{        
+                    setOrganisersToAprove(result);
+                });
+            })
+        }
+
+        const onCancelOrganiserApplication=(id)=>{
+            cancelOrganiserApplication(id).then((result)=>{
+                if(!result)
+                    return;
+                    getOrganiserApplication(pageIndex,3).then((result)=>{
+                        setOrganisersToAprove(result);
+                    });
+
+
+                // const newOrganisersToAprove=[...organisersToAprove];
+                // newOrganisersToAprove.splice(index,1);
+                // setOrganisersToAprove(newOrganisersToAprove);
+            })
+           
+        }
+
+    return(
+        <div className='searchList'>
+            <div className='title'>Organizatorzy do zatwierdzenia</div>
+                {
+                    organisersToAprove!==undefined &&
+                        organisersToAprove.value.organiserApplications.map((val,index)=>{
+                            return(
+                                <div className='organisers-list' key={index}>
+                                    <div className='organisers-list-row'>
+                                        <h3>Dane:</h3>
+                                    </div>
+                                    <div className='organisers-list-row'>
+                                        Jan Nowak
+                                    </div>
+                                    <div className='organisers-list-row'>
+                                        04.01.1995
+                                    </div>
+                                    <div className='organisers-list-row'>
+                                        jan.nowak@wpp.pl
+                                    </div>
+                                    <div className='organisers-list-row'>
+                                        <div>
+                                            <h3>Opis:</h3>
+                                            <p>{val.description}</p>
+                                        </div>
+                                    </div>
+                                    <div className='organisers-list-row'>
+                                        <button className='main-btn2' onClick={()=>(onAcceptOrganiserApplication(val.id,index))}>Zatwierdź</button>
+                                        <button className='cancel-btn' onClick={()=>(onCancelOrganiserApplication(val.id,index))}>Anuluj</button>
+                                    </div>
+                                </div>
+                            )
+                        })
+                   
+                }  
+                {
+                    organisersToAprove!==undefined &&
+                    <Pagination count={Math.ceil(organisersToAprove.value.totalPages)} size='large' onChange={(e,v)=>(setpageIndex(v))}/>
+                }
+        </div>
+    );
+
+}
 
 export default function OrganisersApproval(){
     const navigate = useNavigate();
     
 
-    const OrganisersToAprove =[
-        {
-            id: "1",
-        },
-        {
-            id: "2",
-        },
-        {
-            id: "3",
-        },
-        {
-            id: "4",
-        },
-        {
-            id: "5",
-        },
-        {
-            id: "6",
-        },
-        {
-            id: "7",
-        },
-        {
-            id: "8",
-        }
-    ]
-
+    
+    
     return(
         <div className="App">
         <Header/>
     <main className='content'>
 
-        <div className='searchList'>
-            <div className='title'>Organizatorzy do zatwierdzenia</div>
-            {
-                OrganisersToAprove.map((val,key)=>{
-                    return(
-                        <div className='organisers-list'>
-                            <div className='organisers-list-row'>
-                                Jan Nowak
-                            </div>
-                            <div className='organisers-list-row'>04.01.1995</div>
-                            <div className='organisers-list-row'>jan.nowak@wpp.pl</div>
-                            <div className='organisers-list-row'>
-                                <button className='main-btn'>Zatwierdź</button>
-                            </div>
-                        </div>
-                    )
-                })
-            }  
-            <Pagination count={10} size='large'/>
-        </div>
+        
+        <OrganiserApplicationController>
+        <ShowOrganisers/>
+        </OrganiserApplicationController>
     </main>
     <div className='App-footer'>
         <Footer/>

@@ -1,16 +1,52 @@
-.organisers-list{
+/* .organisers-list{
     width: clamp(10vw,60vw,90vw);
-    background-color: white;
     height: auto;
     display: flex;
-    font-size: 1.2rem;
     position: relative;
     word-break: break-all;
     word-wrap: break-word;
-    gap:8px;
     padding: 8px;
-}
+
+} */
+.organisers-list {
+    display: flex;
+    align-self: center;
+    margin-top:16px;
+    /* padding: 5px; */
+    border-radius: 16px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    word-break: break-word;
+    flex-wrap:wrap;
+    flex-direction: column;
+    background-color: white;
+    width: clamp(10rem,60rem,90vw);
+    
+
+  }
+
 .organisers-list-row{
     display: flex;
     flex:1;
+    padding: 8px;
+    font-size: clamp(0.1rem,1.5rem,3rem);
+    gap:8px;
+    flex-wrap: wrap;
+
+}
+
+.cancel-btn{
+    background-color: red;
+    width: 7rem;
+    height: 3rem;
+    border-radius: 0.8rem;
+    border: none;
+    color: white;
+    font-size: clamp(0.1rem,1.5rem,2rem);
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.5s ease;
+}
+.cancel-btn:hover{
+    background-color: rgb(175, 17, 17);
 }
