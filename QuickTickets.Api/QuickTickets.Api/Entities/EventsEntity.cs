@@ -22,5 +22,6 @@ namespace QuickTickets.Api.Entities
         public virtual LocationsEntity? Location { get; set; }
         public string ImgURL { get; set; }
         public Guid OwnerID { get; set; }
+        public virtual AccountEntity? Owner { get; set; }
     }
 }
