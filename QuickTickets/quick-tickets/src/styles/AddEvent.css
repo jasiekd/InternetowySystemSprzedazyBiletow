@@ -7,17 +7,16 @@
     border-color: rgb(197, 197, 197);
 }
 .eventForm{
-    width: 50%;
 
+        
 }
 .evntPreview{
-    width: 50%;
+
     background-color: #E7E7E7;
-    overflow-y: auto;
-    overflow-x: hidden;
+
 }
 .formColumn{
-    width: 100%;
+    width: 35rem;
     
 }
 .addEventContent{

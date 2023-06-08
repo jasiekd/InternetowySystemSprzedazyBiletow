@@ -11,7 +11,7 @@ import { checkIsLogged } from "../controllers/Login";
 import { useNavigate } from "react-router-dom";
 import LocationsController from "../controllers/LocationsController";
 
-function LocationForm({addLocations}){
+export function LocationForm({addLocations}){
     const [title,setTitle] = useState("");
     const [description,setDescription] = useState("");
     const [imgURL,setImgURL] = useState("");
@@ -28,15 +28,15 @@ function LocationForm({addLocations}){
     }
 
     return(
-        <div className="addEventContent">
+        <div className="addEventContent"  data-testid='test-app'>
             <div className="eventForm">
                 <div className="content-data">
                     <div className="content-data-column formColumn" >
                         <h2>Dane lokalizacji</h2>    
-                        <GreenInput value={title} label="Tytuł" onChange={(e)=>setTitle(e.target.value)} fullWidth type="text" ></GreenInput>
-                        <GreenInput value={description} label="Opis" onChange={(e)=>setDescription(e.target.value)} fullWidth type="text" multiline rows={4} maxRows={40}></GreenInput>
-                        <GreenInput value={imgURL} label="Link do zdjęcia" onChange={(e)=>setImgURL(e.target.value)} fullWidth type="text"></GreenInput>
-                        <button className="main-btn" onClick={()=>onAddLocation()} >Dodaj</button>
+                        <GreenInput value={title} label="Tytuł" onChange={(e)=>setTitle(e.target.value)} fullWidth type="text" data-testid='test-location-title'></GreenInput>
+                        <GreenInput value={description} label="Opis" onChange={(e)=>setDescription(e.target.value)} fullWidth type="text" multiline rows={4} maxRows={40} data-testid='test-location-desc'></GreenInput>
+                        <GreenInput value={imgURL} label="Link do zdjęcia" onChange={(e)=>setImgURL(e.target.value)} fullWidth type="text" data-testid='test-location-link'></GreenInput>
+                        <button className="main-btn" onClick={()=>onAddLocation()} data-testid='test-add-location'>Dodaj</button>
                     </div>           
                 </div>
             </div>

@@ -150,6 +150,7 @@ function EventForm({onAddEvent,getTypesOfEvents,getEventLocations}){
                                 eventDate={date}
                                 eventPlace={selecredLocation}
                                 disableBuy={true}
+                                displayPreview={true}
                             />
                             
                         </div>

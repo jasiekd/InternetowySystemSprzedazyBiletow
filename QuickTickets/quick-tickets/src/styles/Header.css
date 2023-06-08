@@ -6,7 +6,9 @@
     background-color: white;
     height: clamp(1rem,2%,100%);
     font-size: clamp(1rem,2%,100%);
-    
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    gap: 7rem;
   }
   #searcher{
     background: #E7E7E7;
@@ -25,8 +27,6 @@
   }
   .main-logo{
     cursor: pointer;
-    height: 100%;
-    width: 30%;
   }
   .login-nav-login{
 

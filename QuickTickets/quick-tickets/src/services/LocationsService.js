@@ -7,7 +7,9 @@ export default class LocationsService{
             const response = await axios.post(HostName+'/api/Locations/addLocation',
             {
                 locationID: locationID,
-                name: name
+                name: name,
+                description: description,
+                imgURL: imgUrl
             })
             return response
         }catch(e)

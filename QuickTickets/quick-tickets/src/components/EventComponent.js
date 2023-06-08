@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import people from '../images/people.png'
-export default function EventComponent({eventImg,eventTitle,eventDate,eventPlace,eventText, disableBuy,eventData}){
+export default function EventComponent({eventImg,eventTitle,eventDate,eventPlace,eventText, disableBuy,eventData,displayPreview}){
     const navigate = useNavigate();
     return(
             <div className='event-info'>
@@ -44,7 +44,12 @@ export default function EventComponent({eventImg,eventTitle,eventDate,eventPlace
                     </div>
                     <div className='event-description'>
                         <div className='event-description-title'>Opis wydarzenia</div>
-                        <div className='event-description-text'>
+           
+                        
+
+                        {
+                            displayPreview?
+                            <div className='event-description-text event-preview'>
                             {
                                 eventText!==""?
                                 eventText
@@ -52,7 +57,18 @@ export default function EventComponent({eventImg,eventTitle,eventDate,eventPlace
                                 "Opis wydarzenia"
                             
                             }
-                        </div>
+                            </div>
+                            :
+                            <div className='event-description-text '>
+                            {
+                                eventText!==""?
+                                eventText
+                                :
+                                "Opis wydarzenia"
+                            
+                            }
+                            </div>
+                        }
                         <button className='main-btn' onClick={()=>navigate("/buy-ticket",{state:{event:eventData}})} disabled={disableBuy}>Kup teraz</button>
                     </div>
                 </div>     
