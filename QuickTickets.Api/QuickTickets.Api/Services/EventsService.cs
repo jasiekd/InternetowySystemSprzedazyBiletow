@@ -19,7 +19,7 @@ namespace QuickTickets.Api.Services
 
         public async Task<EventInfoDto> GetEventInfo(long id)
         {
-            var eventsEntity = await _context.Events.Include(x => x.Type).Include(x => x.Location).Where(x => x.IsActive == true && x.Status == StatusEnum.Confirmed.ToString()).FirstOrDefaultAsync(x => x.EventID == id);
+            var eventsEntity = await _context.Events.Include(x => x.Owner).Include(x => x.Type).Include(x => x.Location).Where(x => x.IsActive == true && x.Status == StatusEnum.Confirmed.ToString()).FirstOrDefaultAsync(x => x.EventID == id);
 
             if(eventsEntity == null)
             {
@@ -31,7 +31,7 @@ namespace QuickTickets.Api.Services
 
         public async Task<IEnumerable<EventInfoDto>> getHotEventsInfo()
         {
-            var eventsEntity = await _context.Events.Include(x => x.Type).Include(x => x.Location).Where(x => x.IsActive == true && x.Status == StatusEnum.Confirmed.ToString()).OrderByDescending(x => x.Date).Take(4).ToListAsync();
+            var eventsEntity = await _context.Events.Include(x => x.Owner).Include(x => x.Type).Include(x => x.Location).Where(x => x.IsActive == true && x.Status == StatusEnum.Confirmed.ToString()).OrderByDescending(x => x.Date).Take(4).ToListAsync();
             if (eventsEntity == null)
             {
                 return null;
@@ -197,24 +197,25 @@ namespace QuickTickets.Api.Services
             };
             return new OkObjectResult(result);
         }
-        private EventInfoDto GetEventInfoDto(EventsEntity eventsEntity)
+        public EventInfoDto GetEventInfoDto(EventsEntity eventsEntity)
         {
             return new EventInfoDto
-                    {
-                        EventID = eventsEntity.EventID,
-                        Title = eventsEntity.Title,
-                        Seats = eventsEntity.Seats,
-                        OccupiedSeats = CountOccupiedSeats(eventsEntity.Seats, eventsEntity.EventID),
-                        TicketPrice = eventsEntity.TicketPrice,
-                        Description = eventsEntity.Description,
-                        Date = eventsEntity.Date,
-                        IsActive = eventsEntity.IsActive,
-                        AdultsOnly = eventsEntity.AdultsOnly,
-                        Type = eventsEntity.Type,
-                        Location = eventsEntity.Location,
-                        ImgURL = eventsEntity.ImgURL,
-                        OwnerID = eventsEntity.OwnerID
-                    };
+            {
+                EventID = eventsEntity.EventID,
+                Title = eventsEntity.Title,
+                Seats = eventsEntity.Seats,
+                OccupiedSeats = CountOccupiedSeats(eventsEntity.Seats, eventsEntity.EventID),
+                TicketPrice = eventsEntity.TicketPrice,
+                Description = eventsEntity.Description,
+                Date = eventsEntity.Date,
+                IsActive = eventsEntity.IsActive,
+                AdultsOnly = eventsEntity.AdultsOnly,
+                Type = eventsEntity.Type,
+                Location = eventsEntity.Location,
+                ImgURL = eventsEntity.ImgURL,
+                Name = eventsEntity.Owner.Name,
+                Surname = eventsEntity.Owner.Surname,
+             };
             
         }
 

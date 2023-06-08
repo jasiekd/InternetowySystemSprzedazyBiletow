@@ -56,6 +56,7 @@ namespace QuickTickets.Api.Controllers
         {
 
             OrganiserApplicationEntity organiserApplication = await _context.OrganisersApplications.FindAsync(id);
+            AccountEntity accountEntity = await _context.Accounts.FindAsync(organiserApplication.UserId);
 
             if (organiserApplication == null)
             {
@@ -63,8 +64,10 @@ namespace QuickTickets.Api.Controllers
             }
             organiserApplication.Status = StatusEnum.Confirmed.ToString();
             organiserApplication.DateModified = DateTime.Now;
-
+            accountEntity.RoleID = 3;
+            
             _context.OrganisersApplications.Update(organiserApplication);
+            _context.Accounts.Update(accountEntity);
             await _context.SaveChangesAsync();
             return Ok();
         }

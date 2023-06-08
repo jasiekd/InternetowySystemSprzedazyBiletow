@@ -10,6 +10,7 @@ namespace QuickTickets.Api.Entities
 
         [Required]
         public Guid UserId { get; set; }
+        public virtual AccountEntity? User { get; set; }
 
         [Required]
         public DateTime DateCreated { get; set; } = DateTime.Now;

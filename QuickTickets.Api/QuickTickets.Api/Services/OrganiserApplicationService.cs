@@ -17,7 +17,7 @@ namespace QuickTickets.Api.Services
         {
             try
             {
-                var data = _context.OrganisersApplications.AsQueryable().Where(e => e.Status == StatusEnum.Pending.ToString());
+                var data = _context.OrganisersApplications.AsQueryable().Include(x => x.User).Where(e => e.Status == StatusEnum.Pending.ToString());
 
 
                 var totalCount = await data.CountAsync();
@@ -25,7 +25,26 @@ namespace QuickTickets.Api.Services
 
                 data = data.Skip((paginationDto.pageIndex - 1) * paginationDto.pageSize).Take(paginationDto.pageSize);
 
-                var applications = await data.ToListAsync();
+                List<OrganiserInfoDto> listOfOrganiserApps = new List<OrganiserInfoDto>();
+
+                foreach( var temp in await data.ToListAsync())
+                {
+                    listOfOrganiserApps.Add(new OrganiserInfoDto
+                    {
+                        Id = temp.Id,
+                        User = new UserInfoDto()
+                        {
+                            Name = temp.User.Name,
+                            Surname = temp.User.Surname,
+                            Email = temp.User.Email,
+                            Login = temp.User.Login,
+                            DateOfBirth = (DateTime)temp.User.DateOfBirth,
+                        },
+                        DateCreated = temp.DateCreated,
+                        Status = temp.Status,
+                        Description = temp.Description
+                    });
+                }
 
                 var result = new
                 {
@@ -33,7 +52,7 @@ namespace QuickTickets.Api.Services
                     TotalPages = totalPages,
                     PageIndex = paginationDto.pageIndex,
                     PageSize = paginationDto.pageSize,
-                    OrganiserApplications = applications
+                    OrganiserApplications = listOfOrganiserApps
                 };
 
                 return new OkObjectResult(result);

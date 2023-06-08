@@ -2,7 +2,7 @@
 
 namespace QuickTickets.Api.Dto
 {
-    public class EventInfoDto
+    public class EventInfoDto : UserInfoDto
     {
         public long EventID { get; set; }
         public string Title { get; set; }
@@ -16,6 +16,5 @@ namespace QuickTickets.Api.Dto
         public TypesOfEventsEntity Type { get; set; }
         public LocationsEntity Location { get; set; }
         public string ImgURL { get; set; }
-        public Guid OwnerID { get; set; }
     }
 }
