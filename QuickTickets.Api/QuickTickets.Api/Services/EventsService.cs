@@ -19,7 +19,7 @@ namespace QuickTickets.Api.Services
 
         public async Task<EventInfoDto> GetEventInfo(long id)
         {
-            var eventsEntity = await _context.Events.Include(x => x.Owner).Include(x => x.Type).Include(x => x.Location).Where(x => x.IsActive == true && x.Status == StatusEnum.Confirmed.ToString()).FirstOrDefaultAsync(x => x.EventID == id);
+            var eventsEntity = await _context.Events.Include(x => x.Type).Include(x => x.Location).Include(x => x.Owner).Where(x => x.IsActive == true && x.Status == StatusEnum.Confirmed.ToString()).FirstOrDefaultAsync(x => x.EventID == id);
 
             if(eventsEntity == null)
             {
@@ -96,7 +96,7 @@ namespace QuickTickets.Api.Services
         {
             try
             {
-                var data = _context.Events.AsQueryable().Include(e => e.Type).Include(x => x.Location).Where(e => e.IsActive == true && e.Status == StatusEnum.Confirmed.ToString());
+                var data = _context.Events.AsQueryable().Include(e => e.Type).Include(x => x.Location).Include(x => x.Owner).Where(e => e.IsActive == true && e.Status == StatusEnum.Confirmed.ToString());
 
                 if(!string.IsNullOrEmpty(searchEventDto.searchPhrase))
                 {
@@ -147,7 +147,7 @@ namespace QuickTickets.Api.Services
         {
             try
             {
-                var data = _context.Events.AsQueryable().Include(e => e.Type).Include(x => x.Location).Where(e => e.Status == StatusEnum.Pending.ToString());
+                var data = _context.Events.AsQueryable().Include(e => e.Type).Include(x => x.Location).Include(x => x.Owner).Where(e => e.Status == StatusEnum.Pending.ToString());
 
 
                 return await GetPaginatedEvents(paginationDto, data);
@@ -162,7 +162,7 @@ namespace QuickTickets.Api.Services
         {
             try
             {
-                var data = _context.Events.AsQueryable().Include(e => e.Type).Include(x => x.Location).Where(e => e.Status == statusChoice && e.OwnerID == guid);
+                var data = _context.Events.AsQueryable().Include(e => e.Type).Include(x => x.Location).Include(x => x.Owner).Where(e => e.Status == statusChoice && e.OwnerID == guid);
 
 
                 return await GetPaginatedEvents(paginationDto, data);
@@ -215,6 +215,7 @@ namespace QuickTickets.Api.Services
                 ImgURL = eventsEntity.ImgURL,
                 Name = eventsEntity.Owner.Name,
                 Surname = eventsEntity.Owner.Surname,
+                Email = eventsEntity.Owner.Email,
              };
             
         }

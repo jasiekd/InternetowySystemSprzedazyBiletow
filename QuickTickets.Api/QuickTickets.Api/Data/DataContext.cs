@@ -58,7 +58,7 @@ namespace QuickTickets.Api.Data
             modelBuilder.Entity<AccountEntity>().HasData(
                 new AccountEntity
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.Parse("2EF422AE-0E8E-4F47-93BB-8B79F04123B6"),
                     Name = "Artur",
                     Surname = "Gardian",
                     Email = "agardian00@cos.nie",
@@ -71,7 +71,7 @@ namespace QuickTickets.Api.Data
                 },
                 new AccountEntity
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.Parse("BB47EEDE-6953-43DF-A26F-CDAC99BE8E87"),
                     Name = "Jan",
                     Surname = "Kowalski",
                     Email = "jkowalski01@cos.nie",
