@@ -8,9 +8,8 @@ export default function EventsController({children}){
     const gateway = new EventsService();
 
     const addEvent = async(eventData) => {
-        console.log(eventData);
+
         const response = await gateway.addEvent(eventData);
-        console.log(response);
         if(response.status === 200)
         {
             Swal.fire({

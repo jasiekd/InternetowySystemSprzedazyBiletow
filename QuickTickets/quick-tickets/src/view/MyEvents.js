@@ -15,7 +15,6 @@ export default function MyEvents({getOrganisatorEvents}){
    
     React.useEffect(()=>{
         getOrganisatorEvents(pageCount,10).then(r=>{
-            console.log(r);
             setMyEvents(r)
         })
     },[pageCount])

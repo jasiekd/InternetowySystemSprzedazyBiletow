@@ -39,7 +39,8 @@ export default class AccountService{
             localStorage.roleId = rawDecodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
             localStorage.uId = rawDecodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
 
-            console.log(localStorage.roleId);
+
+            
 
             axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`;
             // this.getUser();
@@ -72,7 +73,15 @@ export default class AccountService{
         
         try{
             const response = await axios.get(HostName+'/api/Account/getUser',{})
-            console.log(response)
+            return response;
+        }
+        catch(error){
+            return error.response;
+        }
+    }
+    async updateAccount(data){
+        try{
+            const response = await axios.put(HostName+'/api/Account/UpdateAccount',data)
             return response;
         }
         catch(error){

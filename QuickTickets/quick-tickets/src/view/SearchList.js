@@ -1,17 +1,10 @@
 import * as React from 'react';
 import Footer from '../components/Footer';
-import exampleEvent from "../images/example-event.png";
 import "../styles/MainStyle.css";
 import { useNavigate } from "react-router-dom";
 import Header from '../components/Header';
-import Select from '@mui/material/Select';
 import { GreenInput } from '../components/GreenInput';
-import MenuItem from '@mui/material/MenuItem';
 import "../styles/DropDownMenu.css";
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import calendar from "../images/calendar.png";
 import place from "../images/place.png";
 import category from "../images/category.png";
@@ -22,9 +15,9 @@ import Pagination from '@mui/material/Pagination';
 import EventsController from '../controllers/Events';
 import { useLocation } from 'react-router-dom';
 import moment from 'moment';
-import LocationsController from '../controllers/LocationsController';
 
-function FilteringOptions({getTypesOfEvents,getEventLocations,DateFrom,DateTo,PriceTo,PriceFrom,Place,Type,preSetLocation}){
+
+function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocations}){
     const [openDate, setOpenDate] = React.useState(false);
     const [openPlace, setOpenPlace] = React.useState(false);
     const [openCategory, setOpenCategory] = React.useState(false);
@@ -62,15 +55,21 @@ function FilteringOptions({getTypesOfEvents,getEventLocations,DateFrom,DateTo,Pr
     },[])
 
     const selectLocation = (loc) =>{
-        ///console.log()
         if(loc === null)
         {
             setSelectedLocation("wszystkie");
-            Place(null)
+            setFilters(prev =>({
+                ...prev,
+                place: null
+            }))
+            
             handleOpenPlace();
         }else{
             setSelectedLocation(loc.name);
-            Place(loc.locationID)
+            setFilters(prev =>({
+                ...prev,
+                place: loc.locationID
+            }))
             handleOpenPlace();
         }
         
@@ -78,11 +77,17 @@ function FilteringOptions({getTypesOfEvents,getEventLocations,DateFrom,DateTo,Pr
     const selectCategory = (type) =>{
         if(type === null){
             setSelectedCategory("wszystki");
-            Type(null);
+            setFilters(prev =>({
+                ...prev,
+                type: null
+            }))
             handleOpenCategory();
         }else{
             setSelectedCategory(type.description);
-            Type(type.typeID);
+            setFilters(prev =>({
+                ...prev,
+                type: type.typeID
+            }))
             handleOpenCategory();
         }
        
@@ -96,8 +101,12 @@ function FilteringOptions({getTypesOfEvents,getEventLocations,DateFrom,DateTo,Pr
            {
             setSelectedDate("od "+dateFrom);
            }
-            DateFrom(dateFrom);
-            DateTo(dateTo);
+           setFilters(prev =>({
+            ...prev,
+            dateFrom: dateFrom,
+            dateTo: dateTo
+            }))
+           
            
         handleOpenDate();
     }
@@ -106,8 +115,12 @@ function FilteringOptions({getTypesOfEvents,getEventLocations,DateFrom,DateTo,Pr
         handleOpenDate();
         setDateTo(null);
         setDateFrom(null);
-        DateFrom(null);
-        DateTo(null)
+        setFilters(prev =>({
+            ...prev,
+            dateFrom: null,
+            dateTo: null
+        }))
+        
         
     }
 
@@ -121,9 +134,11 @@ function FilteringOptions({getTypesOfEvents,getEventLocations,DateFrom,DateTo,Pr
         {
             setSelectedPrice("od "+priceFrom);
         }
-            
-            PriceFrom(priceFrom);
-            PriceTo(priceTo);
+            setFilters(prev =>({
+                ...prev,
+                priceFrom: priceFrom,
+                priceTo: priceTo
+            }))
     
             
         handleOpenPrice();
@@ -133,21 +148,17 @@ function FilteringOptions({getTypesOfEvents,getEventLocations,DateFrom,DateTo,Pr
         handleOpenPrice();
         setPriceFrom(null);
         setPriceTo(null);
-        PriceFrom(null);
-        PriceTo(null);
+        setFilters(prev =>({
+            ...prev,
+            priceFrom: null,
+            priceTo: null
+        }))
     }
     React.useEffect(()=>{
-        if(preSetLocation!==null && preSetLocation!==undefined)
-        {
+        console.log(filters)
+        setSelectedLocation(filters.place)
+    },[filters])
 
-
-                setSelectedLocation(preSetLocation.name);
-                Place(preSetLocation.locationID)
-            
-            
-        }
-
-    },[preSetLocation])
     return(
             <div className='filteringOptions'>
             <div className='filteringElement'>
@@ -220,19 +231,18 @@ function FilteringOptions({getTypesOfEvents,getEventLocations,DateFrom,DateTo,Pr
     )
 }
 
-function SearchEvents({phrase,search,dateFrom,dateTo,priceTo,priceFrom,place,type}){
+function SearchEvents({search,filters}){
 
     const navigate = useNavigate();
     const [events,setEvents] = React.useState();
     const [pageCount,setPageCount] = React.useState(1);
     React.useEffect(()=>{
 
-        search(phrase,priceFrom,priceTo,dateFrom,dateTo,place,type,pageCount,10).then(r=>{
+        search(filters.phrase,filters.priceFrom,filters.priceTo,filters.dateFrom,filters.dateTo,filters.place,filters.type,pageCount,10).then(r=>{
             setEvents(r);
-            console.log(r);
             
         })
-    },[phrase,dateFrom,dateTo,priceTo,priceFrom,place,type,pageCount])
+    },[filters])
 
 
     return(
@@ -241,7 +251,6 @@ function SearchEvents({phrase,search,dateFrom,dateTo,priceTo,priceFrom,place,typ
                     events!==undefined?
                         
                         events.value.events.map((val,key)=>{
-                            console.log(val)
                             return(
                                 <div className='event-on-list'>
                                     <div className='event-list-img'><img src={val.imgURL}/></div>
@@ -273,30 +282,37 @@ function SearchEvents({phrase,search,dateFrom,dateTo,priceTo,priceFrom,place,typ
 }
 export default function SearchList() {
     const navigate = useNavigate();
-    const [dateFrom,setDateFrom] = React.useState(null);
-    const [dateTo,setDateTo] = React.useState(null);
-    const [priceFrom,setPriceFrom] = React.useState(null);
-    const [priceTo,setPriceTo] = React.useState(null);
-    const [place,setPlace] = React.useState(null);
-    const [type,setType] = React.useState(null);
-    const [preSetLocation,setPreSetLocation] = React.useState();
+
+    const [filters, setFilters] = React.useState({
+        phrase: "",
+        dateFrom: null,
+        dateTo: null,
+        priceFrom: null,
+        priceTo: null,
+        place: null,
+        type: null
+      });
+
  
     const location = useLocation();
-    const [phrase,setPhrase] = React.useState("");
+    
  
     React.useEffect(()=>{
-
             if(location.state === null || location.state.phrase === null )
             {
                  navigate("/home")
             }
             else{
-                setPhrase(location.state.phrase);
-                console.log("cos "+location.state.location)
+                setFilters(prev =>({
+                    ...prev,
+                    phrase: location.state.phrase
+                }))
                 if(location.state.location !== null)
                 {
-                    //setPlace(location.state.location.locationID)
-                    setPreSetLocation(location.state.location)
+                    setFilters(prev =>({
+                        ...prev,
+                        place: location.state.location
+                    }))
                 }
                 
             }   
@@ -304,7 +320,7 @@ export default function SearchList() {
 
         
        
-    },[location.state])
+    },[])
 
    
     return (
@@ -314,12 +330,12 @@ export default function SearchList() {
         <main className='content'>
             
             <EventsController >
-                <FilteringOptions DateFrom={setDateFrom} DateTo={setDateTo} PriceTo={setPriceTo} PriceFrom={setPriceFrom} Place={setPlace} Type={setType} preSetLocation={preSetLocation}/>
+                <FilteringOptions filters={filters} setFilters={setFilters}/>
             </EventsController>
 
 
             <EventsController >
-                <SearchEvents phrase={phrase} dateFrom={dateFrom} dateTo={dateTo} priceTo={priceTo} priceFrom={priceFrom} place={place} type={type}/>
+                <SearchEvents filters={filters}/>
             </EventsController>
 
         </main>

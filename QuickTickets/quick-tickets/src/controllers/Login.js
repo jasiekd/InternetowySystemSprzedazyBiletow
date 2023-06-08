@@ -76,10 +76,50 @@ export default function LoginController({children}){
             )
         }
     }
+
+    const getUser = async()=>{
+        const gateway = new AccountService();
+        const response = await gateway.getUser();
+
+
+        if(response.status === 200)
+        {
+            return response.data;
+        }
+        else 
+        {
+           
+        }
+    }
+    const updateAccount = async(data) =>{
+        const gateway = new AccountService();
+        const response = await gateway.updateAccount(data);
+
+
+        if(response.status === 200)
+        {
+            Swal.fire({
+                icon: 'success',
+                title: 'Zapisano zmiany',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            navigate("/home");
+        }
+        else 
+        {
+            Swal.fire(
+                'Błąd zmiany danych',
+                'error'
+            )
+        }
+    }
     return React.cloneElement(children,{
         onLogin: login,
         onLoginWithGoogle: loginWithGoogle,
-        checkIsLogged: checkIsLogged
+        checkIsLogged: checkIsLogged,
+        getUser,
+        updateAccount
     })
 
 }

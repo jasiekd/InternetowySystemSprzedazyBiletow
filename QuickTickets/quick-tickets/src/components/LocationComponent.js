@@ -16,14 +16,14 @@ export default function LocationComponent({localImg,localText,localTitle,locatio
                         }/>
                     </div>
                     <div className='event-description'>
-                        <h3>{
+                        <h3 data-testid="preview-event-title">{
                             localTitle!==""?
                             localTitle
                             :
                             "Nazwa lokalizacji"
                             
                         }</h3>
-                        <div className='event-description-text'>
+                        <div className='event-description-text' data-testid="preview-event-desc">
                         {
                             localText!==""?
                             localText
@@ -31,7 +31,7 @@ export default function LocationComponent({localImg,localText,localTitle,locatio
                             "Opis lokalizacji"
                         
                         }</div>
-                        <button className='main-btn' onClick={()=>navigate("/search-list",{state:{phrase:"",location:location}})} disabled={disableSearch}>Więcej wydarzeń</button>
+                        <button className='main-btn' onClick={()=>navigate("/search-list",{state:{phrase:"",location:location.locationID}})} disabled={disableSearch}>Więcej wydarzeń</button>
                     </div>
                 </div>
             </div>

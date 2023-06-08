@@ -3,8 +3,6 @@ import {HostName} from "./HostName.js";
 axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`;
 export default class EventsService{
     async addEvent(data){
-        console.log(data);
-
         try{
             const response = await axios.post(HostName+'/api/Events/addEvent',{
                 title: data.title,
@@ -18,8 +16,6 @@ export default class EventsService{
                 locationID:data.locationID,
                 imgURL:data.imgURL
             });
-           // console.log("test");
-            console.log(response);
             return response; 
         }catch(error)
         {

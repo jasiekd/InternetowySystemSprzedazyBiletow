@@ -7,11 +7,11 @@ export default function RegisterController({children}){
     const navigate = useNavigate();
 
     const register = async (registerData,setErrorStatus,setErrorText)=>{
-        console.log(registerData);
+
         
         const gateway = new AccountService();
         const response = await gateway.register(registerData);
-        console.log(response);
+
         if(response.status === 201)
         {
             Swal.fire({

@@ -16,7 +16,6 @@ export default function EventsApproval({getPendingEvents,cancleEvent,acceptEvent
     const [pendingEvents,setPendingEvents] = React.useState();
     React.useEffect(()=>{
         getPendingEvents(pageCount,10).then(r=>{
-            console.log(r);
             setPendingEvents(r);
         })
     },[pageCount,update])
