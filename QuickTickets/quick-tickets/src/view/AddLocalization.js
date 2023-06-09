@@ -33,9 +33,9 @@ export function LocationForm({addLocations}){
                 <div className="content-data">
                     <div className="content-data-column formColumn" >
                         <h2>Dane lokalizacji</h2>    
-                        <GreenInput value={title} label="Tytuł" onChange={(e)=>setTitle(e.target.value)} fullWidth type="text" data-testid='test-location-title'></GreenInput>
-                        <GreenInput value={description} label="Opis" onChange={(e)=>setDescription(e.target.value)} fullWidth type="text" multiline rows={4} maxRows={40} data-testid='test-location-desc'></GreenInput>
-                        <GreenInput value={imgURL} label="Link do zdjęcia" onChange={(e)=>setImgURL(e.target.value)} fullWidth type="text" data-testid='test-location-link'></GreenInput>
+                        <GreenInput value={title} label="Tytuł" onChange={(e)=>setTitle(e.target.value)} fullWidth type="text" inputProps={{ "data-testid": "test-location-title" }} ></GreenInput>
+                        <GreenInput value={description} label="Opis" onChange={(e)=>setDescription(e.target.value)} fullWidth type="text" multiline rows={4} maxRows={40} inputProps={{ "data-testid": "test-location-desc" }}></GreenInput>
+                        <GreenInput value={imgURL} label="Link do zdjęcia" onChange={(e)=>setImgURL(e.target.value)} fullWidth type="text" inputProps={{ "data-testid": "test-location-link" }} ></GreenInput>
                         <button className="main-btn" onClick={()=>onAddLocation()} data-testid='test-add-location'>Dodaj</button>
                     </div>           
                 </div>
@@ -70,7 +70,7 @@ function AddLocalization(){
                 ready?
                 <main className='content'>
                     <LocationsController>
-                        <LocationForm />
+                        <LocationForm data-testid='test-location-form' />
                     </LocationsController>
                 </main>
                 :

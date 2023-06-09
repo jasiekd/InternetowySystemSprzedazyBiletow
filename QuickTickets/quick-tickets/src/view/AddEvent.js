@@ -27,7 +27,7 @@ function EventForm({onAddEvent,getTypesOfEvents,getEventLocations}){
 
     const addNewEvent=()=>{
         onAddEvent({title,seats,ticketPrice,description,date,adultsOnly,imgURL,typeID,locationID}).then((result)=>{
-           /* setTitle("");
+            setTitle("");
             setSeats(0);
             setTicketPrice(0);
             setDescription("");
@@ -35,7 +35,7 @@ function EventForm({onAddEvent,getTypesOfEvents,getEventLocations}){
             setAdultsOnly(null);
             setImgURL("");
             setSelectedCategory("Kategoria");
-            setSelectedLocation("Miejsce");*/
+            setSelectedLocation("Miejsce");
         });
       
     
