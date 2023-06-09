@@ -6,6 +6,7 @@ export default function LocationsController({children}){
 
     const addLocations = async(locationID,name,description,imgUrl) =>{
         const response = await gateway.addLocation(locationID,name,description,imgUrl)
+        
         if(response.status === 201)
         {
             Swal.fire({

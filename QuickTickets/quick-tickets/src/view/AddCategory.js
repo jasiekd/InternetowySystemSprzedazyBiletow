@@ -24,8 +24,8 @@ function CategoryForm({addCategory}){
             
             <div className="content-data-column formColumn" >
                 <h2>Nazwa kategorii</h2>    
-                <GreenInput value={title} label="Nazwa" onChange={(e)=>setTitle(e.target.value)} fullWidth type="text" ></GreenInput>
-                <button className="main-btn"  onClick={()=>onAddCategory()}>Dodaj</button>
+                <GreenInput inputProps={{ "data-testid": "test-category-title" }} value={title} label="Nazwa" onChange={(e)=>setTitle(e.target.value)} fullWidth type="text" ></GreenInput>
+                <button data-testid='test-add-category' className="main-btn"  onClick={()=>onAddCategory()}>Dodaj</button>
 
             </div>    
         </div>
