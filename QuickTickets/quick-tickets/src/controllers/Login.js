@@ -30,9 +30,10 @@ export default function LoginController({children}){
     const login = async (loginData,setErrorStatus,setErrorText)=>{
         const gateway = new AccountService();
         const response = await gateway.login(loginData);
-
         if(response.status === 401)
         {
+            console.log(response)
+
             Swal.fire(
                 'Błąd logowania',
                 'Niepoprawne dane logowania',

@@ -39,8 +39,8 @@ function LoginFormView({onLogin,onLoginWithGoogle}){
     return(
         <div>
                 <div className='accountFormInputs'>
-                    <GreenInput label="Login" error={errorStatus} helperText={errorText} value={loginVal} onChange={(e)=>onChangeLoginVal(e.target.value)}/>
-                    <GreenInput label="Hasło" error={errorStatus} type="password" helperText={errorText} value={passwordVal} onChange={(e)=>onChangePasswordVal(e.target.value)}/>
+                    <GreenInput inputProps={{ "data-testid": "test-login","error":true}} label="Login" error={errorStatus} helperText={errorText} value={loginVal} onChange={(e)=>onChangeLoginVal(e.target.value)}/>
+                    <GreenInput inputProps={{ "data-testid": "test-password","error":true }} label="Hasło" error={errorStatus} type="password" helperText={errorText} value={passwordVal} onChange={(e)=>onChangePasswordVal(e.target.value)}/>
                 </div>
                 <div className='buttonsAccountMenu'>
                     <GoogleLogin

@@ -82,20 +82,20 @@ function EventForm({onAddEvent,getTypesOfEvents,getEventLocations}){
             
             <div className="content-data-column formColumn" >
                 <h2>Dane wydarzenia</h2>    
-                <GreenInput value={title} label="Tytuł" onChange={(e)=>setTitle(e.target.value)} fullWidth type="text" ></GreenInput>
+                <GreenInput value={title} label="Tytuł" onChange={(e)=>setTitle(e.target.value)} fullWidth type="text" inputProps={{ "data-testid": "test-event-title" }}></GreenInput>
                 <div className='addEventOption'>
                 {openPlace ? (
                             <div className="menu">
                                 {
                                 locationsList.map((val,key)=>{
                                     return(
-                                        <button className='drop-down-btn' key={key} onClick={()=>selectLocation(val.name,val.locationID)}>{val.name}</button>
+                                        <button className='drop-down-btn' key={key} onClick={()=>selectLocation(val.name,val.locationID)} value={val.name}>{val.name}</button>
                                     )
                                 })
                             }
                             </div>
                         ) : null}
-                    <button className='filteringButton addEvent-filtering' onClick={handleOpenPlace}><img className='leftIcon' src={place}/><div className='filteringTitle'>{selecredLocation}</div><img className='rightIcon' src={arrow}/></button>
+                    <button data-testid="buttonn" className='filteringButton addEvent-filtering' onClick={handleOpenPlace} ><img className='leftIcon' src={place} /><div className='filteringTitle'>{selecredLocation}</div><img className='rightIcon' src={arrow}/></button>
                     
                        
                 </div>
@@ -111,30 +111,31 @@ function EventForm({onAddEvent,getTypesOfEvents,getEventLocations}){
                             }
                             </div>
                         ) : null}
-                    <button className='filteringButton addEvent-filtering' onClick={handleOpenCategory}><img className='leftIcon' src={category}/><div className='filteringTitle'>{selectedCategory}</div><img className='rightIcon' src={arrow}/></button>
+                    <button data-testid="buttonn2" className='filteringButton addEvent-filtering' onClick={handleOpenCategory}><img className='leftIcon' src={category}/><div className='filteringTitle'>{selectedCategory}</div><img className='rightIcon' src={arrow}/></button>
                     
                         
                 </div>
-                <GreenInput value={seats} label="Ilość miejsc" onChange={(e)=>setSeats(e.target.value)} fullWidth type="number" ></GreenInput>
-                <GreenInput value={ticketPrice} label="Cena biletu" onChange={(e)=>setTicketPrice(e.target.value)} fullWidth type="number" ></GreenInput>
-                <GreenInput value={description} label="Opis" onChange={(e)=>setDescription(e.target.value)} fullWidth type="text" multiline rows={4} maxRows={40}></GreenInput>
-                <GreenInput value={date} label="" onChange={(e)=>setDate(e.target.value)} fullWidth type="date"></GreenInput>
+                <GreenInput value={seats} label="Ilość miejsc" onChange={(e)=>setSeats(e.target.value)} fullWidth type="number" inputProps={{ "data-testid": "test-event-seats" }} ></GreenInput>
+                <GreenInput value={ticketPrice} label="Cena biletu" onChange={(e)=>setTicketPrice(e.target.value)} fullWidth type="number" inputProps={{ "data-testid": "test-event-price" }} ></GreenInput>
+                <GreenInput value={description} label="Opis" onChange={(e)=>setDescription(e.target.value)} fullWidth type="text" multiline rows={4} maxRows={40} inputProps={{ "data-testid": "test-event-description" }} ></GreenInput>
+                <GreenInput value={date} label="" onChange={(e)=>setDate(e.target.value)} fullWidth type="date" inputProps={{ "data-testid": "test-event-date" }}></GreenInput>
                 
-                <GreenInput value={imgURL} label="Link do zdjęcia" onChange={(e)=>setImgURL(e.target.value)} fullWidth type="text"></GreenInput>
+                <GreenInput value={imgURL} label="Link do zdjęcia" onChange={(e)=>setImgURL(e.target.value)} fullWidth type="text" inputProps={{ "data-testid": "test-event-img" }}></GreenInput>
                 
                 <FormControlLabel
-                    control={<Checkbox />}
+                    control={<Checkbox inputProps={{ "data-testid": "test-event-adultsOnly" }}/>}
                     onClick={()=>setAdultsOnly(!adultsOnly)}
                     checked={adultsOnly}
                     label="18+"
                     labelPlacement="start"
+                    
                 />
                 {/* <label htmlFor='imageInput' className="main-btn">
                     <p>Dodaj zdjęcie</p>
                 </label>
                 <input id="imageInput" style={{display:'none'}} type="file" className="main-btn"></input> */}
 
-                <button className="main-btn"  onClick={()=>addNewEvent()}>Dodaj</button>
+                <button className="main-btn"  onClick={()=>addNewEvent()} >Dodaj</button>
 
             </div>
             
@@ -162,7 +163,7 @@ function AddEvent(){
     const navigate = useNavigate()
     const [ready,setReady] = useState(false);
 
-    useEffect(()=>{
+    React.useEffect(()=>{
         if(checkIsLogged()==='3')
             setReady(true);
         else
