@@ -17,6 +17,7 @@ import AddLocalization from "../view/AddLocalization";
 import AddCategory from "../view/AddCategory"
 import AddAdmin from "../view/AddAdmin";
 import EventsController from "../controllers/Events";
+import OfflinePayment from "../view/OfflinePayment";
 
 const router = createBrowserRouter([
     {
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
     {
         path: "/add-admin",
         element: <AddAdmin/>
+    },
+    {
+        path: "/offline-payment",
+        element: <OfflinePayment/>
     }
 ]);
 

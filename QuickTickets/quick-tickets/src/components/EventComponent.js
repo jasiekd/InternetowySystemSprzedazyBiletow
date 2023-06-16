@@ -1,7 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import people from '../images/people.png'
+import dayjs from 'dayjs';
+import { useEffect } from "react";
+import moment from "moment/moment";
 export default function EventComponent({eventImg,eventTitle,eventDate,eventPlace,eventText, disableBuy,eventData,displayPreview}){
     const navigate = useNavigate();
+    // useEffect(()=>{
+    //     // let date=eventDate.toISOString();
+    //     console.log(date);
+    // },[eventDate])
     return(
             <div className='event-info'>
                 <div className='event-title'>
@@ -16,10 +23,14 @@ export default function EventComponent({eventImg,eventTitle,eventDate,eventPlace
                     </div>
                     <div>
                         {
-                            eventDate!==""?
-                            eventDate
-                            :
-                            "Data wydarzenia"
+                            !isNaN(eventDate)&&   
+                            moment(eventDate.toISOString()).format('MMMM Do YYYY, h:mm:ss a') ||"Data wydarzenia"
+
+
+                            // console.log('aha',eventDate.$d.toISOString())
+                            // eventDate!==""?
+                            // eventDate.$d.toISOString()
+                            // :
                         
                         }
                         {" "}   

@@ -14,6 +14,11 @@ import category from "../images/category.png";
 import '../styles/AddEvent.css';
 import EventComponent from "../components/EventComponent";
 import LocationComponent from "../components/LocationComponent";
+import dayjs from 'dayjs';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { useNavigate } from "react-router-dom";
 import { checkIsLogged } from "../controllers/Login";
 function EventForm({onAddEvent,getTypesOfEvents,getEventLocations}){
@@ -21,11 +26,15 @@ function EventForm({onAddEvent,getTypesOfEvents,getEventLocations}){
     const [seats,setSeats] = useState(0);
     const [ticketPrice,setTicketPrice] = useState(0);
     const [description,setDescription] = useState("");
-    const [date,setDate] = useState("");
+    const [date, setDate] = React.useState(dayjs('2022-04-17T15:30'));
     const [adultsOnly,setAdultsOnly] = useState(true);
     const [imgURL,setImgURL] = useState("");
 
     const addNewEvent=()=>{
+        // if(isNaN(date)) return;
+        // let newdate=date.$d.toISOString();
+        // console.log(newdate)
+
         onAddEvent({title,seats,ticketPrice,description,date,adultsOnly,imgURL,typeID,locationID}).then((result)=>{
             setTitle("");
             setSeats(0);
@@ -118,8 +127,19 @@ function EventForm({onAddEvent,getTypesOfEvents,getEventLocations}){
                 <GreenInput value={seats} label="Ilość miejsc" onChange={(e)=>setSeats(e.target.value)} fullWidth type="number" inputProps={{ "data-testid": "test-event-seats" }} ></GreenInput>
                 <GreenInput value={ticketPrice} label="Cena biletu" onChange={(e)=>setTicketPrice(e.target.value)} fullWidth type="number" inputProps={{ "data-testid": "test-event-price" }} ></GreenInput>
                 <GreenInput value={description} label="Opis" onChange={(e)=>setDescription(e.target.value)} fullWidth type="text" multiline rows={4} maxRows={40} inputProps={{ "data-testid": "test-event-description" }} ></GreenInput>
-                <GreenInput value={date} label="" onChange={(e)=>setDate(e.target.value)} fullWidth type="date" inputProps={{ "data-testid": "test-event-date" }}></GreenInput>
-                
+                {/* <GreenInput value={date} label="" onChange={(e)=>setDate(e.target.value)} fullWidth type="date" inputProps={{ "data-testid": "test-event-date" }}></GreenInput> */}
+                <LocalizationProvider dateAdapter={AdapterDayjs} sx={{width:"100%"}}>
+                <DemoContainer components={['DateTimePicker']} sx={{width:"100%"}}> 
+                    <DateTimePicker sx={{width:"100%"}}
+                    label=""
+                    value={date}
+                    // defaultValue={dayjs('2022-04-17T15:30')}
+                    onChange={(newValue) => {setDate(newValue)}}
+                    inputProps={{ "data-testid": "test-event-date" }}
+                    data-testid= "test-event-date"
+                    />
+                </DemoContainer>
+                </LocalizationProvider>
                 <GreenInput value={imgURL} label="Link do zdjęcia" onChange={(e)=>setImgURL(e.target.value)} fullWidth type="text" inputProps={{ "data-testid": "test-event-img" }}></GreenInput>
                 
                 <FormControlLabel
@@ -148,7 +168,7 @@ function EventForm({onAddEvent,getTypesOfEvents,getEventLocations}){
                                 eventTitle={title} 
                                 eventText={description}
                                 eventImg={imgURL}
-                                eventDate={date}
+                                eventDate={date.$d}
                                 eventPlace={selecredLocation}
                                 disableBuy={true}
                                 displayPreview={true}
