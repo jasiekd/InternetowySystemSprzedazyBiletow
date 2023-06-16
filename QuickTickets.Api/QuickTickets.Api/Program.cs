@@ -76,6 +76,7 @@ namespace QuickTickets.Api
             builder.Services.AddScoped<EventsService>();
             builder.Services.AddScoped<OrganiserApplicationService>();
             builder.Services.AddScoped<TransactionService>();
+            builder.Services.AddScoped<CommentService>();
 
             var app = builder.Build();
 

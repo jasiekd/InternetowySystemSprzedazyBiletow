@@ -1142,3 +1142,10 @@ C:\Users\artur\Source\Repos\jasiekd\InternetowySystemSprzedazyBiletow\QuickTicke
 C:\Users\artur\Source\Repos\jasiekd\InternetowySystemSprzedazyBiletow\QuickTickets.Api\QuickTickets.Api\bin\Debug\net6.0\zh-CN\Humanizer.resources.dll
 C:\Users\artur\Source\Repos\jasiekd\InternetowySystemSprzedazyBiletow\QuickTickets.Api\QuickTickets.Api\bin\Debug\net6.0\zh-Hans\Humanizer.resources.dll
 C:\Users\artur\Source\Repos\jasiekd\InternetowySystemSprzedazyBiletow\QuickTickets.Api\QuickTickets.Api\bin\Debug\net6.0\zh-Hant\Humanizer.resources.dll
+C:\Users\artur\Source\Repos\jasiekd\InternetowySystemSprzedazyBiletow\QuickTickets.Api\QuickTickets.Api\bin\Debug\net6.0\System.Web.Mvc.dll
+C:\Users\artur\Source\Repos\jasiekd\InternetowySystemSprzedazyBiletow\QuickTickets.Api\QuickTickets.Api\bin\Debug\net6.0\System.Web.Razor.dll
+C:\Users\artur\Source\Repos\jasiekd\InternetowySystemSprzedazyBiletow\QuickTickets.Api\QuickTickets.Api\bin\Debug\net6.0\System.Web.Helpers.dll
+C:\Users\artur\Source\Repos\jasiekd\InternetowySystemSprzedazyBiletow\QuickTickets.Api\QuickTickets.Api\bin\Debug\net6.0\System.Web.WebPages.Deployment.dll
+C:\Users\artur\Source\Repos\jasiekd\InternetowySystemSprzedazyBiletow\QuickTickets.Api\QuickTickets.Api\bin\Debug\net6.0\System.Web.WebPages.Razor.dll
+C:\Users\artur\Source\Repos\jasiekd\InternetowySystemSprzedazyBiletow\QuickTickets.Api\QuickTickets.Api\bin\Debug\net6.0\System.Web.WebPages.dll
+C:\Users\artur\Source\Repos\jasiekd\InternetowySystemSprzedazyBiletow\QuickTickets.Api\QuickTickets.Api\bin\Debug\net6.0\Microsoft.Web.Infrastructure.dll
