@@ -74,7 +74,7 @@ namespace QuickTickets.Api.Migrations
                         new
                         {
                             Id = new Guid("2ef422ae-0e8e-4f47-93bb-8b79f04123b6"),
-                            DateCreated = new DateTime(2023, 6, 9, 18, 11, 39, 349, DateTimeKind.Local).AddTicks(561),
+                            DateCreated = new DateTime(2023, 6, 16, 21, 45, 36, 12, DateTimeKind.Local).AddTicks(7252),
                             DateOfBirth = new DateTime(2000, 11, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "agardian00@cos.nie",
                             IsDeleted = false,
@@ -87,7 +87,7 @@ namespace QuickTickets.Api.Migrations
                         new
                         {
                             Id = new Guid("bb47eede-6953-43df-a26f-cdac99be8e87"),
-                            DateCreated = new DateTime(2023, 6, 9, 18, 11, 39, 349, DateTimeKind.Local).AddTicks(669),
+                            DateCreated = new DateTime(2023, 6, 16, 21, 45, 36, 12, DateTimeKind.Local).AddTicks(7344),
                             DateOfBirth = new DateTime(2002, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jkowalski01@cos.nie",
                             IsDeleted = false,
@@ -169,8 +169,8 @@ namespace QuickTickets.Api.Migrations
                             EventID = 1L,
                             AdultsOnly = true,
                             Date = new DateTime(2023, 5, 27, 18, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateCreated = new DateTime(2023, 6, 9, 18, 11, 39, 349, DateTimeKind.Local).AddTicks(808),
-                            DateModified = new DateTime(2023, 6, 9, 18, 11, 39, 349, DateTimeKind.Local).AddTicks(811),
+                            DateCreated = new DateTime(2023, 6, 16, 21, 45, 36, 12, DateTimeKind.Local).AddTicks(7403),
+                            DateModified = new DateTime(2023, 6, 16, 21, 45, 36, 12, DateTimeKind.Local).AddTicks(7405),
                             Description = "\"Ludzie trzymajcie kapelusze\" to mój drugi solowy program, grany od grudnia 2016 do sierpnia 2017 roku.  Udostępniony materiał został zarejestrowany 10 lipca 2017 roku w gdańskim klubie \"Parlament\". Obok mnie na scenie pojawił się również Adam Van Bendler.",
                             ImgURL = "https://images.unsplash.com/photo-1610964199131-5e29387e6267?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80",
                             IsActive = true,
@@ -187,8 +187,8 @@ namespace QuickTickets.Api.Migrations
                             EventID = 2L,
                             AdultsOnly = false,
                             Date = new DateTime(2023, 5, 28, 12, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateCreated = new DateTime(2023, 6, 9, 18, 11, 39, 349, DateTimeKind.Local).AddTicks(871),
-                            DateModified = new DateTime(2023, 6, 9, 18, 11, 39, 349, DateTimeKind.Local).AddTicks(874),
+                            DateCreated = new DateTime(2023, 6, 16, 21, 45, 36, 12, DateTimeKind.Local).AddTicks(7443),
+                            DateModified = new DateTime(2023, 6, 16, 21, 45, 36, 12, DateTimeKind.Local).AddTicks(7445),
                             Description = "Spływ kajakiem po rzece Morawka",
                             ImgURL = "https://images.unsplash.com/photo-1472745942893-4b9f730c7668?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80",
                             IsActive = true,
@@ -205,8 +205,8 @@ namespace QuickTickets.Api.Migrations
                             EventID = 3L,
                             AdultsOnly = false,
                             Date = new DateTime(2023, 5, 28, 18, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateCreated = new DateTime(2023, 6, 9, 18, 11, 39, 349, DateTimeKind.Local).AddTicks(891),
-                            DateModified = new DateTime(2023, 6, 9, 18, 11, 39, 349, DateTimeKind.Local).AddTicks(894),
+                            DateCreated = new DateTime(2023, 6, 16, 21, 45, 36, 12, DateTimeKind.Local).AddTicks(7454),
+                            DateModified = new DateTime(2023, 6, 16, 21, 45, 36, 12, DateTimeKind.Local).AddTicks(7456),
                             Description = "W swoim wykonaniu Pani Żak zaprezentuje swoje umiejętności artystyczne.",
                             ImgURL = "https://images.unsplash.com/photo-1521116103845-2170f3377fec?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
                             IsActive = true,
@@ -223,8 +223,8 @@ namespace QuickTickets.Api.Migrations
                             EventID = 4L,
                             AdultsOnly = true,
                             Date = new DateTime(2023, 5, 31, 12, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateCreated = new DateTime(2023, 6, 9, 18, 11, 39, 349, DateTimeKind.Local).AddTicks(907),
-                            DateModified = new DateTime(2023, 6, 9, 18, 11, 39, 349, DateTimeKind.Local).AddTicks(909),
+                            DateCreated = new DateTime(2023, 6, 16, 21, 45, 36, 12, DateTimeKind.Local).AddTicks(7464),
+                            DateModified = new DateTime(2023, 6, 16, 21, 45, 36, 12, DateTimeKind.Local).AddTicks(7465),
                             Description = "W naszej ofercie po prostu tak jakby przedstawimy oferty grona firm mówiących o swoich zapotrzebowaniach i planach dla widza.",
                             ImgURL = "https://images.unsplash.com/photo-1618092388874-e262a562887f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025&q=80",
                             IsActive = true,
@@ -373,9 +373,41 @@ namespace QuickTickets.Api.Migrations
                         });
                 });
 
+            modelBuilder.Entity("QuickTickets.Api.Entities.TicketEntity", b =>
+                {
+                    b.Property<long>("TicketID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("TicketID"));
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("EventID")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("TransactionID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("TicketID");
+
+                    b.HasIndex("EventID");
+
+                    b.HasIndex("TransactionID");
+
+                    b.ToTable("Tickets");
+                });
+
             modelBuilder.Entity("QuickTickets.Api.Entities.TransactionEntity", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("TransactionID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -385,6 +417,12 @@ namespace QuickTickets.Api.Migrations
                     b.Property<DateTime>("DateUpdated")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("DotPayID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -392,7 +430,7 @@ namespace QuickTickets.Api.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.HasKey("TransactionID");
 
                     b.ToTable("Transactions");
                 });
@@ -487,6 +525,25 @@ namespace QuickTickets.Api.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("QuickTickets.Api.Entities.TicketEntity", b =>
+                {
+                    b.HasOne("QuickTickets.Api.Entities.EventsEntity", "Event")
+                        .WithMany()
+                        .HasForeignKey("EventID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("QuickTickets.Api.Entities.TransactionEntity", "Transaction")
+                        .WithMany()
+                        .HasForeignKey("TransactionID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Event");
+
+                    b.Navigation("Transaction");
                 });
 #pragma warning restore 612, 618
         }

@@ -36,7 +36,7 @@ namespace QuickTickets.Api.Controllers
         }
         [HttpPost("loginWithGoogle")]
         [AllowAnonymous]
-        public IActionResult LoginUserWithGoogle([FromBody] GoogleLoginRequest loginData)
+        public IActionResult LoginUserWithGoogle([FromBody] GoogleLoginRequestDto loginData)
         {
             var result = _accountService.LoginUserWithGoogle(loginData);
             if (result == null)
@@ -80,10 +80,7 @@ namespace QuickTickets.Api.Controllers
 
             AccountEntity accountEntity =  await _context.Accounts.FindAsync(userId);
 
-            UserInfoDto temp = new UserInfoDto { 
-                Name = accountEntity.Name,
-                Surname = accountEntity.Surname,
-            };
+            UserInfoDto temp = _accountService.GetUserInfoDto(accountEntity);
 
             return Ok(temp);
         }

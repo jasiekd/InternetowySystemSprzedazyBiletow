@@ -18,6 +18,7 @@ namespace QuickTickets.Api.Data
         public DbSet<LocationsEntity> Locations { get; set; } 
         public DbSet<OrganiserApplicationEntity> OrganisersApplications { get; set; }
         public DbSet<TransactionEntity> Transactions { get; set; }
+        public DbSet<TicketEntity> Tickets { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

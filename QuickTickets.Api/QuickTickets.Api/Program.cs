@@ -21,11 +21,13 @@ namespace QuickTickets.Api
             builder.Services.AddCors(options => {
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                   policy => {
-                      policy.WithOrigins("http://localhost:7235", "http://localhost:3000")
+                      policy.WithOrigins("http://localhost:7235", "http://localhost:3000", "http://192.168.0.109:3000", "https://195.150.9.37", "https://91.216.191.181", "https://91.216.191.182", "https://91.216.191.183", "https://91.216.191.184", "https://91.216.191.185", "https://5.252.202.254", "https://5.252.202.255")
                 .AllowAnyHeader()
                 .WithMethods("GET", "POST")
                 .AllowAnyMethod()
-                .AllowCredentials();
+                .AllowCredentials()
+                .SetIsOriginAllowed(origin => true)
+                .SetIsOriginAllowedToAllowWildcardSubdomains();
                   });
             });
 
