@@ -2,19 +2,19 @@
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     background-color: white;
     height: clamp(1rem,2%,100%);
     font-size: clamp(1rem,2%,100%);
     padding-top: 1rem;
     padding-bottom: 1rem;
-    gap: 7rem;
+    /* gap: 7rem; */
   }
   #searcher{
     background: #E7E7E7;
     border-radius: 10px;
-    width: clamp(10rem,30%,70%);
-    height: clamp(5rem,15%,100%);
+    width: clamp(10rem,30vw,70vw);
+    height: clamp(5rem,15vw,100vw);
     border: none;
     
   }
@@ -27,6 +27,7 @@
   }
   .main-logo{
     cursor: pointer;
+    width: clamp(1rem,30rem,30vw);
   }
   .login-nav-login{
 
