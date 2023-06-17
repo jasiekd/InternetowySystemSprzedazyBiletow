@@ -16,9 +16,10 @@ import standUp from '../images/category-icons/stand-up-comedy.png'
 import children from '../images/category-icons/children.png'
 import classic from '../images/category-icons/classic.png'
 import MostPopularPlaces from '../components/MostPopularPlaces';
+import { useNavigate } from 'react-router-dom';
 function TrendyContent({getHotEvents}){
     const[trendyEvent,setTrendyEvent] = useState(null);
-
+    const navigate = useNavigate()
     useEffect(()=>{
         getHotEvents().then((result)=>{
             setTrendyEvent(result);
@@ -42,7 +43,7 @@ function TrendyContent({getHotEvents}){
                                         <div className="trendy-price">
                                             od {val.ticketPrice} zł
                                         </div>
-                                            <button className="main-btn">Kup teraz</button>    
+                                            <button className="main-btn" onClick={()=>navigate("/event",{state:{eventId:val.eventID}})}>Kup teraz</button>    
                                         </div>
                                 </div>
                                         
@@ -57,7 +58,7 @@ function TrendyContent({getHotEvents}){
 }
 
 export default function Home() {
-
+    const navigate = useNavigate();
     return (
 
         <div className="App">
@@ -94,7 +95,9 @@ export default function Home() {
                 <h3>Kategorie wydarzeń:</h3>
             </div>
             <div className='events-categories-leftbtn'>
-                <button className='btn events-categories-element'>
+                <button className='btn events-categories-element'
+                    onClick={()=>navigate("/search-list",{state:{type:1}})}
+                >
                     <img className='img' src={concert} alt="" style={{height:"10rem"}}/>
                     <p>Koncerty</p>
                 </button>
@@ -102,7 +105,9 @@ export default function Home() {
             <div className='events-categories-column'>
            
                 <div className='events-categories-row'>
-                    <button className='btn events-categories-element'>
+                    <button className='btn events-categories-element'
+                        onClick={()=>navigate("/search-list",{state:{type:2}})}
+                    >
                         <img className='img' src={theater} alt=""/>
                         <p>Teatr</p>
                     </button>
@@ -110,17 +115,23 @@ export default function Home() {
                         <img className='img' src={children} alt=""/>
                         <p>Dla dzieci</p>
                     </button>
-                    <button className='btn events-categories-element'>
+                    <button className='btn events-categories-element'
+                        onClick={()=>navigate("/search-list",{state:{type:7}})}
+                    >
                         <img className='img' src={standUp} alt=""/>
                         <p>Stand-Up</p>
                     </button>
-                    <button className='btn events-categories-element'>
+                    <button className='btn events-categories-element'
+                        onClick={()=>navigate("/search-list",{state:{type:4}})}
+                    >
                         <img className='img' src={cinema} alt=""/>
                         <p>Kino</p>
                     </button>
                 </div>
                 <div className='events-categories-row'>
-                    <button className='btn events-categories-element'>
+                    <button className='btn events-categories-element'
+                        onClick={()=>navigate("/search-list",{state:{type:3}})}    
+                    >
                         <img className='img' src={sports} alt=""/>
                         <p>Sport</p>
                     </button>
@@ -128,11 +139,15 @@ export default function Home() {
                         <img className='img' src={classic} alt=""/>
                         <p>Klasyka</p>
                     </button>
-                    <button className='btn events-categories-element' >
+                    <button className='btn events-categories-element' 
+                        onClick={()=>navigate("/search-list",{state:{type:6}})}
+                    >
                         <img className='img' src={fair} alt=""/>
                         <p>Targi</p>
                     </button>
-                    <button className='btn events-categories-element'>
+                    <button className='btn events-categories-element'
+                        onClick={()=>navigate("/search-list",{state:{type:5}})}
+                    >
                        
                         <img className='img' src={festival} alt=""/>
                         <p>Festivale</p>

@@ -36,12 +36,12 @@ function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocation
     };
     const [categoryList,setCategoryList] = React.useState([]);
     const [locationsList,setLocationsList] = React.useState([]);
-    const [selectedCategory,setSelectedCategory] = React.useState("Kategoria");
-    const [selecredLocation,setSelectedLocation] = React.useState("Miejsce");
-    const [selectedDate,setSelectedDate] = React.useState("Data");
+    //const [selectedCategory,setSelectedCategory] = React.useState("Kategoria");
+    //const [selecredLocation,setSelectedLocation] = React.useState("Miejsce");
+    //const [selectedDate,setSelectedDate] = React.useState("Data");
     const [dateFrom,setDateFrom] = React.useState(null); 
     const [dateTo,setDateTo] = React.useState(null); 
-    const [selectedPrice,setSelectedPrice] = React.useState("Cena");
+    //const [selectedPrice,setSelectedPrice] = React.useState("Cena");
     const [priceFrom,setPriceFrom] = React.useState("");
     const [priceTo,setPriceTo] = React.useState("");
     React.useEffect(()=>{
@@ -57,18 +57,19 @@ function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocation
     const selectLocation = (loc) =>{
         if(loc === null)
         {
-            setSelectedLocation("wszystkie");
             setFilters(prev =>({
                 ...prev,
-                place: null
+                place: null,
+                selectLocation: "wszystkie"
             }))
             
             handleOpenPlace();
         }else{
-            setSelectedLocation(loc.name);
+            
             setFilters(prev =>({
                 ...prev,
-                place: loc.locationID
+                place: loc.locationID,
+                selectedLocation: loc.name
             }))
             handleOpenPlace();
         }
@@ -76,49 +77,43 @@ function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocation
     }
     const selectCategory = (type) =>{
         if(type === null){
-            setSelectedCategory("wszystki");
             setFilters(prev =>({
                 ...prev,
-                type: null
+                type: null,
+                selectedCategory: "wszystki"
             }))
             handleOpenCategory();
         }else{
-            setSelectedCategory(type.description);
             setFilters(prev =>({
                 ...prev,
-                type: type.typeID
+                type: type.typeID,
+                selectedCategory: type.description
             }))
             handleOpenCategory();
         }
        
     }
     const selectDate = () =>{
-            if(dateFrom === null)
-            {
-                setSelectedDate("do "+dateTo);
-            }
-            else if(dateTo === null)
-           {
-            setSelectedDate("od "+dateFrom);
-           }
+       
            setFilters(prev =>({
             ...prev,
             dateFrom: dateFrom,
-            dateTo: dateTo
-            }))
+            dateTo: dateTo,
+            selectedDate: "od "+dateFrom+" do "+dateTo
+        }))
            
            
         handleOpenDate();
     }
     const deleteDate = () =>{
-        setSelectedDate("Data");
         handleOpenDate();
         setDateTo(null);
         setDateFrom(null);
         setFilters(prev =>({
             ...prev,
             dateFrom: null,
-            dateTo: null
+            dateTo: null,
+            selectedDate: "Data"
         }))
         
         
@@ -126,43 +121,32 @@ function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocation
 
     const selectPrice = () =>{
 
-        if(priceFrom === null)
-        {
-            setSelectedPrice("do "+priceTo);
-        }
-        else if(priceTo === null)
-        {
-            setSelectedPrice("od "+priceFrom);
-        }
-            setFilters(prev =>({
-                ...prev,
-                priceFrom: priceFrom,
-                priceTo: priceTo
-            }))
-    
+        setFilters(prev =>({
+            ...prev,
+            priceFrom: priceFrom,
+            priceTo: priceTo,
+            selectedPrice: "od "+priceFrom + " do "+priceTo
+        }))
             
         handleOpenPrice();
     }
     const deletePrice = () =>{
-        setSelectedPrice("Cena");
         handleOpenPrice();
         setPriceFrom(null);
         setPriceTo(null);
         setFilters(prev =>({
             ...prev,
             priceFrom: null,
-            priceTo: null
+            priceTo: null,
+            selectedPrice:"Cena"
         }))
     }
-    React.useEffect(()=>{
-        console.log(filters)
-        setSelectedLocation(filters.place)
-    },[filters])
+
 
     return(
             <div className='filteringOptions'>
             <div className='filteringElement'>
-                <button className='filteringButton' onClick={handleOpenDate}><img className='leftIcon' src={calendar}/><div className='filteringTitle'>{selectedDate}</div><img className='rightIcon' src={arrow}/></button>
+                <button className='filteringButton' onClick={handleOpenDate}><img className='leftIcon' src={calendar}/><div className='filteringTitle'>{filters.selectedDate}</div><img className='rightIcon' src={arrow}/></button>
                     
                     {openDate ? (
                         <div className="menu">
@@ -180,7 +164,7 @@ function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocation
                 ) : null}
             </div>  
             <div className='filteringElement'>
-                <button className='filteringButton' onClick={handleOpenPlace}><img className='leftIcon' src={place}/><div className='filteringTitle'>{selecredLocation}</div><img className='rightIcon' src={arrow}/></button>
+                <button className='filteringButton' onClick={handleOpenPlace}><img className='leftIcon' src={place}/><div className='filteringTitle'>{filters.selectedLocation}</div><img className='rightIcon' src={arrow}/></button>
                 
                     {openPlace ? (
                         <div className="menu">
@@ -196,7 +180,7 @@ function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocation
                 ) : null}
             </div>  
             <div className='filteringElement'>
-                <button className='filteringButton' onClick={handleOpenCategory}><img className='leftIcon' src={category}/><div className='filteringTitle'>{selectedCategory}</div><img className='rightIcon' src={arrow}/></button>
+                <button className='filteringButton' onClick={handleOpenCategory}><img className='leftIcon' src={category}/><div className='filteringTitle'>{filters.selectedCategory}</div><img className='rightIcon' src={arrow}/></button>
                 
                     {openCategory ? (
                         <div className="menu">
@@ -212,7 +196,7 @@ function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocation
                 ) : null}
             </div>  
             <div className='filteringElement'>
-                <button className='filteringButton' onClick={handleOpenPrice}><img className='leftIcon' src={price}/><div className='filteringTitle'>{selectedPrice}</div><img className='rightIcon' src={arrow}/></button>
+                <button className='filteringButton' onClick={handleOpenPrice}><img className='leftIcon' src={price}/><div className='filteringTitle'>{filters.selectedPrice}</div><img className='rightIcon' src={arrow}/></button>
                 
                     {openPrice ? (
                         <div className="menu">
@@ -290,8 +274,13 @@ export default function SearchList() {
         priceFrom: null,
         priceTo: null,
         place: null,
-        type: null
+        type: null,
+        selectedCategory:"Kategoria",
+        selecredLocation:"Miejsce",
+        selectedDate:"Data",
+        selectedPrice:"Cena",
       });
+      
 
  
     const location = useLocation();
@@ -303,24 +292,23 @@ export default function SearchList() {
                  navigate("/home")
             }
             else{
-                setFilters(prev =>({
-                    ...prev,
-                    phrase: location.state.phrase
-                }))
-                if(location.state.location !== null)
-                {
+                if(location.state.location)
                     setFilters(prev =>({
                         ...prev,
-                        place: location.state.location
+                        phrase: location.state.phrase,
+                        place: location.state.location.locationID,
+                        selectedLocation: location.state.location.name,
+                        type: location.state.type
                     }))
-                }
-                
-            }   
-             
-
-        
-       
-    },[])
+                else
+                    setFilters(prev =>({
+                        ...prev,
+                        phrase: location.state.phrase,
+                        type: location.state.type
+                    }))
+      
+            }     
+    },[location])
 
    
     return (

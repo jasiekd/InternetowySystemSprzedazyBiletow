@@ -8,6 +8,8 @@ import Swal from 'sweetalert2';
 import EventComponent from '../components/EventComponent.js';
 import LocationComponent from '../components/LocationComponent.js';
 import moment from 'moment';
+import deleteIcon from "../images/delete.png"
+import { checkIsLogged } from '../controllers/Login';
 export default function Event({getEvent}) {
     const location = useLocation();
     const navigate = useNavigate();
@@ -93,8 +95,15 @@ export default function Event({getEvent}) {
                                     ready?
                                         comments.map((val,key)=>{
                                             return(
-                                                <div className='comment'>
-                                                    <div className='comment-author'>Jan Nowak</div>
+                                                <div className='comment'> 
+                                                    <div className='comment-author'>Jan Nowak 
+                                                        {
+                                                            checkIsLogged() === "1"?
+                                                            <img src={deleteIcon} className='deleteComment'/>
+                                                            :
+                                                            null
+                                                        }
+                                                    </div>
                                                     <div className='comment-tetx'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non sem ac mauris congue vehicula. Cras eget lacus libero. Donec non tincidunt ipsum, a scelerisque nunc. Quisque interdum arcu in ipsum gravida, sit amet consectetur enim egestas. Aenean quis tellus in nisl aliquet pellentesque quis sed tellus. </div>
                                                 </div>
                                             )

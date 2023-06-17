@@ -46,6 +46,7 @@ export function LocationForm({addLocations}){
                     localTitle={title}
                     localImg={imgURL}
                     disableSearch={true}
+                    displayPreview={true}
                 />                  
             </div>
         </div>
