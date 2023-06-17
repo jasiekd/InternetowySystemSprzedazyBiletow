@@ -1,7 +1,8 @@
 import axios from "axios";
 import { HostName } from "./HostName";
-
+axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`;
 export default class LocationsService{
+    
     async addLocation(locationID,name,description,imgUrl){
         try{
             const response = await axios.post(HostName+'/api/Locations/addLocation',

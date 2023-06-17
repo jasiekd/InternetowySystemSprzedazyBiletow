@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import EventComponent from './EventComponent';
 import OrganisatorEventsTab from './OrganisatorEventsTab';
 import EventsController from '../controllers/Events';
+import { checkIsLogged } from '../controllers/Login';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -186,7 +187,10 @@ export default function ProfileTabs({getUser,updateAccount}) {
         <Tab label="Informacje o profilu" {...a11yProps(0)} />
         <Tab label="Aktywne bilety" {...a11yProps(1)} />
         <Tab label="Przedawnione bilety" {...a11yProps(2)} />
-        <Tab label="Organizowane wydarzenia" {...a11yProps(3)} />
+        {
+          checkIsLogged()==="3"?<Tab label="Organizowane wydarzenia" {...a11yProps(3)} />:null
+        }
+        
       </Tabs>
       <TabPanel value={value} index={0}>
         <div className='edit-list'>
@@ -259,13 +263,19 @@ export default function ProfileTabs({getUser,updateAccount}) {
             <Pagination count={10} size='large'/>
         </div>
       </TabPanel>
-      <TabPanel value={value} index={3}>
-      <div className='purchased-list'>
-        <EventsController>
-          <OrganisatorEventsTab/>
-        </EventsController>
-      </div>                  
-      </TabPanel>
+      {
+        checkIsLogged()==="3"?
+        <TabPanel value={value} index={3}>
+          <div className='purchased-list'>
+            <EventsController>
+              <OrganisatorEventsTab/>
+            </EventsController>
+          </div>                  
+        </TabPanel>
+        :
+        null
+      }
+      
     </Box>
   );
 }

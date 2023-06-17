@@ -12,7 +12,7 @@ export default function RegisterController({children}){
         {
             Swal.fire(
                 'Błąd rejestracji',
-                'Nie poprawnie wypełniony formularz',
+                'Niepoprawnie wypełniony formularz',
                 'error'
             )
             return;

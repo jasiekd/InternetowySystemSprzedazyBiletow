@@ -1,6 +1,6 @@
 import axios from "axios";
 import { HostName } from "./HostName";
-
+axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`;
 export default class TicketService{
     async getMyTickets(choice, pageIndex,pageSize){
         try{

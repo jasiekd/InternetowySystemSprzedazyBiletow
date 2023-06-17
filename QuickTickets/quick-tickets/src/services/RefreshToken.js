@@ -1,6 +1,6 @@
 import axios from "axios";
 import { HostName } from "./HostName";
-
+axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`;
 async function refreshAccessToken() {
     try {
       const response = await axios.post(HostName+"/api/Token/refresh", {

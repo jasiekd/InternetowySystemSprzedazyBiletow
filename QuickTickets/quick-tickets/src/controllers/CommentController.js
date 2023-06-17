@@ -49,7 +49,7 @@ export default function CommentController({children}){
     const deleteComment = async(eventID) => {
         const response = await gateway.deleteComment(eventID);
 
-        if(response.status === 200)
+        if(response.status === 204)
         {
             Swal.fire({
                 position: 'center',

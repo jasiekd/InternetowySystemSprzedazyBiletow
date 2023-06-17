@@ -1,7 +1,8 @@
 import axios from "axios";
 import {HostName} from "./HostName.js";
-
+axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`;
 export default class EventsService{
+    
     async addEvent(data){
         try{
             const response = await axios.post(HostName+'/api/Events/addEvent',{
@@ -33,6 +34,7 @@ export default class EventsService{
         }
     }
     async getHotLocations(){
+       
         try{
             const response = await axios.get(HostName+'/api/Events/getHotLocations',{});
             return response; 

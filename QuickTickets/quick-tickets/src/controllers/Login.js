@@ -124,7 +124,7 @@ export default function LoginController({children}){
             Swal.fire({
                 icon: 'error',
                 title: 'Błąd zapisu zmian',
-                text: "Niewszystkie polaz zawierają poprawną wartość lub są puste",
+                text: "Nie wszystkie pola zawierają poprawną wartość lub są puste",
                 showConfirmButton: true,
             })
         }

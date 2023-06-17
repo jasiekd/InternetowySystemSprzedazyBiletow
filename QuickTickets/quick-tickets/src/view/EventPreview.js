@@ -46,6 +46,8 @@ export default function EventPreview({}) {
                             eventText={eventInfos.description}
                             eventData={eventInfos}
                             disableBuy={true}
+                            occupiedSeats={eventInfos.occupiedSeats}
+                            seats={eventInfos.seats}
                         />
                         <LocationComponent 
                             localImg={eventInfos.location.imgURL} 
