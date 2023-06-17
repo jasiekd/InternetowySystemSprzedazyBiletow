@@ -1,0 +1,7 @@
+.profile-button-event-section{
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    width: 40%;
+    gap: 2rem
+}

@@ -155,7 +155,7 @@ export default class EventsService{
 
     async getOrganisatorEvents(pageIndex,pageSize,status){
         try{
-            const response = await axios.post(HostName+"/api/Events/GetOrganisatorEvents?statusChoice=Cancelled",{
+            const response = await axios.post(HostName+"/api/Events/GetOrganisatorEvents?statusChoice="+status,{
                 pageIndex: pageIndex,
                 pageSize: pageSize
             })
@@ -164,4 +164,5 @@ export default class EventsService{
             return error.response;
         }
     }
+
 }

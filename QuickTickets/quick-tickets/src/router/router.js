@@ -10,7 +10,6 @@ import Event from "../view/Event";
 import BuyTicket from "../view/BuyTicket";
 import UserProfile from "../view/UserProfile";
 import AddEvent from "../view/AddEvent";
-import MyEvents from "../view/MyEvents";
 import EventsApproval from "../view/EventsApproval";
 import OrganisersApproval from "../view/OrganisersApproval";
 import AddLocalization from "../view/AddLocalization";
@@ -19,6 +18,7 @@ import AddAdmin from "../view/AddAdmin";
 import EventsController from "../controllers/Events";
 import EventPreview from "../view/EventPreview";
 import OfflinePayment from "../view/OfflinePayment";
+import EditEvent from "../view/EditEvent";
 
 const router = createBrowserRouter([
     {
@@ -58,10 +58,6 @@ const router = createBrowserRouter([
         element: <AddEvent/>
     },
     {
-        path: "/my-events",
-        element: <EventsController><MyEvents/></EventsController> 
-    },
-    {
         path: "/events-approval",
         element: <EventsController><EventsApproval/></EventsController>
     },
@@ -88,6 +84,10 @@ const router = createBrowserRouter([
     {
         path: "/offline-payment",
         element: <OfflinePayment/>
+    },
+    {
+        path:"/edit-event",
+        element: <EventsController><EditEvent/></EventsController>
     }
 ]);
 

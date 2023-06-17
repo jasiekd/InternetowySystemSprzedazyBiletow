@@ -21,7 +21,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { useNavigate } from "react-router-dom";
 import { checkIsLogged } from "../controllers/Login";
-function EventForm({onAddEvent,getTypesOfEvents,getEventLocations}){
+export function EventForm({editData,editMode,onAddEvent,getTypesOfEvents,getEventLocations}){
     const [title,setTitle] = useState("");
     const [seats,setSeats] = useState(0);
     const [ticketPrice,setTicketPrice] = useState(0);
@@ -84,6 +84,25 @@ function EventForm({onAddEvent,getTypesOfEvents,getEventLocations}){
         setTypeID(id);
         handleOpenCategory();
     }
+
+    useEffect(()=>{
+        if(editMode)
+        {
+            setTitle(editData.title);
+            setSeats(editData.seats);
+            setTicketPrice(editData.ticketPrice);
+            setDescription(editData.description);
+            setDate("");
+            setAdultsOnly(editData.adultsOnly);
+            setImgURL(editData.imgURL);
+            setLocationID(editData.location.locationID)
+            setSelectedLocation(editData.location.name);
+            setSelectedCategory(editData.type.description);
+            setTypeID(editData.type.typeID)
+            setDate(dayjs(editData.date))
+        }
+    },[])
+
     return(
         <div className="addEventContent">
         <div className="eventForm">
@@ -154,8 +173,13 @@ function EventForm({onAddEvent,getTypesOfEvents,getEventLocations}){
                     <p>Dodaj zdjęcie</p>
                 </label>
                 <input id="imageInput" style={{display:'none'}} type="file" className="main-btn"></input> */}
-
-                <button className="main-btn"  onClick={()=>addNewEvent()} >Dodaj</button>
+                {
+                    editMode?
+                    <button className="main-btn"  >Zapisz</button>
+                    :
+                    <button className="main-btn"  onClick={()=>addNewEvent()} >Dodaj</button>
+                }
+                
 
             </div>
             
@@ -172,6 +196,8 @@ function EventForm({onAddEvent,getTypesOfEvents,getEventLocations}){
                                 eventPlace={selecredLocation}
                                 disableBuy={true}
                                 displayPreview={true}
+                                occupiedSeats={0}
+                                seats={seats}
                             />
                             
                         </div>
@@ -188,7 +214,7 @@ function AddEvent(){
             setReady(true);
         else
             navigate("/home");
-    })
+    },[])
     return(
         <div className="App">
             <Header/>

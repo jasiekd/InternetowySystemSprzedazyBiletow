@@ -1,9 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import people from '../images/people.png'
-import dayjs from 'dayjs';
-import { useEffect } from "react";
 import moment from "moment/moment";
-export default function EventComponent({eventImg,eventTitle,eventDate,eventPlace,eventText, disableBuy,eventData,displayPreview}){
+
+export default function EventComponent({eventImg,eventTitle,eventDate,eventPlace,eventText, disableBuy,eventData,displayPreview,occupiedSeats,seats}){
     const navigate = useNavigate();
     // useEffect(()=>{
     //     // let date=eventDate.toISOString();
@@ -80,7 +79,11 @@ export default function EventComponent({eventImg,eventTitle,eventDate,eventPlace
                             }
                             </div>
                         }
-                        <button className='main-btn' onClick={()=>navigate("/buy-ticket",{state:{event:eventData}})} disabled={disableBuy}>Kup teraz</button>
+                        <div style={{display:"flex",gap:"2rem"}}>
+                            <button className='main-btn' onClick={()=>navigate("/buy-ticket",{state:{event:eventData}})} disabled={disableBuy}>Kup teraz</button>
+                            <h2> Pozosta bilety: {seats-occupiedSeats}</h2>
+                        </div>
+                        
                     </div>
                 </div>     
             </div>          
