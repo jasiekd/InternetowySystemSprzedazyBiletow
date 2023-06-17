@@ -51,6 +51,7 @@ test('test adding new event',async()=>{
         fireEvent.click(screen.getByTestId('buttonn2'));
     })
     await waitFor(() => {
+
         fireEvent.click(screen.getByText('Kielce'));
         fireEvent.click(screen.getByText('Koncert'));
 
@@ -59,7 +60,7 @@ test('test adding new event',async()=>{
           fireEvent.change(screen.getByTestId('test-event-seats'),{target:{value:10}})
           fireEvent.change(screen.getByTestId('test-event-price'),{target:{value:100}})
           fireEvent.change(screen.getByTestId('test-event-description'),{target:{value:"TestOpis"}})
-          fireEvent.change(screen.getByTestId('test-event-date'),{target:{value:"2030-06-06"}})
+          fireEvent.change(screen.getByTestId('test-event-date'),{target:{value:"2022-04-17T15:30"}})
           fireEvent.change(screen.getByTestId('test-event-img'),{target:{value:"TestLink"}})
   
           fireEvent.click(screen.getByTestId('test-event-adultsOnly'));

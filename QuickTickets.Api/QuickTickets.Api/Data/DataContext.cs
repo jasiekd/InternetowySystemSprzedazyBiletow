@@ -18,6 +18,9 @@ namespace QuickTickets.Api.Data
         public DbSet<LocationsEntity> Locations { get; set; } 
         public DbSet<OrganiserApplicationEntity> OrganisersApplications { get; set; }
         public DbSet<TransactionEntity> Transactions { get; set; }
+        public DbSet<TicketEntity> Tickets { get; set; }
+        public DbSet<CommentEntity> Comments { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,6 +35,15 @@ namespace QuickTickets.Api.Data
                 .HasOne(f => f.Location)
                 .WithMany()
                 .HasForeignKey(f => f.LocationID);
+
+            modelBuilder.Entity<TransactionEntity>()
+                .HasOne(f => f.User)
+                .WithMany()
+                .HasForeignKey(f => f.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+
+
 
             SHA256 sha256 = SHA256Managed.Create();
             byte[] bytes = Encoding.UTF8.GetBytes("admin");

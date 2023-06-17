@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using QuickTickets.Api.Data;
+using QuickTickets.Api.Dto;
 using QuickTickets.Api.Entities;
 using QuickTickets.Api.Services;
 using static System.Net.Mime.MediaTypeNames;
@@ -24,7 +25,7 @@ namespace QuickTickets.Api.Controllers
     {
         private readonly DataContext _context;
         private readonly TransactionService _transactionService;
-        
+
         private const string clientId = "753756";
         private const string username = "bilety188@gmail.com";
         private const string password = "Biletybilety123$";
@@ -46,21 +47,28 @@ namespace QuickTickets.Api.Controllers
             }
         }
 
+        [HttpPost("Notify")]
+        public async Task<IActionResult> Notify()
+        {
+            var formData = HttpContext.Request.Form;
+            var gb = formData["id"];
+            var asd = formData["operation_number"];
+            Console.WriteLine(gb);
+            return Ok("OK");
+        }
 
         [HttpPost("CreateTransaction")]
-        public async Task<IActionResult> CreateTransaction(double cost, string desc)
+        public async Task<IActionResult> CreateTransaction([FromBody]TransactionRequestDto transactionRequestDto)
         {
-            //Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            Guid userId = Guid.Parse("BB47EEDE-6953-43DF-A26F-CDAC99BE8E87");
+            Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            //Guid userId = Guid.Parse("BB47EEDE-6953-43DF-A26F-CDAC99BE8E87");
 
             TransactionEntity transaction = new TransactionEntity
             {
-                Id = Guid.NewGuid(),
-                UserId = userId
+                TransactionID = Guid.NewGuid(),
+                UserId = userId,
+                Price = transactionRequestDto.Cost,
             };
-
-            _context.Transactions.Add(transaction);
-            await _context.SaveChangesAsync();
 
             var user = await _context.Accounts.FindAsync(userId);
 
@@ -68,15 +76,15 @@ namespace QuickTickets.Api.Controllers
             {
                 var requestData = new
                 {
-                    amount = cost,
+                    amount = transactionRequestDto.Cost,
                     currency = "PLN",
-                    description = desc,
-                    control = transaction.Id.ToString(),
+                    description = transactionRequestDto.Desc,
+                    control = transaction.TransactionID.ToString(),
                     language = "pl",
                     ignore_last_payment_channel = 1,
                     redirection_type = 0,
-                    url = $"http://localhost:3000/buy-ticket/{transaction.Id}/",
-                    urlc = "http://localhost:3000/",
+                    url = $"http://localhost:3000/buy-ticket/{transaction.TransactionID}/",
+                    urlc = "https://r15lg05v-7235.euw.devtunnels.ms/api/Transaction/Notify",
                     payer = new
                     {
                         first_name = user.Name,
@@ -111,15 +119,29 @@ namespace QuickTickets.Api.Controllers
                     var DotpayPin = "hgX5Sz100itQogpXX4V31iXzvDy1fRYA";
 
 
-                    var chkchain = DotpayPin + pid; 
-                    
+                    var chkchain = DotpayPin + pid;
+
                     var chk = Hash(chkchain);
 
 
-                   var payment_link = "https://ssl.dotpay.pl/test_payment/?chk=" + chk + "&pid=" + pid;
+                    var payment_link = "https://ssl.dotpay.pl/test_payment/?chk=" + chk + "&pid=" + pid;
+
+                    transaction.DotPayID = pid;
+
+                    var ticket = new TicketEntity
+                    {
+                        TicketID = 0,
+                        EventID = transactionRequestDto.EventID,
+                        Amount = transactionRequestDto.NumberOfTickets,
+                        TransactionID = transaction.TransactionID
+                    };
 
 
 
+                    _context.Transactions.Add(transaction);
+                    _context.Tickets.Add(ticket);
+                    await _context.SaveChangesAsync();
+                    
                     return Ok(payment_link);
 
                 }
@@ -142,10 +164,10 @@ namespace QuickTickets.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TransactionEntity>>> GetTransactions()
         {
-          if (_context.Transactions == null)
-          {
-              return NotFound();
-          }
+            if (_context.Transactions == null)
+            {
+                return NotFound();
+            }
             return await _context.Transactions.ToListAsync();
         }
 
@@ -153,10 +175,10 @@ namespace QuickTickets.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<TransactionEntity>> GetTransactionEntity(Guid id)
         {
-          if (_context.Transactions == null)
-          {
-              return NotFound();
-          }
+            if (_context.Transactions == null)
+            {
+                return NotFound();
+            }
             var transactionEntity = await _context.Transactions.FindAsync(id);
 
             if (transactionEntity == null)
@@ -172,7 +194,7 @@ namespace QuickTickets.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTransactionEntity(Guid id, TransactionEntity transactionEntity)
         {
-            if (id != transactionEntity.Id)
+            if (id != transactionEntity.TransactionID)
             {
                 return BadRequest();
             }
@@ -203,14 +225,14 @@ namespace QuickTickets.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<TransactionEntity>> PostTransactionEntity(TransactionEntity transactionEntity)
         {
-          if (_context.Transactions == null)
-          {
-              return Problem("Entity set 'DataContext.Transactions'  is null.");
-          }
+            if (_context.Transactions == null)
+            {
+                return Problem("Entity set 'DataContext.Transactions'  is null.");
+            }
             _context.Transactions.Add(transactionEntity);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTransactionEntity", new { id = transactionEntity.Id }, transactionEntity);
+            return CreatedAtAction("GetTransactionEntity", new { id = transactionEntity.TransactionID }, transactionEntity);
         }
 
         // DELETE: api/Transaction/5
@@ -235,7 +257,7 @@ namespace QuickTickets.Api.Controllers
 
         private bool TransactionEntityExists(Guid id)
         {
-            return (_context.Transactions?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Transactions?.Any(e => e.TransactionID == id)).GetValueOrDefault();
         }
     }
 }

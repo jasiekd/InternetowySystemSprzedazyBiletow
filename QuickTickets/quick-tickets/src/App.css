@@ -9,7 +9,7 @@ body{
 .content{
   display: flex;
   flex-direction: column;
-  width: 100rem;
+  width: clamp(10rem,100rem,100%);
   margin: 0 auto;
   min-height: 77vh;
   gap: 3rem;
@@ -30,6 +30,7 @@ body{
   width: calc(100% - 64px);
 
 }
+
 .content-data-column{
   align-items: center;
   justify-content: center;

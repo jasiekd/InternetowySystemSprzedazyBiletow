@@ -4,6 +4,9 @@
     {
         Pending,
         Cancelled,
-        Confirmed
+        Confirmed,
+        Paid,
+        Unpaid,
+        AdminOffPaid
     }
 }

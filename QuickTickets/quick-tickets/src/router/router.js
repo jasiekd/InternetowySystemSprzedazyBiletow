@@ -18,6 +18,7 @@ import AddCategory from "../view/AddCategory"
 import AddAdmin from "../view/AddAdmin";
 import EventsController from "../controllers/Events";
 import EventPreview from "../view/EventPreview";
+import OfflinePayment from "../view/OfflinePayment";
 
 const router = createBrowserRouter([
     {
@@ -83,6 +84,10 @@ const router = createBrowserRouter([
     {
         path: "/event-preview",
         element: <EventPreview/>
+    },
+    {
+        path: "/offline-payment",
+        element: <OfflinePayment/>
     }
 ]);
 

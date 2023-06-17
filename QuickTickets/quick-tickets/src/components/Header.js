@@ -167,6 +167,9 @@ export default function Header({isLogged}) {
                                     <MenuItem onClick={()=>navigate("/events-approval")}>
                                         Zatwierdzanie wydarzeń
                                     </MenuItem>
+                                    <MenuItem onClick={()=>navigate("/offline-payment")}>
+                                        Opłacanie biletów offline
+                                    </MenuItem>
                                 </>
                                 :
                                 null

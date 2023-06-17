@@ -19,7 +19,7 @@ namespace QuickTickets.Api.Services
 
         public string GenerateBearerToken(string id, string role)
         {
-            var expiry = DateTimeOffset.Now.AddMinutes(15); //ważny przez 15 minut
+            var expiry = DateTimeOffset.Now.AddMinutes(60); //ważny przez 15 minut
             var userClaims = GetClaimsForUser(id,role);
             return CreateToken(expiry, userClaims);
         }

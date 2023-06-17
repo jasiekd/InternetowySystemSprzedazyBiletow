@@ -1,11 +1,6 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\QuickTickets.Api",
-    "\\QuickTickets.Api\\QuickTickets.Api",
-    "\\QuickTickets.Api\\QuickTickets.Api\\Controllers",
-    "\\QuickTickets.Api\\QuickTickets.Api\\Services"
+    ""
   ],
-  "SelectedNode": "\\QuickTickets.Api\\QuickTickets.Api\\Services\\EventsService.cs",
   "PreviewInSolutionExplorer": false
 }

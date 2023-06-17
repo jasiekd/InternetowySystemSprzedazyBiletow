@@ -67,7 +67,7 @@ namespace QuickTickets.Api.Services
         {
             return (_context.Accounts?.Any(e => e.GoogleSubject == subject)).GetValueOrDefault();
         }
-        public TokenInfoDto LoginUserWithGoogle(GoogleLoginRequest loginData)
+        public TokenInfoDto LoginUserWithGoogle(GoogleLoginRequestDto loginData)
         {
             if (_context.Accounts == null)
             {
@@ -128,5 +128,20 @@ namespace QuickTickets.Api.Services
                 return null;
             }
         }
+
+        public UserInfoDto GetUserInfoDto(AccountEntity accountEntity)
+        {
+            return new UserInfoDto
+            {
+                Name = accountEntity.Name,
+                Surname = accountEntity.Surname,
+                Email = accountEntity.Email,
+                DateOfBirth = accountEntity.DateOfBirth,
+                Login = accountEntity.Login,
+            };
+
+        }
+
+
     }
 }
