@@ -7,23 +7,21 @@ import "../styles/Event.css";
 import EventComponent from '../components/EventComponent.js';
 import LocationComponent from '../components/LocationComponent.js';
 import moment from 'moment';
-import CommentComponent from '../components/CommentComponent';
-import CommentController from '../controllers/CommentController';
-export default function Event({getEvent}) {
+import { checkIsLogged } from '../controllers/Login';
+import Alert from '@mui/material/Alert';
+export default function EventPreview({}) {
     const location = useLocation();
     const navigate = useNavigate();
    
-    
     const [ready,setReady] = React.useState(false);
     const [eventInfos,setEventInfos] = React.useState();
     React.useEffect(()=>{
-        if(location.state === null){
-            navigate("/home")
-        }else{
-            setReady(true);
-            getEvent(location.state.eventId).then(r=>{
-                setEventInfos(r);
-            })
+        if(location.state && location.state.preview)
+        {
+            setEventInfos(location.state.preview);
+        }
+        else{
+            navigate("/home");
         }
     },[])
     return (
@@ -34,6 +32,13 @@ export default function Event({getEvent}) {
             {
                 eventInfos?
                     <>
+                    <div style={{display:"flex",width:"100%",gap:"2rem"}}>
+                        <Alert variant="filled" severity="warning" sx={{width:"100%"}}>
+                            Uwaga -  tryb podglądu wydarzenia przed dodanie
+                        </Alert>
+                        <button className='main-btn' onClick={()=>navigate("/events-approval")}>Powrót do listy</button>
+                    </div>
+                        
                         <EventComponent
                             eventImg={eventInfos.imgURL}
                             eventTitle={eventInfos.title}
@@ -41,18 +46,14 @@ export default function Event({getEvent}) {
                             eventPlace={eventInfos.location.name}
                             eventText={eventInfos.description}
                             eventData={eventInfos}
+                            disableBuy={true}
                         />
                         <LocationComponent 
                             localImg={eventInfos.location.imgURL} 
                             localText={eventInfos.location.description}
                             location={eventInfos.location}
+                            disableSearch={true}
                         />
-                        <CommentController>
-                            <CommentComponent
-                                eventID={eventInfos.eventID}
-                            />
-                        </CommentController>
-                        
                     </>
                 :
                     null

@@ -7,6 +7,8 @@ import Header from '../components/Header';
 import "../styles/SearchList.css";
 import Pagination from '@mui/material/Pagination';
 import moment from 'moment';
+import "../styles/EventApprovals.css"
+import Button from '@mui/material/Button';
 export default function EventsApproval({getPendingEvents,cancleEvent,acceptEvent}){
     const navigate = useNavigate();
     
@@ -46,6 +48,9 @@ export default function EventsApproval({getPendingEvents,cancleEvent,acceptEvent
                     
                     pendingEvents.events.map((val,key)=>{
                         return(
+                            <div className='event-approval-content'>
+
+                           
                             <div className='event-on-list' key={key}>
                                 <div className='event-list-img'><img src={val.imgURL}/></div>
                                 <div className='event-list-info'>
@@ -56,17 +61,37 @@ export default function EventsApproval({getPendingEvents,cancleEvent,acceptEvent
                                     </div>
                                 </div>
                                 <div className='event-list-price'>już od {val.ticketPrice}PLN</div>
-                                <div className='approve-section'>
-                                    <button className='main-btn' onClick={()=>onAcceptEvent(val.eventID,key)}>Zatwierdź</button>
-                                    <button className='main-btn' onClick={()=>onCancleEvent(val.eventID,key)}>Odrzuć</button>
-                                </div>
-                                <div className='buy-option'>
-                                     
-                                    <button className='main-btn' onClick={()=>navigate("/event")}>Zobacz</button>
-                                </div>
-                                
-                                
 
+                            </div>
+                             <div className='approve-option'>
+                             <Button 
+                                sx={{width:"10rem"}}
+                                variant="contained" 
+                                color="success"  
+                                onClick={()=>onAcceptEvent(val.eventID,key)} 
+                                size='large'
+                            >
+                                Zatwierdź
+                            </Button>
+                            <Button 
+                                sx={{width:"10rem"}}
+                                variant="contained" 
+                                color="error"  
+                                onClick={()=>onCancleEvent(val.eventID,key)} 
+                                size='large'
+                            >
+                                Odrzuć
+                            </Button>
+                            <Button 
+                                sx={{width:"10rem"}}
+                                variant="contained" 
+                                size='large'
+                                onClick={()=>navigate("/event-preview",{state:{preview: val}})}
+                            >
+                                Zobacz
+                            </Button>
+                            
+                            </div>
                             </div>
                         )
                     })

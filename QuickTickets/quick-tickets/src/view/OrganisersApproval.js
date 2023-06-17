@@ -9,6 +9,7 @@ import "../styles/SearchList.css";
 import Pagination from '@mui/material/Pagination';
 import OrganiserApplicationController from "../controllers/OrganiserApplicationController";
 import { useEffect, useState } from "react";
+import moment from 'moment';
 
 function ShowOrganisers({getOrganiserApplication,acceptOrganiserApplication,cancelOrganiserApplication}){
     
@@ -59,17 +60,17 @@ function ShowOrganisers({getOrganiserApplication,acceptOrganiserApplication,canc
                                         <h3>Dane:</h3>
                                     </div>
                                     <div className='organisers-list-row'>
-                                        Jan Nowak
+                                        <div style={{fontWeight:"700"}}>Imie i nazwisko: </div>{val.user.name+" "+val.user.surname}
                                     </div>
                                     <div className='organisers-list-row'>
-                                        04.01.1995
+                                        <div style={{fontWeight:"700"}}>Data urodzenia: </div> {moment(val.user.dateOfBirth).format("DD-MM-YYYY")}
                                     </div>
                                     <div className='organisers-list-row'>
-                                        jan.nowak@wpp.pl
+                                    <div style={{fontWeight:"700"}}>Email: </div>{val.user.email}
                                     </div>
                                     <div className='organisers-list-row'>
                                         <div>
-                                            <h3>Opis:</h3>
+                                            <h3>Uzasadnienie:</h3>
                                             <p>{val.description}</p>
                                         </div>
                                     </div>
