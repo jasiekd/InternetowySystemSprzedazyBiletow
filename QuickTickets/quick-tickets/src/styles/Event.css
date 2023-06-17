@@ -52,10 +52,12 @@
     margin-bottom: 2rem;
     padding-left: 2rem;
     padding-right: 2rem;
+    width: 100%;
 }
 .comment{
     background-color: rgb(228, 228, 228);
     padding: 1rem;
+    
 }
 .comment-list{
     display: flex;
