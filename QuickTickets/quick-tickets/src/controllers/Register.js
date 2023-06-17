@@ -6,9 +6,17 @@ import AccountService from "../services/AccountService";
 export default function RegisterController({children}){
     const navigate = useNavigate();
 
-    const register = async (registerData,setErrorStatus,setErrorText)=>{
+    const register = async (registerData,setErrorStatus,setErrorText,errorStatus)=>{
 
-        
+        if(errorStatus)
+        {
+            Swal.fire(
+                'Błąd rejestracji',
+                'Nie poprawnie wypełniony formularz',
+                'error'
+            )
+            return;
+        }
         const gateway = new AccountService();
         const response = await gateway.register(registerData);
 

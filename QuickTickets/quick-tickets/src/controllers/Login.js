@@ -30,10 +30,11 @@ export default function LoginController({children}){
     const login = async (loginData,setErrorStatus,setErrorText)=>{
         const gateway = new AccountService();
         const response = await gateway.login(loginData);
-        if(response.status === 401)
+        debugger
+        if(response.status === 404)
         {
             console.log(response)
-
+            debugger
             Swal.fire(
                 'Błąd logowania',
                 'Niepoprawne dane logowania',
@@ -42,7 +43,7 @@ export default function LoginController({children}){
             setErrorStatus(true);
             setErrorText("Niepoprawne dane logowania");
         }
-        else if(200){
+        else if(response.status === 200){
             Swal.fire({
                 icon: 'success',
                 title: 'Zalogowane poprawnie',
@@ -68,7 +69,7 @@ export default function LoginController({children}){
             })
             navigate("/home");
         }
-        else if(response.status === 401)
+        else
         {
             Swal.fire(
                 'Błąd logowania',
@@ -92,28 +93,42 @@ export default function LoginController({children}){
            
         }
     }
-    const updateAccount = async(data) =>{
+    const updateAccount = async(data,formRegex) =>{
         const gateway = new AccountService();
-        const response = await gateway.updateAccount(data);
-
-
-        if(response.status === 200)
+        if(data.name !== ""&&data.surname !== "" && data.email !== ""&&
+            data.login!==""&&data.password!==""&& data.dateOfBirth!==""&&
+            formRegex.emailAlert === false && formRegex.loginAlert === false && formRegex.passwordAlert === false)
         {
+            const response = await gateway.updateAccount(data);
+
+
+            if(response.status === 200)
+            {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Zapisano zmiany',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                navigate("/home");
+            }
+            else 
+            {
+                Swal.fire(
+                    'Błąd zmiany danych',
+                    'error'
+                )
+            }
+        }
+        else{
             Swal.fire({
-                icon: 'success',
-                title: 'Zapisano zmiany',
-                showConfirmButton: false,
-                timer: 1500
+                icon: 'error',
+                title: 'Błąd zapisu zmian',
+                text: "Niewszystkie polaz zawierają poprawną wartość lub są puste",
+                showConfirmButton: true,
             })
-            navigate("/home");
         }
-        else 
-        {
-            Swal.fire(
-                'Błąd zmiany danych',
-                'error'
-            )
-        }
+       
     }
     return React.cloneElement(children,{
         onLogin: login,

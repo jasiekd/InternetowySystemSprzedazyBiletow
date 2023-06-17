@@ -16,3 +16,7 @@
     gap: 1rem;
     width: 75rem;
 }
+.user-profile-buttons{
+    display: flex;
+    gap: 1rem;
+}

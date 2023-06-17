@@ -37,10 +37,12 @@ export default function Event({getEvent}) {
                         <EventComponent
                             eventImg={eventInfos.imgURL}
                             eventTitle={eventInfos.title}
-                            eventDate={moment(eventInfos.date).format("DD-MM-YYYY")}
+                            eventDate={eventInfos.date.$d}
                             eventPlace={eventInfos.location.name}
                             eventText={eventInfos.description}
                             eventData={eventInfos}
+                            occupiedSeats={eventInfos.occupiedSeats}
+                            seats={eventInfos.seats}
                         />
                         <LocationComponent 
                             localImg={eventInfos.location.imgURL} 

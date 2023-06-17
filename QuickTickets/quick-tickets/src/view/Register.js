@@ -6,10 +6,6 @@ import logo from "../images/logo.png";
 import { GreenInput } from '../components/GreenInput';
 import { useNavigate } from "react-router-dom";
 import RegisterController from '../controllers/Register';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 
 function RegisterFormView({onRegister})
@@ -27,19 +23,37 @@ function RegisterFormView({onRegister})
     const [errorText, setErrorText] = React.useState("");
 
     const onChangeLoginVal = (val) => {
+        const regex = /^[a-zA-Z0-9._-]{5,}$/;
         setLoginRegVal(val);
         setErrorStatus(false);
         setErrorText("");
+        if(!regex.test(val))
+        {
+            setErrorStatus(true);
+            setErrorText("Login musi mieć minimum 5 znaków");
+        }
     }
     const onChangePasswordVal = (val) => {
+        const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
         setPasswordRegVal(val);
         setErrorStatus(false);
         setErrorText("");
+        if(!regex.test(val))
+        {
+            setErrorStatus(true);
+            setErrorText("Hasło musi zawieraż conajmniej: jedną dużą i małą litere, liczbe oraz 8 znaków ");
+        }
     }
     const onChangeEmailVal = (val) => {
+        const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
         setEmailRegVal(val);
         setErrorStatus(false);
         setErrorText("");
+        if(!regex.test(val))
+        {
+            setErrorStatus(true);
+            setErrorText("Nie poprawny format adresu email");
+        }
     }
     const onChangeNameVal = (val) => {
         setNameRegVal(val);
@@ -58,17 +72,19 @@ function RegisterFormView({onRegister})
     }
 
     const onClickRegister = () =>{
-        onRegister({loginRegVal,passwordRegVal,emailRegVal,nameRegVal,surnameRegVal,dateOfBirthRegVal},setErrorStatus,setErrorText);
+
+            onRegister({loginRegVal,passwordRegVal,emailRegVal,nameRegVal,surnameRegVal,dateOfBirthRegVal},setErrorStatus,setErrorText,errorStatus);
+        
     } 
     return(
         <div>
              <div className='accountFormInputs'>
                     <GreenInput label="Login" error={errorStatus} value={loginRegVal} helperText={errorText} onChange={(e)=>onChangeLoginVal(e.target.value)}/>
-                    <GreenInput label="Hasło" error={errorStatus} value={passwordRegVal} onChange={(e)=>onChangePasswordVal(e.target.value)} type='password'/>
+                    <GreenInput label="Hasło" error={errorStatus} value={passwordRegVal} helperText={errorText} onChange={(e)=>onChangePasswordVal(e.target.value)} type='password'/>
                     <GreenInput label="Email" error={errorStatus} value={emailRegVal} helperText={errorText} onChange={(e)=>onChangeEmailVal(e.target.value)}/>
-                    <GreenInput label="Imię"  error={errorStatus} value={nameRegVal} onChange={(e)=>onChangeNameVal(e.target.value)}/>
-                    <GreenInput label="Nazwisko" error={errorStatus} value={surnameRegVal} onChange={(e)=>onChangeSurnameVal(e.target.value)}/>
-                    <GreenInput type="date" label="Data urodzenia" error={errorStatus} value={dateOfBirthRegVal} onChange={(e)=>onChangeDateOfBirthVal(e.target.value)} fullWidth></GreenInput>
+                    <GreenInput label="Imię"  error={errorStatus} value={nameRegVal} helperText={errorText} onChange={(e)=>onChangeNameVal(e.target.value)}/>
+                    <GreenInput label="Nazwisko" error={errorStatus} value={surnameRegVal} helperText={errorText} onChange={(e)=>onChangeSurnameVal(e.target.value)}/>
+                    <GreenInput type="date" label="Data urodzenia" error={errorStatus} helperText={errorText} value={dateOfBirthRegVal} onChange={(e)=>onChangeDateOfBirthVal(e.target.value)} fullWidth></GreenInput>
 
                 </div>
                 <div className='buttonsAccountMenu'>

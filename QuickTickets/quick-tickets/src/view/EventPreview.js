@@ -33,10 +33,9 @@ export default function EventPreview({}) {
                 eventInfos?
                     <>
                     <div style={{display:"flex",width:"100%",gap:"2rem"}}>
-                        <Alert variant="filled" severity="warning" sx={{width:"100%"}}>
-                            Uwaga -  tryb podglądu wydarzenia przed dodanie
+                        <Alert variant="filled" severity="info" sx={{width:"100%"}}>
+                            <h1>Tryb podglądu wydarzenia</h1>
                         </Alert>
-                        <button className='main-btn' onClick={()=>navigate("/events-approval")}>Powrót do listy</button>
                     </div>
                         
                         <EventComponent

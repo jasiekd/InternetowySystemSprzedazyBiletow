@@ -3,6 +3,15 @@ import EventsService from '../services/Events';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
+export const EventStatus = {
+    Pending: "Pending",
+    Cancelled: "Cancelled",
+    Confirmed: "Confirmed",
+    Paid: "Paid",
+    Unpaid: "Unpaid",
+    AdminOffPaid: "AdminOffPaid"
+  };
+
 export default function EventsController({children}){
 
     const gateway = new EventsService();
@@ -163,8 +172,8 @@ export default function EventsController({children}){
         }
     }
 
-    const getOrganisatorEvents = async(pageIndex,pageSize) =>{
-        const response = await gateway.getOrganisatorEvents(pageIndex,pageSize);
+    const getOrganisatorEvents = async(pageIndex,pageSize,status) =>{
+        const response = await gateway.getOrganisatorEvents(pageIndex,pageSize,status);
 
         if(response.status === 200)
         {

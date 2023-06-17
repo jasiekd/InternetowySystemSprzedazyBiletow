@@ -5,10 +5,15 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { GreenInput } from './GreenInput';
-import PurchasedTicket from './PurchasedTicket';
+import PurchasedTicket from './ProfileTicket';
 import { Pagination } from '@mui/material';
 import '../styles/ProfileTabs.css'
 import moment from 'moment';
+import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
+import EventComponent from './EventComponent';
+import OrganisatorEventsTab from './OrganisatorEventsTab';
+import EventsController from '../controllers/Events';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -44,7 +49,8 @@ function a11yProps(index) {
 
 export default function ProfileTabs({getUser,updateAccount}) {
   const [value, setValue] = React.useState(0);
-
+  const [disableEditForm,setDisableUserForm] = React.useState(true);
+  const navigate = useNavigate()
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -82,10 +88,23 @@ export default function ProfileTabs({getUser,updateAccount}) {
         password: "",
         dateOfBirth:""
     })
+    const [formRegex,setFormRegex] = React.useState({
+      emailText: "",
+      emailAlert: false,
+      loginText: "",
+      loginAlert: false,
+      passwordText: "",
+      passwordAlert: false,
+  })
+
     React.useEffect(()=>{
         getUser().then(r=>{
-          
-            setUserData(prev=>({
+            if(r === undefined){
+              navigate("/home")
+            }
+            else
+            {
+              setUserData(prev=>({
                 ...prev,
                 name: r.name,
                 surname: r.surname,
@@ -93,8 +112,65 @@ export default function ProfileTabs({getUser,updateAccount}) {
                 login: r.login,
                 dateOfBirth: moment(r.dateOfBirth).format('YYYY-MM-DD')
             }))
+            }
+            
         })
     },[])
+
+    const handleChangePassword = (text) =>{
+      const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+
+    if (regex.test(text)) {
+      setFormRegex(prev=>({
+        ...prev,
+        passwordAlert:false,
+        passwordText:""
+      }))
+    } else {
+      setFormRegex(prev=>({
+        ...prev,
+        passwordAlert:true,
+        passwordText:"Hasło musi zawieraż conajmniej: jedną dużą i małą litere, liczbe oraz 8 znaków "
+      }))
+    }
+      setUserData(prev=>({...prev,password:text}))
+    }
+
+    const handleChangeEmail = (email) =>{
+      const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    if (regex.test(email)) {
+      setFormRegex(prev=>({
+        ...prev,
+        emailAlert:false,
+        emailText:""
+      }))
+    } else {
+      setFormRegex(prev=>({
+        ...prev,
+        emailAlert:true,
+        emailText:"Nie poprawny format adresu email"
+      }))
+    }
+      setUserData(prev=>({...prev,email:email}))
+    }
+
+    const handleChangeLogin = (login) =>{
+      const regex = /^[a-zA-Z0-9._-]{5,}$/;
+    if (regex.test(login)) {
+      setFormRegex(prev=>({
+        ...prev,
+        loginAlert:false,
+        loginText:""
+      }))
+    } else {
+      setFormRegex(prev=>({
+        ...prev,
+        loginAlert:true,
+        loginText:"Login musi mieć minimum 5 znaków"
+      }))
+    }
+      setUserData(prev=>({...prev,login:login}))
+    }
   return (
     <Box
       sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex',height:'35rem',overflow:"auto" }}
@@ -110,17 +186,40 @@ export default function ProfileTabs({getUser,updateAccount}) {
         <Tab label="Informacje o profilu" {...a11yProps(0)} />
         <Tab label="Aktywne bilety" {...a11yProps(1)} />
         <Tab label="Przedawnione bilety" {...a11yProps(2)} />
-        <Tab label="Moje wydarzenia" {...a11yProps(3)} />
+        <Tab label="Organizowane wydarzenia" {...a11yProps(3)} />
       </Tabs>
       <TabPanel value={value} index={0}>
         <div className='edit-list'>
-            <GreenInput value={userData.name} label="Imie" fullWidth type="text" onChange={(e)=>setUserData(prev=>({...prev,name:e.target.value}))}></GreenInput>
-            <GreenInput value={userData.surname} label="Nazwisko" fullWidth type="text" onChange={(e)=>setUserData(prev=>({...prev,surname:e.target.value}))}></GreenInput>
-            <GreenInput value={userData.email} label="Email" fullWidth type="email" onChange={(e)=>setUserData(prev=>({...prev,email:e.target.value}))}></GreenInput>
-            <GreenInput value={userData.login} label="Login" fullWidth type="text" onChange={(e)=>setUserData(prev=>({...prev,login:e.target.value}))}></GreenInput>
-            <GreenInput value={userData.password} label="Hasło" fullWidth type="password" onChange={(e)=>setUserData(prev=>({...prev,password:e.target.value}))}></GreenInput>
-            <GreenInput value={userData.dateOfBirth} label="Data Urodzenia" fullWidth type="date" onChange={(e)=>setUserData(prev=>({...prev,dateOfBirth:e.target.value}))}></GreenInput>
-            <button className="main-btn" type="submit" onClick={()=>updateAccount(userData)}>Zmień</button>
+            <GreenInput disabled={disableEditForm} value={userData.name} label="Imie" fullWidth type="text" onChange={(e)=>setUserData(prev=>({...prev,name:e.target.value}))}></GreenInput>
+            <GreenInput disabled={disableEditForm} value={userData.surname} label="Nazwisko" fullWidth type="text" onChange={(e)=>setUserData(prev=>({...prev,surname:e.target.value}))}></GreenInput>
+            <GreenInput error={formRegex.emailAlert} helperText={formRegex.emailText} disabled={disableEditForm} value={userData.email} label="Email" fullWidth type="email" onChange={(e)=>handleChangeEmail(e.target.value)}></GreenInput>
+            <GreenInput error={formRegex.loginAlert} helperText={formRegex.loginText} disabled={disableEditForm} value={userData.login} label="Login" fullWidth type="text" onChange={(e)=>handleChangeLogin(e.target.value)}></GreenInput>
+            <GreenInput error={formRegex.passwordAlert} helperText={formRegex.passwordText} disabled={disableEditForm} value={userData.password} label="Hasło" fullWidth type="password" onChange={(e)=>handleChangePassword(e.target.value)}></GreenInput>
+            <GreenInput disabled={disableEditForm} value={userData.dateOfBirth} label="Data Urodzenia" fullWidth type="date" onChange={(e)=>setUserData(prev=>({...prev,dateOfBirth:e.target.value}))}></GreenInput>
+            <div className='user-profile-buttons'>
+              <Button 
+                variant="contained" 
+                size="large"
+                onClick={()=>setDisableUserForm(!disableEditForm)}
+              >
+                {
+                  !disableEditForm?
+                  "Anuluj"
+                  :
+                  "Edytuj"
+                }
+                
+              </Button>
+              <Button 
+                variant="contained" 
+                size="large" 
+                color="success"
+                onClick={()=>updateAccount(userData,formRegex)}
+              >
+                Zapisz
+              </Button>
+            </div>
+           
         </div>
                                 
       </TabPanel>
@@ -129,7 +228,11 @@ export default function ProfileTabs({getUser,updateAccount}) {
             {
                 eventList.map((key,val)=>{
                     return(
-                        <PurchasedTicket/>
+                        <PurchasedTicket
+                          printAble={true}
+                          preview={true}
+                          event={val}
+                        />
                     )
                     
                 })
@@ -144,7 +247,11 @@ export default function ProfileTabs({getUser,updateAccount}) {
             {
                 eventList.map((key,val)=>{
                     return(
-                        <PurchasedTicket/>
+                        <PurchasedTicket
+                          printAble={true}
+                          preview={true}
+                          event={val}
+                        />
                     )
                     
                 })
@@ -153,7 +260,11 @@ export default function ProfileTabs({getUser,updateAccount}) {
         </div>
       </TabPanel>
       <TabPanel value={value} index={3}>
-        Item Four
+      <div className='purchased-list'>
+        <EventsController>
+          <OrganisatorEventsTab/>
+        </EventsController>
+      </div>                  
       </TabPanel>
     </Box>
   );

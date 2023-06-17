@@ -141,9 +141,6 @@ export default function Header({isLogged}) {
                                     <MenuItem onClick={()=>navigate("/add-event")}>
                                         Dodaj wydarzenie
                                     </MenuItem>
-                                    <MenuItem onClick={()=>navigate("/my-events")}>
-                                        Moje wydarzenia
-                                    </MenuItem>
                                 </>
                                 :
                                 null
