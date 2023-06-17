@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 using QuickTickets.Api.Data;
 using QuickTickets.Api.Dto;
 using QuickTickets.Api.Entities;
 using QuickTickets.Api.Services;
+
 
 namespace QuickTickets.Api.Controllers
 {
@@ -28,6 +27,7 @@ namespace QuickTickets.Api.Controllers
 
         // GET: api/Comment
         [HttpPost("GetComments")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetComments([FromBody] PaginationDto paginationDto, long eventID)
         {
             if (_context.Comments == null)
@@ -41,6 +41,7 @@ namespace QuickTickets.Api.Controllers
         // POST: api/Comment
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("AddComment")]
+        [Authorize]
         public async Task<IActionResult> AddComment([FromBody]CreateCommentDto createCommentDto)
         {
           if (_context.Comments == null)
@@ -72,11 +73,12 @@ namespace QuickTickets.Api.Controllers
             {
                 return NotFound();
             }
-            var commentEntity = await _context.Comments.FindAsync(id);
-            if (commentEntity == null)
+            if (!CommentEntityExists(id))
             {
                 return NotFound();
             }
+            var commentEntity = await _context.Comments.FindAsync(id);
+            
 
             _context.Comments.Remove(commentEntity);
             await _context.SaveChangesAsync();

@@ -78,11 +78,11 @@ namespace QuickTickets.Api
             builder.Services.AddScoped<TransactionService>();
             builder.Services.AddScoped<CommentService>();
             builder.Services.AddScoped<TicketService>();
+            builder.Services.AddScoped<TransactionStatusUpdateService>();
 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-
             app.UseHttpsRedirection();
 
             app.UseCors(MyAllowSpecificOrigins);

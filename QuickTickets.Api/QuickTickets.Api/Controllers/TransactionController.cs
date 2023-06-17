@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Net.Http.Headers;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using QuickTickets.Api.Data;
 using QuickTickets.Api.Dto;
 using QuickTickets.Api.Entities;
 using QuickTickets.Api.Services;
-using static System.Net.Mime.MediaTypeNames;
+using Newtonsoft.Json;
 
 namespace QuickTickets.Api.Controllers
 {
@@ -51,17 +44,34 @@ namespace QuickTickets.Api.Controllers
         public async Task<IActionResult> Notify()
         {
             var formData = HttpContext.Request.Form;
-            var gb = formData["id"];
-            var asd = formData["operation_number"];
-            Console.WriteLine(gb);
+            var transactionId = HttpContext.Request.Query["transactionId"];
+            var status = formData["operation_status"];
+            var number = formData["operation_number"];
+            var transaction = await _context.Transactions.FindAsync(transactionId);
+            transaction.DotPayID = number;
+            transaction.DateUpdated = DateTime.Now;
+
+            if(status == "rejected")
+                transaction.Status = StatusEnum.Unpaid.ToString();
+            else if(status == "completed")
+            {
+                transaction.Status = StatusEnum.Paid.ToString();
+                var ticket = await _context.Tickets.Where(x => x.TransactionID == transactionId).FirstOrDefaultAsync();
+                ticket.IsActive = true;
+                _context.Tickets.Update(ticket);
+            }
+
+            _context.Transactions.Update(transaction);
+            await _context.SaveChangesAsync();
             return Ok("OK");
         }
 
         [HttpPost("CreateTransaction")]
+        [Authorize]
         public async Task<IActionResult> CreateTransaction([FromBody]TransactionRequestDto transactionRequestDto)
         {
-            Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            //Guid userId = Guid.Parse("BB47EEDE-6953-43DF-A26F-CDAC99BE8E87");
+            //Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            Guid userId = Guid.Parse("BB47EEDE-6953-43DF-A26F-CDAC99BE8E87");
 
             TransactionEntity transaction = new TransactionEntity
             {
@@ -84,7 +94,7 @@ namespace QuickTickets.Api.Controllers
                     ignore_last_payment_channel = 1,
                     redirection_type = 0,
                     url = $"http://localhost:3000/buy-ticket/{transaction.TransactionID}/",
-                    urlc = "https://r15lg05v-7235.euw.devtunnels.ms/api/Transaction/Notify",
+                    urlc = $"https://r15lg05v-7235.euw.devtunnels.ms/api/Transaction/Notify?transactionId={transaction.TransactionID}",
                     payer = new
                     {
                         first_name = user.Name,
@@ -151,108 +161,67 @@ namespace QuickTickets.Api.Controllers
                 // Obsługa błędów
                 return StatusCode(500, ex.Message);
             }
-
         }
 
-
-
-
-
-
-
-        // GET: api/Transaction
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<TransactionEntity>>> GetTransactions()
+        [HttpPost("GetPendingTransactions")]
+        [AdminAuthorize]
+        public async Task<IActionResult> GetPendingTransactions([FromBody]PaginationDto paginationDto)
         {
             if (_context.Transactions == null)
             {
                 return NotFound();
             }
-            return await _context.Transactions.ToListAsync();
+            var transactions = await _transactionService.GetTransactionsForAdmin(paginationDto);
+            return transactions;
         }
 
-        // GET: api/Transaction/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<TransactionEntity>> GetTransactionEntity(Guid id)
+
+        [HttpPut("AcceptTransaction")]
+        [AdminAuthorize]
+        
+        public async Task<IActionResult> AcceptTransaction(Guid transactionID)
         {
             if (_context.Transactions == null)
             {
                 return NotFound();
             }
-            var transactionEntity = await _context.Transactions.FindAsync(id);
-
-            if (transactionEntity == null)
+            if(!TransactionEntityExists(transactionID))
             {
                 return NotFound();
             }
 
-            return transactionEntity;
-        }
-
-        // PUT: api/Transaction/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTransactionEntity(Guid id, TransactionEntity transactionEntity)
-        {
-            if (id != transactionEntity.TransactionID)
-            {
+            var transaction = await _context.Transactions.FindAsync(transactionID);
+            if (transaction.Status != StatusEnum.Pending.ToString())
                 return BadRequest();
-            }
-
-            _context.Entry(transactionEntity).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TransactionEntityExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Transaction
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<TransactionEntity>> PostTransactionEntity(TransactionEntity transactionEntity)
-        {
-            if (_context.Transactions == null)
-            {
-                return Problem("Entity set 'DataContext.Transactions'  is null.");
-            }
-            _context.Transactions.Add(transactionEntity);
+            transaction.Status = StatusEnum.AdminOffPaid.ToString();
+            transaction.DateUpdated = DateTime.Now;
+            _context.Transactions.Update(transaction);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTransactionEntity", new { id = transactionEntity.TransactionID }, transactionEntity);
+            return Ok();
         }
 
-        // DELETE: api/Transaction/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTransactionEntity(Guid id)
+        [HttpPut("CancelTransaction")]
+        [AdminAuthorize]
+        public async Task<IActionResult> CancelTransaction(Guid transactionID)
         {
             if (_context.Transactions == null)
             {
                 return NotFound();
             }
-            var transactionEntity = await _context.Transactions.FindAsync(id);
-            if (transactionEntity == null)
+            if (!TransactionEntityExists(transactionID))
             {
                 return NotFound();
             }
-
-            _context.Transactions.Remove(transactionEntity);
+            var transaction = await _context.Transactions.FindAsync(transactionID);
+            if (transaction.Status != StatusEnum.Pending.ToString())
+                return BadRequest();
+            transaction.Status = StatusEnum.Cancelled.ToString();
+            transaction.DateUpdated = DateTime.Now;
+            _context.Transactions.Update(transaction);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok();
         }
 
         private bool TransactionEntityExists(Guid id)

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 using QuickTickets.Api.Data;
 using QuickTickets.Api.Dto;
 using QuickTickets.Api.Entities;
@@ -29,6 +27,7 @@ namespace QuickTickets.Api.Controllers
 
 
         [HttpPost("SendOrganiserApplication")]
+        [Authorize]
         public async Task<IActionResult> SendOrganiserApplication([FromBody]OrganiserApplicationDto organiserApp)
         {
             var application = new OrganiserApplicationEntity
@@ -44,6 +43,7 @@ namespace QuickTickets.Api.Controllers
         }
 
         [HttpPost("GetPendingOrganiserApplications")]
+        [AdminAuthorize]
         public async Task<IActionResult> GetPendingOrganiserApplications([FromBody] PaginationDto paginationDto)
         {
             var result = await _organiserApplicationService.GetPendingOrganiserApplications(paginationDto);
@@ -52,6 +52,7 @@ namespace QuickTickets.Api.Controllers
 
 
         [HttpPost("AcceptOrganiserApplication")]
+        [AdminAuthorize]
         public async Task<IActionResult> AcceptOrganiserApplication([FromBody]long id)
         {
 
@@ -72,6 +73,7 @@ namespace QuickTickets.Api.Controllers
             return Ok();
         }
         [HttpPost("CancelOrganiserApplication")]
+        [AdminAuthorize]
         public async Task<IActionResult> CancelOrganiserApplication([FromBody] long id)
         {
 
@@ -89,112 +91,6 @@ namespace QuickTickets.Api.Controllers
 
             return Ok();
         }
-
-        // GET: api/OrganiserApplication
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<OrganiserApplicationEntity>>> GetOrganisersApplications()
-        {
-          if (_context.OrganisersApplications == null)
-          {
-              return NotFound();
-          }
-            return await _context.OrganisersApplications.ToListAsync();
-        }
-
-        // GET: api/OrganiserApplication/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<OrganiserApplicationEntity>> GetOrganiserApplicationEntity(long id)
-        {
-          if (_context.OrganisersApplications == null)
-          {
-              return NotFound();
-          }
-            var organiserApplicationEntity = await _context.OrganisersApplications.FindAsync(id);
-
-            if (organiserApplicationEntity == null)
-            {
-                return NotFound();
-            }
-
-            return organiserApplicationEntity;
-        }
-
-        // PUT: api/OrganiserApplication/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutOrganiserApplicationEntity(long id, OrganiserApplicationEntity organiserApplicationEntity)
-        {
-            if (id != organiserApplicationEntity.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(organiserApplicationEntity).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!OrganiserApplicationEntityExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/OrganiserApplication
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<OrganiserApplicationEntity>> PostOrganiserApplicationEntity(OrganiserApplicationEntity organiserApplicationEntity)
-        {
-          if (_context.OrganisersApplications == null)
-          {
-              return Problem("Entity set 'DataContext.OrganisersApplications'  is null.");
-          }
-            _context.OrganisersApplications.Add(organiserApplicationEntity);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetOrganiserApplicationEntity", new { id = organiserApplicationEntity.Id }, organiserApplicationEntity);
-        }
-
-        // DELETE: api/OrganiserApplication/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteOrganiserApplicationEntity(long id)
-        {
-            if (_context.OrganisersApplications == null)
-            {
-                return NotFound();
-            }
-            var organiserApplicationEntity = await _context.OrganisersApplications.FindAsync(id);
-            if (organiserApplicationEntity == null)
-            {
-                return NotFound();
-            }
-
-            _context.OrganisersApplications.Remove(organiserApplicationEntity);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool OrganiserApplicationEntityExists(long id)
-        {
-            return (_context.OrganisersApplications?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
-
-
-
-
-
-
 
     }
 }

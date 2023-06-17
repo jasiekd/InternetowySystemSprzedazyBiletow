@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Azure;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 using QuickTickets.Api.Data;
 using QuickTickets.Api.Dto;
 using QuickTickets.Api.Entities;
@@ -16,6 +13,7 @@ namespace QuickTickets.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class TicketController : ControllerBase
     {
         private readonly DataContext _context;
@@ -32,6 +30,7 @@ namespace QuickTickets.Api.Controllers
         }
 
         [HttpPost("GetMyTickets")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<object>>> GetMyTickets([FromBody]PaginationDto paginationDto,bool choice)
         {
             Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -44,6 +43,7 @@ namespace QuickTickets.Api.Controllers
 
 
         [HttpPost("GetMyTicket")]
+        [Authorize]
         public async Task<IActionResult> GetMyTicket(long ticketID)
         {
             Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));

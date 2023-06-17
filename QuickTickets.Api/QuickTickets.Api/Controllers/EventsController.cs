@@ -59,6 +59,7 @@ namespace QuickTickets.Api.Controllers
         }
 
         [HttpGet("getEvent/{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<EventInfoDto>> GetEvent(long id)
         {
             if (_context.Events == null)
@@ -76,6 +77,7 @@ namespace QuickTickets.Api.Controllers
         }
 
         [HttpGet("getHotEvents")]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<EventInfoDto>>> getHotEvents()
         {
             if (_context.Events == null)
@@ -93,6 +95,7 @@ namespace QuickTickets.Api.Controllers
         }
 
         [HttpGet("getHotLocations")]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<LocationsEntity>>> getHotLocations()
         {
             if (_context.Events == null)
@@ -110,6 +113,7 @@ namespace QuickTickets.Api.Controllers
         }
 
         [HttpPost("search")]
+        [AllowAnonymous]
         public async Task<IActionResult> SearchEvents([FromBody]SearchEventDto searchEventDto)
         {
             var result = await _eventsService.GetForSearch(searchEventDto);
@@ -117,6 +121,7 @@ namespace QuickTickets.Api.Controllers
         }
 
         [HttpPost("AcceptEvent")]
+        [AdminAuthorize]
         public async Task<IActionResult> AcceptEvent([FromBody] long id)
         {
             EventsEntity events = await _context.Events.FindAsync(id);
@@ -134,6 +139,7 @@ namespace QuickTickets.Api.Controllers
             return Ok();
         }
         [HttpPost("CancelEvent")]
+        [AdminAuthorize]
         public async Task<IActionResult> CancelEvent([FromBody] long id)
         {
             EventsEntity events = await _context.Events.FindAsync(id);
@@ -153,6 +159,7 @@ namespace QuickTickets.Api.Controllers
 
 
         [HttpPost("GetPendingEvents")]
+        [AdminAuthorize]
         public async Task<IActionResult> GetPendingEvents([FromBody] PaginationDto paginationDto)
         {
             var result = await _eventsService.GetPendingEvents(paginationDto);
@@ -160,6 +167,7 @@ namespace QuickTickets.Api.Controllers
         }
 
         [HttpPost("GetOrganisatorEvents")]
+        [Authorize]
         public async Task<IActionResult> GetOrganisatorEvents([FromBody] PaginationDto paginationDto, string statusChoice)
         {
             Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -167,45 +175,39 @@ namespace QuickTickets.Api.Controllers
             return Ok(result);
         }
 
-
-
-        // GET: api/Events/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<EventsEntity>> GetEventsEntity(long id)
+        [HttpPut("UpdateEvent")]
+        [Authorize]
+        public async Task<IActionResult> UpdateEvent(CreateEventDto createEventDto, long eventID)
         {
-          if (_context.Events == null)
-          {
-              return NotFound();
-          }
-            var eventsEntity = await _context.Events.Include(x => x.Type).Include(x => x.Location).FirstOrDefaultAsync(x => x.EventID == id);
-
-            if (eventsEntity == null)
+            if (!EventsEntityExists(eventID))
             {
                 return NotFound();
             }
-
-            return eventsEntity;
-        }
-
-        // PUT: api/Events/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutEventsEntity(long id, EventsEntity eventsEntity)
-        {
-            if (id != eventsEntity.EventID)
+            var data = await _context.Events.FindAsync(eventID);
+            if(data.Status != StatusEnum.Pending.ToString())
             {
-                return BadRequest();
+                return BadRequest("Status nie jest pending");
             }
+            data.AdultsOnly = createEventDto.AdultsOnly;
+            data.TicketPrice = createEventDto.TicketPrice;
+            data.LocationID = createEventDto.LocationID;
+            data.Date = createEventDto.Date;
+            data.DateModified = DateTime.Now;
+            data.Description = createEventDto.Description;
+            data.TypeID = createEventDto.TypeID;
+            data.ImgURL = createEventDto.ImgURL;
+            data.Title = createEventDto.Title;
+            data.Seats = createEventDto.Seats;
 
-            _context.Entry(eventsEntity).State = EntityState.Modified;
 
             try
             {
+                _context.Events.Update(data);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EventsEntityExists(id))
+                if (!EventsEntityExists(eventID))
                 {
                     return NotFound();
                 }
@@ -215,42 +217,7 @@ namespace QuickTickets.Api.Controllers
                 }
             }
 
-            return NoContent();
-        }
-
-        // POST: api/Events
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<EventsEntity>> PostEventsEntity(EventsEntity eventsEntity)
-        {
-          if (_context.Events == null)
-          {
-              return Problem("Entity set 'DataContext.Events'  is null.");
-          }
-            _context.Events.Add(eventsEntity);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetEventsEntity", new { id = eventsEntity.EventID }, eventsEntity);
-        }
-
-        // DELETE: api/Events/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteEventsEntity(long id)
-        {
-            if (_context.Events == null)
-            {
-                return NotFound();
-            }
-            var eventsEntity = await _context.Events.FindAsync(id);
-            if (eventsEntity == null)
-            {
-                return NotFound();
-            }
-
-            _context.Events.Remove(eventsEntity);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return Ok();
         }
 
         private bool EventsEntityExists(long id)

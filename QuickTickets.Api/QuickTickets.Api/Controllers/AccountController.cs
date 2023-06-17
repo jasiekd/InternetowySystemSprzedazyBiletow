@@ -44,33 +44,7 @@ namespace QuickTickets.Api.Controllers
             else
                 return Ok(result);
         }
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<AccountEntity>>> GetAccounts()
-        {
-            if (_context.Accounts == null)
-            {
-                return NotFound();
-            }
-            return await _context.Accounts.ToListAsync();
-        }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<AccountEntity>> GetAccountEntity(Guid id)
-        {
-            
-            if (_context.Accounts == null)
-            {
-                return NotFound();
-            }
-            var accountEntity = await _context.Accounts.FindAsync(id);
-
-            if (accountEntity == null)
-            {
-                return NotFound();
-            }
-
-            return accountEntity;
-        }
         [HttpGet("getUser")]
         [Authorize]
         public async Task<IActionResult> GetAccount()
@@ -86,6 +60,7 @@ namespace QuickTickets.Api.Controllers
 
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("UpdateAccount")]
+        [Authorize]
         public async Task<IActionResult> UpdateAccount(RegisterInfoDto registerInfoDto)
         {
             Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -154,6 +129,7 @@ namespace QuickTickets.Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [AdminAuthorize]
         public async Task<IActionResult> DeleteAccountEntity(Guid id)
         {
             if (_context.Accounts == null)

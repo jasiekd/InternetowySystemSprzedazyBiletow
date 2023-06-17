@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using QuickTickets.Api.Data;
 using QuickTickets.Api.Dto;
 using QuickTickets.Api.Entities;
+using QuickTickets.Api.Migrations;
 using System.Drawing.Printing;
 using System.Runtime.CompilerServices;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
@@ -87,8 +89,8 @@ namespace QuickTickets.Api.Services
 
         private int CountOccupiedSeats(int seats, long id)
         {
-            //zliczenie ticketow dla danego id wydarzenia
-            int occupiedSeats = 10;
+            int data = _context.Tickets.AsQueryable().Include(x => x.Transaction).Where(t => t.EventID == id && t.Transaction.Status != StatusEnum.Unpaid.ToString()).Sum(t => t.Amount);
+            int occupiedSeats = seats - data;
             return occupiedSeats;
         }
 
