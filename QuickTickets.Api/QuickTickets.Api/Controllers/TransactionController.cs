@@ -19,6 +19,7 @@ namespace QuickTickets.Api.Controllers
         private readonly DataContext _context;
         private readonly TransactionService _transactionService;
 
+        private const string tunnelLink = "https://r15lg05v-7235.euw.devtunnels.ms";
         private const string clientId = "753756";
         private const string username = "bilety188@gmail.com";
         private const string password = "Biletybilety123$";
@@ -70,9 +71,8 @@ namespace QuickTickets.Api.Controllers
         [Authorize]
         public async Task<IActionResult> CreateTransaction([FromBody]TransactionRequestDto transactionRequestDto)
         {
-            //Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            Guid userId = Guid.Parse("BB47EEDE-6953-43DF-A26F-CDAC99BE8E87");
-
+            Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            //Guid userId = Guid.Parse("BB47EEDE-6953-43DF-A26F-CDAC99BE8E87");
             TransactionEntity transaction = new TransactionEntity
             {
                 TransactionID = Guid.NewGuid(),
@@ -94,7 +94,7 @@ namespace QuickTickets.Api.Controllers
                     ignore_last_payment_channel = 1,
                     redirection_type = 0,
                     url = $"http://localhost:3000/buy-ticket/{transaction.TransactionID}/",
-                    urlc = $"https://r15lg05v-7235.euw.devtunnels.ms/api/Transaction/Notify?transactionId={transaction.TransactionID}",
+                    urlc = $"{tunnelLink}/api/Transaction/Notify?transactionId={transaction.TransactionID}",
                     payer = new
                     {
                         first_name = user.Name,
