@@ -30,7 +30,7 @@ namespace QuickTickets.Api.Controllers
         {
             var result = _accountService.LoginUser(loginData);
             if (result == null)
-                return Unauthorized();
+                return NotFound();
             else
                 return Ok(result);
         }
@@ -40,12 +40,11 @@ namespace QuickTickets.Api.Controllers
         {
             var result = _accountService.LoginUserWithGoogle(loginData);
             if (result == null)
-                return Unauthorized();
+                return NotFound();
             else
                 return Ok(result);
         }
         [HttpGet]
-        [Authorize]
         public async Task<ActionResult<IEnumerable<AccountEntity>>> GetAccounts()
         {
             if (_context.Accounts == null)
@@ -90,12 +89,19 @@ namespace QuickTickets.Api.Controllers
         public async Task<IActionResult> UpdateAccount(RegisterInfoDto registerInfoDto)
         {
             Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            //Guid userId = Guid.Parse("BB47EEDE-6953-43DF-A26F-CDAC99BE8E87");
             AccountEntity accountEntity = await _context.Accounts.FindAsync(userId);
+            if (LoginEmailExists(registerInfoDto.Email, registerInfoDto.Login) && registerInfoDto.Email != accountEntity.Email && registerInfoDto.Login != accountEntity.Login)
+            {
+                return BadRequest("User istnieje!");
+            }
+            
+            
             accountEntity.Surname = registerInfoDto.Surname;
             accountEntity.Name = registerInfoDto.Name;
             accountEntity.Login = registerInfoDto.Login;
             accountEntity.DateOfBirth = registerInfoDto.DateOfBirth;
-            accountEntity.Password = registerInfoDto.Password;
+            accountEntity.Password = _accountService.HashPassword(registerInfoDto.Password);
             accountEntity.Email = registerInfoDto.Email;
 
             try
@@ -127,9 +133,6 @@ namespace QuickTickets.Api.Controllers
             {
                 return Problem("Entity set 'DataContext.Accounts'  is null.");
             }
-            SHA256 sha256 = SHA256Managed.Create();
-            byte[] bytes = Encoding.UTF8.GetBytes(registerInfoDto.Password);
-            byte[] hash = sha256.ComputeHash(bytes);
             AccountEntity accountEntity = new AccountEntity
             {
                 Id = Guid.NewGuid(),
@@ -137,7 +140,7 @@ namespace QuickTickets.Api.Controllers
                 Surname = registerInfoDto.Surname,
                 Login = registerInfoDto.Login,
                 Email = registerInfoDto.Email,
-                Password = Convert.ToBase64String(hash),
+                Password = _accountService.HashPassword(registerInfoDto.Password),
                 DateOfBirth = registerInfoDto.DateOfBirth,
                 RoleID = 2
             };

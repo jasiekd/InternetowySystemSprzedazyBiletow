@@ -142,6 +142,14 @@ namespace QuickTickets.Api.Services
 
         }
 
+        public string HashPassword(string password)
+        {
+            SHA256 sha256 = SHA256Managed.Create();
+            byte[] bytes = Encoding.UTF8.GetBytes(password);
+            byte[] hash = sha256.ComputeHash(bytes);
+            return Convert.ToBase64String(hash);
+        }
+
 
     }
 }

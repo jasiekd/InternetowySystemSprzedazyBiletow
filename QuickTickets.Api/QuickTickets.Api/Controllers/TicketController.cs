@@ -21,38 +21,25 @@ namespace QuickTickets.Api.Controllers
         private readonly DataContext _context;
         private readonly EventsService _eventsService;
         private readonly AccountService _accountService;
+        private readonly TicketService _ticketService;
 
-        public TicketController(DataContext context, EventsService eventsService, AccountService accountService)
+        public TicketController(DataContext context, EventsService eventsService, AccountService accountService, TicketService ticketService)
         {
             _context = context;
             _eventsService = eventsService;
             _accountService = accountService;
+            _ticketService = ticketService;
         }
 
         [HttpPost("GetMyTickets")]
-        public async Task<ActionResult<IEnumerable<object>>> GetMyTickets(bool choice)
+        public async Task<ActionResult<IEnumerable<object>>> GetMyTickets([FromBody]PaginationDto paginationDto,bool choice)
         {
             Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             //Guid userId = Guid.Parse("BB47EEDE-6953-43DF-A26F-CDAC99BE8E87");
-            
-            if (_context.Tickets == null)
-            {
-                return NotFound();
-            }
-            
-            var data = await _context.Tickets.Include(x => x.Transaction).Include(x => x.Event).ThenInclude(y => y.Owner).Include(x => x.Event).ThenInclude(y => y.Type).Include(x => x.Event).ThenInclude(y => y.Location).Where(x => x.Transaction.UserId == userId && x.IsActive == choice).ToListAsync();
-            var listOfTickets = new List<dynamic>();
-            foreach( var temp in data )
-            {
-                listOfTickets.Add(new
-                {
-                    TicketID = temp.TicketID,
-                    Event = _eventsService.GetEventInfoDto(temp.Event),
-                    NumberOfTickets = temp.Amount,
-                    Cost = temp.Transaction.Price,
-                });
-            }
-            return Ok(listOfTickets);
+
+
+            var result = await _ticketService.GetTicketsForUser(paginationDto, userId, choice);
+            return Ok(result);
         }
 
 
@@ -84,91 +71,6 @@ namespace QuickTickets.Api.Controllers
             return Ok(response);
         }
 
-
-
-        // GET: api/Ticket/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<TicketEntity>> GetTicketEntity(long id)
-        {
-          if (_context.Tickets == null)
-          {
-              return NotFound();
-          }
-            var ticketEntity = await _context.Tickets.FindAsync(id);
-
-            if (ticketEntity == null)
-            {
-                return NotFound();
-            }
-
-            return ticketEntity;
-        }
-
-        // PUT: api/Ticket/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTicketEntity(long id, TicketEntity ticketEntity)
-        {
-            if (id != ticketEntity.TicketID)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(ticketEntity).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TicketEntityExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Ticket
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<TicketEntity>> PostTicketEntity(TicketEntity ticketEntity)
-        {
-          if (_context.Tickets == null)
-          {
-              return Problem("Entity set 'DataContext.Tickets'  is null.");
-          }
-            _context.Tickets.Add(ticketEntity);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetTicketEntity", new { id = ticketEntity.TicketID }, ticketEntity);
-        }
-
-        // DELETE: api/Ticket/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTicketEntity(long id)
-        {
-            if (_context.Tickets == null)
-            {
-                return NotFound();
-            }
-            var ticketEntity = await _context.Tickets.FindAsync(id);
-            if (ticketEntity == null)
-            {
-                return NotFound();
-            }
-
-            _context.Tickets.Remove(ticketEntity);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
 
         private bool TicketEntityExists(long id)
         {

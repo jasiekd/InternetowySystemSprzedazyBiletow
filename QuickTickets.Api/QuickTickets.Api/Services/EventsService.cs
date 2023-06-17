@@ -175,6 +175,7 @@ namespace QuickTickets.Api.Services
         }
         private async Task<IActionResult> GetPaginatedEvents(PaginationDto paginationDto, IQueryable<EventsEntity> data)
         {
+
             var totalCount = await data.CountAsync();
             var totalPages = (int)Math.Ceiling(totalCount / (double)paginationDto.pageSize);
 
