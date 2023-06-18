@@ -22,4 +22,12 @@ export default class TicketService{
             return error.response
         }
     }
+    async getMyTicketByID(transactionID){
+        try{
+            const response = axios.post(HostName+"/api/Ticket/GetMyTicketForTransactionID?transactionID="+transactionID);
+            return response;
+        }catch(error){
+            return error.response
+        }
+    }
 }

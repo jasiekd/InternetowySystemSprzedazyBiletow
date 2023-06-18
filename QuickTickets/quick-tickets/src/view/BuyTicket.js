@@ -18,12 +18,18 @@ import LoginController from '../controllers/Login';
 
 
 
-export default function BuyTicket() {
+export default function BuyTicket({getMyTicketByID}) {
     const [ticketsCounter,setTicketCounter] = React.useState(0);
     const [eventData,setEventData] = React.useState();
+    const [ticketData,setTicketData] = React.useState();
     const location = useLocation();
-    const steps = ['Wybierz bilety', 'Uzupełnij dane', 'Zapłać','Podsumowanie'];
-    const buyPages = [<ChooseTicket eventData={eventData} counter={ticketsCounter} setCounter={setTicketCounter}/>,<FillInData eventData={eventData}/>,<TransactionController><Pay eventData={eventData} counter={ticketsCounter}/></TransactionController>,<LoginController><SummaryBuy eventData={eventData}/></LoginController>];
+    const steps = ['Wybierz bilety', 'Dane użytkownika', 'Zapłać','Podsumowanie'];
+    const buyPages = [
+        <ChooseTicket eventData={eventData} counter={ticketsCounter} setCounter={setTicketCounter}/>,
+        <LoginController><FillInData eventData={eventData}/></LoginController>,
+        <TransactionController><Pay eventData={eventData} counter={ticketsCounter}/></TransactionController>,
+        <LoginController><SummaryBuy eventData={ticketData}/></LoginController>
+    ];
 
     const navigate = useNavigate();
     const [activeStep, setActiveStep] = React.useState(0);
@@ -72,7 +78,20 @@ export default function BuyTicket() {
 
       React.useEffect(()=>{
         if(location.state === null){
-            navigate('/home')
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+            if(id)
+            {
+                setActiveStep(3);
+                getMyTicketByID(id).then(r=>{
+                    setTicketData(r);
+                })
+            }
+            else
+            {
+                navigate('/home')
+            }
+            
         }
         else{
             if(location.state.id)

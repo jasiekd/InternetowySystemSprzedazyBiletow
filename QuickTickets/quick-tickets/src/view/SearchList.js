@@ -246,7 +246,7 @@ function SearchEvents({search,filters}){
                                         </div>
                                     </div>
                                     <div className='event-list-price'>już od {val.ticketPrice}PLN</div>
-                                    <div className='buy-option'><button className='main-btn' onClick={()=>navigate("/event",{state:{eventId:val.eventID}})}>Kup teraz</button></div>
+                                    <div className='buy-option'><button className='main-btn' onClick={()=>navigate("/event",{state:{eventId:val.eventID}})}>Zobacz</button></div>
                                 </div>
                             )
                         })

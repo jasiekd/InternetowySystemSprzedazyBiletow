@@ -20,6 +20,7 @@ import EventPreview from "../view/EventPreview";
 import OfflinePayment from "../view/OfflinePayment";
 import EditEvent from "../view/EditEvent";
 import Redirect from "../view/Redirect";
+import TicketController from "../controllers/TicketController";
 
 const router = createBrowserRouter([
     {
@@ -48,7 +49,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/buy-ticket",
-        element: <BuyTicket/>
+        element: <TicketController><BuyTicket/></TicketController>
     },
     {
         path: "/user-profile",

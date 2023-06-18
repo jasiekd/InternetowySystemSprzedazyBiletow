@@ -41,7 +41,7 @@ export default function Event({getEvent}) {
                             eventPlace={eventInfos.location.name}
                             eventText={eventInfos.description}
                             eventData={eventInfos}
-                            occupiedSeats={eventInfos.occupiedSeats}
+                            availableSeats={eventInfos.availableSeats}
                             seats={eventInfos.seats}
                         />
                         <LocationComponent 

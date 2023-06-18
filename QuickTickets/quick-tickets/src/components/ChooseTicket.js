@@ -7,10 +7,15 @@ export default function ChooseTicket({counter,setCounter,eventData}){
     const [isError,setIsError] = useState(false);
     const [helper,setHelper] = useState("")
     const onChangeCount = (value) =>{
-        if(value>(eventData.seats-eventData.occupiedSeats))
+        if(value>(eventData.availableSeats))
         {
             setIsError(true);
-            setHelper("Maksymalna liczba biletów to "+(eventData.seats-eventData.occupiedSeats))
+            setHelper("Maksymalna liczba biletów to "+(eventData.availableSeats))
+        }
+        else if(value<1)
+        {
+            setIsError(true);
+            setHelper("Minimalna liczba biletów to 1")
         }
         else{
             setHelper("")

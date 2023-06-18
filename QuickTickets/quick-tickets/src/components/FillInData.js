@@ -1,20 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import '../styles/ChooseTicket.css';
 import '../styles/FillInData.css';
 import { GreenInput } from "./GreenInput";
-import exampleEvent from "../images/example-event.png";
 import EventInfo from "./EventInfo";
-export default function FillInData({eventData}){
+import moment from "moment";
+export default function FillInData({eventData,getUser}){
+    const [userData,setUserData] = useState(null);
+    useEffect(()=>{
+        getUser().then(r=>{
+            setUserData(r);
+        })
+    },[])
     return(
         <div className="choose-ticket">
         <div className="buy-form">
              <div className="buy-title">Dane użytkownika</div>
              <div className="buy-info-form">
-                <GreenInput label="Imię" fullWidth type="text" ></GreenInput>
-                <GreenInput label="Nazwisko" fullWidth type="text" ></GreenInput>
-                <GreenInput label="Adres" fullWidth type="text" ></GreenInput>
-                <GreenInput label="Numer telefonu" fullWidth type="tel" ></GreenInput>
-                <GreenInput label="Email" fullWidth type="email" ></GreenInput>
+                {
+                    userData?
+                    <React.Fragment>
+                        <span><h3>Imie: </h3>{userData.name}</span>
+                        <span><h3>Nazwisko: </h3>{userData.surname}</span>
+                        <span><h3>Email: </h3>{userData.email}</span>
+                        <span><h3>Data urodzenia: </h3>{userData.dateOfBirth}</span>
+                    </React.Fragment>
+                   
+                    :
+                    null
+                }
              </div>   
         </div>
         <EventInfo eventData={eventData}/>

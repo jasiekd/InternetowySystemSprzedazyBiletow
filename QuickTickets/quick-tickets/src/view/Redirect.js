@@ -1,15 +1,16 @@
 import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 
 export default function Redirect(){
     const location = useLocation();
-    const navigate = useNavigate();
     useEffect(()=>{
+        console.log(location);
         const pathname = location.pathname;
         const id = pathname.split('/')[2];
-        navigate("/buy-ticket",{state:{id:id}});
+        window.location.href = "http://localhost:3000/buy-ticket?id="+id;
     },[location])
     return(
-        <div>test</div>
+        <div>
+        </div>
     )
 }

@@ -16,8 +16,8 @@ export default function TicketController({children}){
         else
         {
             Swal.fire({
-                position: 'error',
-                icon: 'success',
+                position: 'center',
+                icon: 'error',
                 title: 'Błąd pobierania listy',
                 showConfirmButton: true,
               })
@@ -30,14 +30,29 @@ export default function TicketController({children}){
         {
             return response.data;
         }
-        else
+        
+    }
+    const getMyTicketByID = async(transactionID)=>{
+        const response = await gateway.getMyTicketByID(transactionID);
+
+        if(response.status === 200)
         {
-         
+            return response.data;
+        }else
+        {
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Błąd pobierania biletu',
+                text: "Poszukaj biletu w profilu",
+                showConfirmButton: true,
+              })
         }
     }
 
     return React.cloneElement(children,{
         getMyTickets,
-        getMyTicket
+        getMyTicket,
+        getMyTicketByID
     })
 }

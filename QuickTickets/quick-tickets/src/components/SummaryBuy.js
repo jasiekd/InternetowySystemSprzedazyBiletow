@@ -64,16 +64,17 @@ class Ticket extends React.PureComponent {
     })
     const [userData,setUserData] = useState();
     useEffect(()=>{
+      debugger
       getUser().then(r=>{
         console.log(r);
         setUserData(r);
         console.log("IN PROGRESS")
         console.log(eventData)
       })
-    },[])
+    },[eventData])
     return (
       <div className="summary">
-       
+          test
           <Ticket 
             ref={componentRef}
             eventData={eventData}  
