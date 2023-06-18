@@ -17,5 +17,32 @@ export default class TransactionService{
             return error.response
         }
     }
-   
+    async GetPendingTransactions(pageIndex,pageSize){
+        try{
+            const response = await axios.post(HostName+"/api/Transaction/GetPendingTransactions",{
+                pageIndex: pageIndex,
+                pageSize: pageSize
+            })
+            return response;
+        }catch(error){
+            return error.response;
+        }
+    }
+    async AcceptTransaction(transactionID){
+        try{
+            const response = await axios.put(HostName+"/api/Transaction/AcceptTransaction?transactionID=" + transactionID,{})
+            return response;
+        }catch(error){
+            return error.response;
+        }
+    }
+    async CancelTransaction(transactionID){
+        try{
+            const response = await axios.put(HostName+"/api/Transaction/CancelTransaction?transactionID=" + transactionID,{})
+            return response;
+        }catch(error){
+            return error.response;
+        }
+    }
+
 }

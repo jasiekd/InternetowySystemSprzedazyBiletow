@@ -54,28 +54,32 @@ test('test adding new event',async()=>{
 
         fireEvent.click(screen.getByText('Kielce'));
         fireEvent.click(screen.getByText('Koncert'));
+    })
+    await waitFor(() => {
 
         //wpisywanie do pol testowych wartosci
         fireEvent.change(screen.getByTestId('test-event-title'),{target:{value:"TestNazwa"}})
           fireEvent.change(screen.getByTestId('test-event-seats'),{target:{value:10}})
           fireEvent.change(screen.getByTestId('test-event-price'),{target:{value:100}})
           fireEvent.change(screen.getByTestId('test-event-description'),{target:{value:"TestOpis"}})
-          fireEvent.change(screen.getByTestId('test-event-date'),{target:{value:"2022-04-17T15:30"}})
+          fireEvent.change(screen.getByLabelText('Data'),{target:{value:{$d:"2022-04-17T15:30"}}})
           fireEvent.change(screen.getByTestId('test-event-img'),{target:{value:"TestLink"}})
   
           fireEvent.click(screen.getByTestId('test-event-adultsOnly'));
 
-          //próba dodania wydarzenia
-          fireEvent.click(screen.getByText('Dodaj'));
+          
     })
-  
+    await waitFor(() => {
+        //próba dodania wydarzenia
+        fireEvent.click(screen.getByText('Dodaj'));
+    })
        await waitFor(() => {
         //sprawdzanie czy po dodaniu pola zostały wyczyszczone
           expect(screen.getByTestId('test-event-title').value).toBe('');
           expect(screen.getByTestId('test-event-seats').value).toBe('0');
           expect(screen.getByTestId('test-event-price').value).toBe('0');
           expect(screen.getByTestId('test-event-description').value).toBe('');
-          expect(screen.getByTestId('test-event-date').value).toBe('');
+          expect(screen.getByLabelText('Data').value).toBe('');
           expect(screen.getByTestId('test-event-img').value).toBe('');
           expect(screen.getByTestId('test-event-adultsOnly').value).toBe("on");
           expect(screen.getByText('Miejsce'));
