@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\QuickTickets.Api",
+    "\\QuickTickets.Api\\QuickTickets.Api",
+    "\\QuickTickets.Api\\QuickTickets.Api\\Attributes"
   ],
+  "SelectedNode": "\\QuickTickets.Api\\QuickTickets.Api\\Attributes\\AdminAuthorizeAttribute.cs",
   "PreviewInSolutionExplorer": false
 }

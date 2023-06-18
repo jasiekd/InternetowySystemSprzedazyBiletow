@@ -78,7 +78,7 @@ namespace QuickTickets.Api.Controllers
 
             if(signature == formData["signature"])
             {
-                var transactionId = HttpContext.Request.Query["transactionId"];
+                Guid transactionId = Guid.Parse(HttpContext.Request.Query["transactionId"]);
                 var status = formData["operation_status"];
                 var number = formData["operation_number"];
                 var transaction = await _context.Transactions.FindAsync(transactionId);
@@ -118,6 +118,29 @@ namespace QuickTickets.Api.Controllers
             //Guid userId = Guid.Parse("BB47EEDE-6953-43DF-A26F-CDAC99BE8E87");
 
             return Ok(await _transactionService.CreatePaidLink(userId, transactionRequestDto));
+        }
+
+        [HttpPost("GetStatusTransaction")]
+        [Authorize]
+        public async Task<IActionResult> GetStatusTransaction([FromBody] Guid transactionID)
+        {
+            Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            //Guid userId = Guid.Parse("BB47EEDE-6953-43DF-A26F-CDAC99BE8E87");
+
+            var transaction = await _context.Transactions.FindAsync(transactionID);
+
+            if (transaction.UserId!=userId)
+            {
+                return Unauthorized();
+            }
+
+            var response = new
+            {
+                transactionID = transaction.TransactionID,
+                transactionStatus = transaction.Status,
+            };
+
+            return Ok(response);
         }
 
         [HttpPost("GetPendingTransactions")]
