@@ -5,8 +5,8 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { GreenInput } from './GreenInput';
-import PurchasedTicket from './ProfileTicket';
-import { Pagination } from '@mui/material';
+
+
 import '../styles/ProfileTabs.css'
 import moment from 'moment';
 import Button from '@mui/material/Button';
@@ -15,6 +15,8 @@ import EventComponent from './EventComponent';
 import OrganisatorEventsTab from './OrganisatorEventsTab';
 import EventsController from '../controllers/Events';
 import { checkIsLogged } from '../controllers/Login';
+import TicketController from '../controllers/TicketController';
+import ProfileTicketsList from './ProfileTicketsList';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -55,32 +57,7 @@ export default function ProfileTabs({getUser,updateAccount}) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  const eventList =[
-    {
-        title: "item 1",
-    },
-    {
-        title: "item 2",
-    },
-    {
-        title: "item 3",
-    },
-    {
-        title: "item 4",
-    },
-    {
-        title: "item 5",
-    },
-    {
-        title: "item 6",
-    },
-    {
-        title: "item 7",
-    },
-    {
-        title: "item 8",
-    }
-]
+  
     const [userData,setUserData] = React.useState({
         name: "",
         surname: "",
@@ -229,38 +206,22 @@ export default function ProfileTabs({getUser,updateAccount}) {
       </TabPanel>
       <TabPanel value={value} index={1} >
         <div className='purchased-list'>
-            {
-                eventList.map((key,val)=>{
-                    return(
-                        <PurchasedTicket
-                          printAble={true}
-                          preview={true}
-                          event={val}
-                        />
-                    )
-                    
-                })
-            }
-            <Pagination count={10} size='large'/>
+          <TicketController>
+            <ProfileTicketsList
+              choice={true}
+            />
+          </TicketController>
         </div>
            
             
         </TabPanel>
       <TabPanel value={value} index={2}>
       <div className='purchased-list'>
-            {
-                eventList.map((key,val)=>{
-                    return(
-                        <PurchasedTicket
-                          printAble={true}
-                          preview={true}
-                          event={val}
-                        />
-                    )
-                    
-                })
-            }
-            <Pagination count={10} size='large'/>
+        <TicketController>
+            <ProfileTicketsList
+              choice={false}
+            />
+          </TicketController>
         </div>
       </TabPanel>
       {

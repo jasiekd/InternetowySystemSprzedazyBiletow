@@ -14,6 +14,7 @@ import FillInData from '../components/FillInData';
 import Pay from '../components/Pay';
 import SummaryBuy from '../components/SummaryBuy';
 import TransactionController from '../controllers/TransactionController';
+import LoginController from '../controllers/Login';
 
 
 
@@ -22,7 +23,7 @@ export default function BuyTicket() {
     const [eventData,setEventData] = React.useState();
     const location = useLocation();
     const steps = ['Wybierz bilety', 'Uzupełnij dane', 'Zapłać','Podsumowanie'];
-    const buyPages = [<ChooseTicket eventData={eventData} counter={ticketsCounter} setCounter={setTicketCounter}/>,<FillInData eventData={eventData}/>,<TransactionController><Pay eventData={eventData} counter={ticketsCounter}/></TransactionController>,<SummaryBuy eventData={eventData}/>];
+    const buyPages = [<ChooseTicket eventData={eventData} counter={ticketsCounter} setCounter={setTicketCounter}/>,<FillInData eventData={eventData}/>,<TransactionController><Pay eventData={eventData} counter={ticketsCounter}/></TransactionController>,<LoginController><SummaryBuy eventData={eventData}/></LoginController>];
 
     const navigate = useNavigate();
     const [activeStep, setActiveStep] = React.useState(0);

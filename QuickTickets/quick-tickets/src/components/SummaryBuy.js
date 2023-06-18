@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import '../styles/ChooseTicket.css';
 import '../styles/SummaryBuy.css';
-import { GreenInput } from "./GreenInput";
-import exampleEvent from "../images/example-event.png";
-import EventInfo from "./EventInfo";
 import QRCode from "react-qr-code";
 import { useReactToPrint } from "react-to-print";
-
+import moment from "moment";
+import LoginController from "../controllers/Login";
 class Ticket extends React.PureComponent {
+  
   render(){
     return (
-        <table className="summart-table">
+      
+        this.props.userData?
+          <table className="summart-table">
           <thead>
             <tr>
               <th>Kod biletu</th>
@@ -22,46 +23,64 @@ class Ticket extends React.PureComponent {
           <tbody>
             <tr>
               <td>
-                <QRCode value="45457456346" />
+                <QRCode value={JSON.stringify(this.props.eventData.ticketID)} />
               </td>
               <td className="ticket-img">
-                <img src={exampleEvent} />
-                <div>Lorem ipsum nazwa</div>
-                <div>data: 12.12.2023</div>
-                <div>godzina: 7:00</div>
-                <div>lokalizacja: Kielce</div>
+                <img src={this.props.eventData.event.imgURL} />
+                <div>{this.props.eventData.event.title}</div>
+                <div>data: {moment(this.props.eventData.event.date).format('DD-MM-YYYY')}</div>
+                <div>godzina: {moment(this.props.eventData.event.date).format('hh:mm')}</div>
+                <div>lokalizacja: {this.props.eventData.event.location.name}</div>
               </td>
               <td>
                 <div className="ticket-info">
-                  <div>Imie: Jan</div>
-                  <div>Nazwisko: Nowak</div>
-                  <div>Adres: Kielce ul.Słoneczna 28</div>
-                  <div>Email: jannowak@mail.com</div>
-                  <div>Tel: 345-346-235</div>
+                  <div>Imie: {this.props.userData.name}</div>
+                  <div>Nazwisko: {this.props.userData.surname}</div>
+                  <div>Email: {this.props.userData.email}</div>
+                  <div>Data urodzenia: {moment(this.props.userData.dateOfBirth).format('DD-MM-YYYY')}</div>
                 </div>
               </td>
-              <td>
-                <div>Ilość biletów: 12</div>
-                <div>Wartość: 920 PLN</div>
+              <td className="ticket-cost">
+                <div>Ilość biletów: {this.props.eventData.numberOfTickets}</div>
+                <div>Wartość: {this.props.eventData.cost} PLN</div>
               </td>
             </tr>
           </tbody>
         </table>
+        :
+        null
+       
+      
+        
     );
   }  
   
   };
   
-  export default function SummaryBuy() {
+  export default function SummaryBuy({eventData,getUser}) {
     const componentRef = React.useRef();
     const handlePrint = useReactToPrint({
       content: () => componentRef.current,
     })
-
+    const [userData,setUserData] = useState();
+    useEffect(()=>{
+      getUser().then(r=>{
+        console.log(r);
+        setUserData(r);
+        console.log("IN PROGRESS")
+        console.log(eventData)
+      })
+    },[])
     return (
       <div className="summary">
-
-        <Ticket ref={componentRef}/>
+       
+          <Ticket 
+            ref={componentRef}
+            eventData={eventData}  
+            userData={userData}
+          />
+       
+        
         <button className="main-btn" onClick={handlePrint}>
           Zapisz do pliku
         </button>

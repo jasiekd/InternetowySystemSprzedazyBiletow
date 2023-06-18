@@ -8,6 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import '../styles/ProfileTicket.css'
 import { useNavigate } from "react-router-dom";
+import LoginController from "../controllers/Login";
 export default function ProfileTicket({seats,event,printAble,editAble,imgURL,date,location,price,title,editBlocked,preview}){
     const [open, setOpen] = React.useState(false);
     const navigate = useNavigate();
@@ -31,7 +32,12 @@ export default function ProfileTicket({seats,event,printAble,editAble,imgURL,dat
                     <DialogContent>
                     <DialogContentText>
                         <div style={{display:"flex"}}>
-                            <SummaryBuy/>
+                            <LoginController>
+                                <SummaryBuy
+                                    eventData={event}
+                                />
+                            </LoginController>
+                            
                         </div>
                         
                     </DialogContentText>
@@ -59,7 +65,8 @@ export default function ProfileTicket({seats,event,printAble,editAble,imgURL,dat
                             sx={{height:"3rem"}}
                             variant="contained" 
                             size='large'
-                            onClick={()=>navigate("/event-preview",{state:{preview:event}})}
+                            onClick={()=>navigate("/event-preview",{state:{preview:event.event?event.event:event}})}
+                           
                         >
                             Podgląd
                         </Button>

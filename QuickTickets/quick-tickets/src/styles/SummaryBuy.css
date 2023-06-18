@@ -32,7 +32,7 @@ table.summart-table td{
   }
 .ticket-info{
     text-align: left;
-
+    width: 14rem;
 }
 .ticket-img{
 
@@ -49,4 +49,7 @@ table.summart-table td{
     height: 100%;
     flex-direction: column;
     gap: 1rem;
+}
+.ticket-cost{
+  width: 18rem;
 }
