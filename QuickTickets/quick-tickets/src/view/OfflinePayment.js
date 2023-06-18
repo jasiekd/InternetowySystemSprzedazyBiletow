@@ -7,84 +7,110 @@ import Header from '../components/Header';
 import "../styles/DropDownMenu.css";
 import "../styles/SearchList.css";
 import Pagination from '@mui/material/Pagination';
-import OrganiserApplicationController from "../controllers/OrganiserApplicationController";
+import TransactionController from "../controllers/TransactionController";
 import { useEffect, useState } from "react";
-
-function ShowUnpaidTickets(){
+import ReCAPTCHA from "react-google-recaptcha";
+import moment from 'moment/moment';
+function ShowUnpaidTickets({GetPendingTransactions,AcceptTransaction,CancelTransaction}){
     
-    const [unpaidTickets,setUnpaidTickets] = useState([
-        {description:'aha'},
-        {description:'aha'},
-
-    ]);
+    const [unpaidTickets,setUnpaidTickets] = useState([]);
     const [pageIndex,setpageIndex] = useState(1);
 
-    //     useEffect(  () => {
-    //         getOrganiserApplication(pageIndex,3).then((result)=>{
-    //             setUnpaidTickets(result);
-    //         });
-    //     },[pageIndex]);
+        useEffect(  () => {
 
-    //     const onAcceptOrganiserApplication=(id)=>{
-    //         acceptOrganiserApplication(id).then((result)=>{
-    //             if(!result)
-    //                 return;
-    //             getOrganiserApplication(pageIndex,3).then((result)=>{        
-    //                 setUnpaidTickets(result);
-    //             });
-    //         })
-    //     }
+            GetPendingTransactions(pageIndex,3).then((result)=>{
+                setUnpaidTickets(result);
+            });
+          
 
-    //     const onCancelOrganiserApplication=(id)=>{
-    //         cancelOrganiserApplication(id).then((result)=>{
-    //             if(!result)
-    //                 return;
-    //                 getOrganiserApplication(pageIndex,3).then((result)=>{
-    //                     setUnpaidTickets(result);
-    //                 }); 
-    //     })
-    // }
+        },[pageIndex]);
 
+   
+    const [captcha, setCaptcha] = useState({});
+
+    const showCaptcha = (transactionID) => {
+        setCaptcha((prevState) => {
+            const newCaptcha = {};
+      
+            // Zchowaj wszystkie otwarte captche
+            Object.keys(prevState).forEach((key) => {
+                newCaptcha[key] = false;
+            });
+            
+            // Pokaż captche
+            if(transactionID)
+            newCaptcha[transactionID] = !prevState[transactionID];
+      
+            return newCaptcha;
+          });
+
+    };
+    const payOffline = (transactionID,value) => {
+        if(!value) return;
+        AcceptTransaction(transactionID).then(()=>{
+            GetPendingTransactions(pageIndex,3).then((result)=>{
+                setUnpaidTickets(result);
+                if(pageIndex>result.totalPages){
+                    setpageIndex(result.totalPages);
+                }
+            });
+        })
+
+    };
+    const cancelUnpaidTicket = (transactionID) => {
+        CancelTransaction(transactionID).then(()=>{
+            GetPendingTransactions(pageIndex,3).then((result)=>{
+                setUnpaidTickets(result);
+                if(pageIndex>result.totalPages){
+                    setpageIndex(result.totalPages);
+                }
+            });
+        })
+
+    };
     return(
-        <div className='searchList'>
+        <div className='searchList'>                                   
+
             <div className='title'>Lista nieopłaconych biletów przez użytkowników</div>
-                {
-                        unpaidTickets &&
-                        unpaidTickets?.map((val,index)=>{
-                            return(
+                {       unpaidTickets!== undefined &&
+                        unpaidTickets.transactions?.map((transaction,index)=>(
+
                                 <div className='organisers-list' key={index}>
                                     <div className='organisers-list-row'>
                                         <h3>Dane:</h3>
                                     </div>
                                     <div className='organisers-list-row'>
-                                        Jan Nowak
+                                       E-mail: {transaction.user.email}
                                     </div>
                                     <div className='organisers-list-row'>
-                                        04.01.1995
+                                        Login użytkownika: {transaction.user.login}
                                     </div>
                                     <div className='organisers-list-row'>
-                                        jan.nowak@wpp.pl
+                                        Imię i nazwisko: {transaction.user.name + " " + transaction.user.surname}
                                     </div>
                                     <div className='organisers-list-row'>
-                                        nazwa biletu
+                                        Data urodzenia: { moment(transaction.user.dateOfBirth).format('MMMM Do YYYY, h:mm:ss a')}
+                                    </div>
+                                    
+                                    <div className='organisers-list-row'>
+                                        Cena: {transaction.price} zł
                                     </div>
                                     <div className='organisers-list-row'>
-                                        200zł
+                                        Data transakcji: {moment(transaction.transactionDate).format('MMMM Do YYYY, h:mm:ss a')}
                                     </div>
                                     <div className='organisers-list-row'>
-                                        {/* <button className='main-btn2' onClick={()=>(onAcceptOrganiserApplication(val.id,index))}>Zatwierdź</button>
-                                        <button className='cancel-btn' onClick={()=>(onCancelOrganiserApplication(val.id,index))}>Anuluj</button> */}
-                                        <button className='main-btn2'>Opłać</button>
-                                        <button className='cancel-btn'>Anuluj</button>
+                                        <button className='main-btn2' onClick={()=>showCaptcha(transaction.transactionID)}>Opłać</button >
+                                        <button className='cancel-btn' onClick={()=>cancelUnpaidTicket(transaction.transactionID)}>Anuluj</button>
                                     </div>
+                                    {captcha[transaction.transactionID] && <ReCAPTCHA sitekey='6LcxKagmAAAAAMoALPGOnG9rmQwJRCNVpdhRQvfm' onChange={(value)=>payOffline(transaction.transactionID,value)}/>}
                                 </div>
-                            )
-                        })
+                            
+                        ))
                    
                 }  
                 {
-                    unpaidTickets &&
-                    <Pagination count={unpaidTickets?.value?.totalPages} size='large' onChange={(e,v)=>(setpageIndex(v))}/>
+                    unpaidTickets!== undefined && unpaidTickets.totalPages>0 &&
+                    <Pagination count={unpaidTickets?.totalPages} size='large' onChange={(e,v)=>{setpageIndex(v);showCaptcha()}}/>
                 }
         </div>
     );
@@ -96,7 +122,9 @@ export default function OfflinePayment(){
         <div className="App">
             <Header/>
             <main className='content'>
-                <ShowUnpaidTickets />
+                <TransactionController>
+                    <ShowUnpaidTickets />
+                </TransactionController>
             </main>
             <div className='App-footer'>
                 <Footer/>

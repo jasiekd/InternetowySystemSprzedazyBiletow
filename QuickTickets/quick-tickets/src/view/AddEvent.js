@@ -157,12 +157,10 @@ export function EventForm({editData,editMode,onAddEvent,getTypesOfEvents,getEven
                 <LocalizationProvider dateAdapter={AdapterDayjs} sx={{width:"100%"}}>
                 <DemoContainer components={['DateTimePicker']} sx={{width:"100%"}}> 
                     <DateTimePicker sx={{width:"100%"}}
-                    label=""
+                    label="Data"
                     value={date}
-                    // defaultValue={dayjs('2022-04-17T15:30')}
                     onChange={(newValue) => {setDate(newValue)}}
-                    inputProps={{ "data-testid": "test-event-date" }}
-                    data-testid= "test-event-date"
+
                     />
                 </DemoContainer>
                 </LocalizationProvider>
@@ -199,7 +197,7 @@ export function EventForm({editData,editMode,onAddEvent,getTypesOfEvents,getEven
                                 eventTitle={title} 
                                 eventText={description}
                                 eventImg={imgURL}
-                                eventDate={date.$d}
+                                eventDate={date?.$d}
                                 eventPlace={selecredLocation}
                                 disableBuy={true}
                                 displayPreview={true}

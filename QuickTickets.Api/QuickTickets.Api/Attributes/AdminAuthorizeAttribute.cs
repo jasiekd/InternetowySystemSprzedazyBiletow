@@ -14,7 +14,7 @@ public class AdminAuthorizeAttribute : AuthorizeAttribute, IAuthorizationFilter
             return;
         }
 
-        if (!context.HttpContext.User.IsInRole("3"))
+        if (!context.HttpContext.User.IsInRole("1"))
         {
             // Użytkownik nie ma wymaganej roli, możesz zaimplementować odpowiednią obsługę
             // np. przekierowanie na stronę błędu lub zwrócenie odpowiedniego komunikatu.
