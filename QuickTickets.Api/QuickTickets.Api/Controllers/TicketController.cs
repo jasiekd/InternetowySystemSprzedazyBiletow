@@ -36,7 +36,6 @@ namespace QuickTickets.Api.Controllers
             Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             //Guid userId = Guid.Parse("BB47EEDE-6953-43DF-A26F-CDAC99BE8E87");
 
-
             var result = await _ticketService.GetTicketsForUser(paginationDto, userId, choice);
             return Ok(result);
         }
@@ -59,7 +58,30 @@ namespace QuickTickets.Api.Controllers
             }
 
             var data = await _context.Tickets.Include(x => x.Transaction).ThenInclude(y => y.User).Include(x => x.Event).ThenInclude(y => y.Owner).Include(x => x.Event).ThenInclude(y => y.Type).Include(x => x.Event).ThenInclude(y => y.Location).FirstOrDefaultAsync(x => x.TicketID == ticketID);
-            var listOfTickets = new List<dynamic>();
+            var response = new
+            {
+                TicketID = data.TicketID,
+                Event = _eventsService.GetEventInfoDto(data.Event),
+                NumberOfTickets = data.Amount,
+                Cost = data.Transaction.Price,
+                User = _accountService.GetUserInfoDto(data.Transaction.User),
+            };
+            return Ok(response);
+        }
+
+        [HttpPost("GetMyTicketForTransactionID")]
+        [Authorize]
+        public async Task<IActionResult> GetMyTicketForTransactionID(Guid transactionID)
+        {
+            Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            //Guid userId = Guid.Parse("BB47EEDE-6953-43DF-A26F-CDAC99BE8E87");
+
+            if (_context.Tickets == null)
+            {
+                return NotFound();
+            }
+
+            var data = await _context.Tickets.Include(x => x.Transaction).ThenInclude(y => y.User).Include(x => x.Event).ThenInclude(y => y.Owner).Include(x => x.Event).ThenInclude(y => y.Type).Include(x => x.Event).ThenInclude(y => y.Location).FirstOrDefaultAsync(x => x.TransactionID == transactionID);
             var response = new
             {
                 TicketID = data.TicketID,

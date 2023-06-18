@@ -12,8 +12,8 @@ using QuickTickets.Api.Data;
 namespace QuickTickets.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230616222815_comments")]
-    partial class comments
+    [Migration("20230618192806_final")]
+    partial class final
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -77,7 +77,7 @@ namespace QuickTickets.Api.Migrations
                         new
                         {
                             Id = new Guid("2ef422ae-0e8e-4f47-93bb-8b79f04123b6"),
-                            DateCreated = new DateTime(2023, 6, 17, 0, 28, 15, 602, DateTimeKind.Local).AddTicks(8264),
+                            DateCreated = new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(4510),
                             DateOfBirth = new DateTime(2000, 11, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "agardian00@cos.nie",
                             IsDeleted = false,
@@ -90,7 +90,7 @@ namespace QuickTickets.Api.Migrations
                         new
                         {
                             Id = new Guid("bb47eede-6953-43df-a26f-cdac99be8e87"),
-                            DateCreated = new DateTime(2023, 6, 17, 0, 28, 15, 602, DateTimeKind.Local).AddTicks(8383),
+                            DateCreated = new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(4694),
                             DateOfBirth = new DateTime(2002, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jkowalski01@cos.nie",
                             IsDeleted = false,
@@ -199,9 +199,9 @@ namespace QuickTickets.Api.Migrations
                         {
                             EventID = 1L,
                             AdultsOnly = true,
-                            Date = new DateTime(2023, 5, 27, 18, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateCreated = new DateTime(2023, 6, 17, 0, 28, 15, 602, DateTimeKind.Local).AddTicks(8483),
-                            DateModified = new DateTime(2023, 6, 17, 0, 28, 15, 602, DateTimeKind.Local).AddTicks(8487),
+                            Date = new DateTime(2023, 6, 30, 18, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(4880),
+                            DateModified = new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(4884),
                             Description = "\"Ludzie trzymajcie kapelusze\" to mój drugi solowy program, grany od grudnia 2016 do sierpnia 2017 roku.  Udostępniony materiał został zarejestrowany 10 lipca 2017 roku w gdańskim klubie \"Parlament\". Obok mnie na scenie pojawił się również Adam Van Bendler.",
                             ImgURL = "https://images.unsplash.com/photo-1610964199131-5e29387e6267?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80",
                             IsActive = true,
@@ -217,9 +217,9 @@ namespace QuickTickets.Api.Migrations
                         {
                             EventID = 2L,
                             AdultsOnly = false,
-                            Date = new DateTime(2023, 5, 28, 12, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateCreated = new DateTime(2023, 6, 17, 0, 28, 15, 602, DateTimeKind.Local).AddTicks(8529),
-                            DateModified = new DateTime(2023, 6, 17, 0, 28, 15, 602, DateTimeKind.Local).AddTicks(8530),
+                            Date = new DateTime(2023, 7, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(4989),
+                            DateModified = new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(5005),
                             Description = "Spływ kajakiem po rzece Morawka",
                             ImgURL = "https://images.unsplash.com/photo-1472745942893-4b9f730c7668?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80",
                             IsActive = true,
@@ -235,9 +235,9 @@ namespace QuickTickets.Api.Migrations
                         {
                             EventID = 3L,
                             AdultsOnly = false,
-                            Date = new DateTime(2023, 5, 28, 18, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateCreated = new DateTime(2023, 6, 17, 0, 28, 15, 602, DateTimeKind.Local).AddTicks(8540),
-                            DateModified = new DateTime(2023, 6, 17, 0, 28, 15, 602, DateTimeKind.Local).AddTicks(8541),
+                            Date = new DateTime(2023, 7, 1, 18, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(5043),
+                            DateModified = new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(5046),
                             Description = "W swoim wykonaniu Pani Żak zaprezentuje swoje umiejętności artystyczne.",
                             ImgURL = "https://images.unsplash.com/photo-1521116103845-2170f3377fec?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
                             IsActive = true,
@@ -253,9 +253,9 @@ namespace QuickTickets.Api.Migrations
                         {
                             EventID = 4L,
                             AdultsOnly = true,
-                            Date = new DateTime(2023, 5, 31, 12, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateCreated = new DateTime(2023, 6, 17, 0, 28, 15, 602, DateTimeKind.Local).AddTicks(8555),
-                            DateModified = new DateTime(2023, 6, 17, 0, 28, 15, 602, DateTimeKind.Local).AddTicks(8556),
+                            Date = new DateTime(2023, 7, 2, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(5058),
+                            DateModified = new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(5061),
                             Description = "W naszej ofercie po prostu tak jakby przedstawimy oferty grona firm mówiących o swoich zapotrzebowaniach i planach dla widza.",
                             ImgURL = "https://images.unsplash.com/photo-1618092388874-e262a562887f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025&q=80",
                             IsActive = true,
@@ -445,6 +445,9 @@ namespace QuickTickets.Api.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("DateDeadline")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("DateUpdated")
                         .HasColumnType("datetime2");
 
@@ -519,6 +522,16 @@ namespace QuickTickets.Api.Migrations
                         {
                             TypeID = 7L,
                             Description = "Stand-up"
+                        },
+                        new
+                        {
+                            TypeID = 8L,
+                            Description = "Dla dzieci"
+                        },
+                        new
+                        {
+                            TypeID = 9L,
+                            Description = "Klasyka"
                         });
                 });
 

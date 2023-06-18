@@ -45,7 +45,7 @@ namespace QuickTickets.Api.Controllers
             _context.TypesOfEvents.Add(typesOfEventsEntity);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTypesOfEventsEntity", new { id = typesOfEventsEntity.TypeID }, typesOfEventsEntity);
+            return CreatedAtAction("PostTypesOfEventsEntity", new { id = typesOfEventsEntity.TypeID }, typesOfEventsEntity);
         }
 
     }

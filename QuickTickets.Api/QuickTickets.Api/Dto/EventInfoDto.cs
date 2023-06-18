@@ -7,7 +7,7 @@ namespace QuickTickets.Api.Dto
         public long EventID { get; set; }
         public string Title { get; set; }
         public int Seats { get; set; }
-        public int OccupiedSeats { get; set; }
+        public int AvailableSeats { get; set; }
         public float TicketPrice { get; set; }
         public string Description { get; set; }
         public DateTime Date { get; set; }

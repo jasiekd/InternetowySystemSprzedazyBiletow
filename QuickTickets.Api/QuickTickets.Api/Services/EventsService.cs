@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using QuickTickets.Api.Data;
 using QuickTickets.Api.Dto;
 using QuickTickets.Api.Entities;
-using QuickTickets.Api.Migrations;
 using System.Drawing.Printing;
 using System.Runtime.CompilerServices;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
@@ -87,11 +86,11 @@ namespace QuickTickets.Api.Services
 
         }
 
-        private int CountOccupiedSeats(int seats, long id)
+        private int CountAvailableSeats(int seats, long id)
         {
-            int data = _context.Tickets.AsQueryable().Include(x => x.Transaction).Where(t => t.EventID == id && t.Transaction.Status != StatusEnum.Unpaid.ToString()).Sum(t => t.Amount);
-            int occupiedSeats = seats - data;
-            return occupiedSeats;
+            int data = _context.Tickets.AsQueryable().Include(x => x.Transaction).Where(t => (t.EventID == id && t.Transaction.Status == StatusEnum.Paid.ToString()) || (t.EventID == id && t.Transaction.Status == StatusEnum.AdminOffPaid.ToString())).Sum(t => t.Amount);
+            int availableSeats = seats - data;
+            return availableSeats;
         }
 
         public async Task<IActionResult> GetForSearch(SearchEventDto searchEventDto)
@@ -207,7 +206,7 @@ namespace QuickTickets.Api.Services
                 EventID = eventsEntity.EventID,
                 Title = eventsEntity.Title,
                 Seats = eventsEntity.Seats,
-                OccupiedSeats = CountOccupiedSeats(eventsEntity.Seats, eventsEntity.EventID),
+                AvailableSeats = CountAvailableSeats(eventsEntity.Seats, eventsEntity.EventID),
                 TicketPrice = eventsEntity.TicketPrice,
                 Description = eventsEntity.Description,
                 Date = eventsEntity.Date,
