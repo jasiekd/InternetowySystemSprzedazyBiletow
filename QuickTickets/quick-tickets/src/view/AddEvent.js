@@ -21,7 +21,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { useNavigate } from "react-router-dom";
 import { checkIsLogged } from "../controllers/Login";
-export function EventForm({editData,editMode,onAddEvent,getTypesOfEvents,getEventLocations}){
+export function EventForm({editData,editMode,onAddEvent,getTypesOfEvents,getEventLocations,updateEvent}){
     const [title,setTitle] = useState("");
     const [seats,setSeats] = useState(0);
     const [ticketPrice,setTicketPrice] = useState(0);
@@ -29,7 +29,7 @@ export function EventForm({editData,editMode,onAddEvent,getTypesOfEvents,getEven
     const [date, setDate] = React.useState(dayjs('2022-04-17T15:30'));
     const [adultsOnly,setAdultsOnly] = useState(true);
     const [imgURL,setImgURL] = useState("");
-
+    const navigate = useNavigate();
     const addNewEvent=()=>{
         // if(isNaN(date)) return;
         // let newdate=date.$d.toISOString();
@@ -47,8 +47,15 @@ export function EventForm({editData,editMode,onAddEvent,getTypesOfEvents,getEven
             setSelectedLocation("Miejsce");
         });
       
+       
     
         
+    }
+
+    const clickUpdateEvent = () =>{
+        updateEvent(editData.eventID,title,seats,ticketPrice,description,date,adultsOnly,typeID,locationID,imgURL).then(r=>{
+            navigate("/user-profile")
+        })
     }
 
     const handleOpenPlace = () => {
@@ -175,7 +182,7 @@ export function EventForm({editData,editMode,onAddEvent,getTypesOfEvents,getEven
                 <input id="imageInput" style={{display:'none'}} type="file" className="main-btn"></input> */}
                 {
                     editMode?
-                    <button className="main-btn"  >Zapisz</button>
+                    <button className="main-btn"  onClick={()=>clickUpdateEvent()}>Zapisz</button>
                     :
                     <button className="main-btn"  onClick={()=>addNewEvent()} >Dodaj</button>
                 }

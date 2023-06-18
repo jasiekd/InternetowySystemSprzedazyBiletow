@@ -3,9 +3,18 @@ import { GreenInput } from "./GreenInput";
 import EventInfo from "./EventInfo";
 import '../styles/ChooseTicket.css';
 import '../styles/Pay.css';
-export default function Pay({counter,eventData}){
-    
+import { useNavigate } from "react-router-dom";
+export default function Pay({counter,eventData,createTransaction}){
+    const navigate = useNavigate()
     const[price,setPrice] = React.useState(80);
+    //cost,desc,eventID,numberOfTickets
+    const onClickPay =() =>{
+        createTransaction((counter+1)*eventData.ticketPrice,"opis",eventData.eventID,(counter+1)).then(r=>{
+            console.log(r);
+            window.location.href = r;
+        })
+       // console.log(eventData)
+    }
     return(
         <div className="choose-ticket">
         <div className="buy-form">
@@ -30,7 +39,7 @@ export default function Pay({counter,eventData}){
                             </tbody>
                         </table>
                         <div className="pay-status">Status płatności: Nieopłacone</div>
-                        <button className="main-btn">Zapłać online</button>
+                        <button className="main-btn" onClick={()=>onClickPay()}>Zapłać online</button>
                 </>
                 :
                 null

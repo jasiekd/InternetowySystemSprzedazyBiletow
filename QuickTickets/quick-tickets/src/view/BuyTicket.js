@@ -13,6 +13,7 @@ import ChooseTicket from '../components/ChooseTicket';
 import FillInData from '../components/FillInData';
 import Pay from '../components/Pay';
 import SummaryBuy from '../components/SummaryBuy';
+import TransactionController from '../controllers/TransactionController';
 
 
 
@@ -21,7 +22,7 @@ export default function BuyTicket() {
     const [eventData,setEventData] = React.useState();
     const location = useLocation();
     const steps = ['Wybierz bilety', 'Uzupełnij dane', 'Zapłać','Podsumowanie'];
-    const buyPages = [<ChooseTicket eventData={eventData} counter={ticketsCounter} setCounter={setTicketCounter}/>,<FillInData eventData={eventData}/>,<Pay eventData={eventData} counter={ticketsCounter}/>,<SummaryBuy eventData={eventData}/>];
+    const buyPages = [<ChooseTicket eventData={eventData} counter={ticketsCounter} setCounter={setTicketCounter}/>,<FillInData eventData={eventData}/>,<TransactionController><Pay eventData={eventData} counter={ticketsCounter}/></TransactionController>,<SummaryBuy eventData={eventData}/>];
 
     const navigate = useNavigate();
     const [activeStep, setActiveStep] = React.useState(0);
@@ -73,7 +74,14 @@ export default function BuyTicket() {
             navigate('/home')
         }
         else{
-            setEventData(location.state.event)
+            if(location.state.id)
+            {
+                console.log(location.state.id)
+                setActiveStep(3);
+            }else{
+                setEventData(location.state.event)
+            }
+            
         }
       },[])
     return (
@@ -117,13 +125,24 @@ export default function BuyTicket() {
                             </div>
                         </Typography>
                         <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                            <button className='main-btn' disabled={activeStep === 0} onClick={handleBack}>
-                                Wróć
-                            </button>
+                            {
+                                activeStep===3?
+                                null:
+                                <button className='main-btn' disabled={activeStep === 0||activeStep===3} onClick={handleBack}>
+                                    Wróć
+                                </button>
+                            }
+                           
                             <Box sx={{ flex: '1 1 auto' }} />
-                            <button className='main-btn' onClick={handleNext}>
+                            {
+                                activeStep === 2?
+                                null
+                                :
+                                <button className='main-btn' onClick={handleNext}>
                                 {activeStep === steps.length - 1 ? 'Zakończ' : 'Dalej'}
                             </button>
+                            }
+                           
                         </Box>
                         </React.Fragment>
                     </Box>

@@ -180,6 +180,29 @@ export default function EventsController({children}){
             return response.data;
         }
     }
+
+    const updateEvent = async(eventID,title,seats,ticketPrice,description,isActive,adultsOnly,typeID,locationID,imgURL)=>{
+        const response = await gateway.updateEvent(eventID,title,seats,ticketPrice,description,isActive,adultsOnly,typeID,locationID,imgURL);
+
+        if(response.status === 200)
+        {
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Zmiany zostały zapisane',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
+        else{
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Błąd zapisu zmian',
+                showConfirmButton: true,
+            })
+        }
+    }
     return React.cloneElement(children,{
         onAddEvent:addEvent,
         getHotEvents,
@@ -191,6 +214,7 @@ export default function EventsController({children}){
         getPendingEvents,
         acceptEvent,
         cancleEvent,
-        getOrganisatorEvents
+        getOrganisatorEvents,
+        updateEvent
     })
 }

@@ -167,4 +167,25 @@ export default class EventsService{
         }
     }
 
+    async updateEvent(eventID,title,seats,ticketPrice,description,date,adultsOnly,typeID,locationID,imgURL){
+        try{
+            const response = await axios.put(HostName+"/api/Events/UpdateEvent?eventID="+eventID,
+            {
+                title:title,
+                seats:seats,
+                ticketPrice:ticketPrice,
+                description:description,
+                date:date,
+                isActive:true,
+                adultsOnly:adultsOnly,
+                typeID:typeID,
+                locationID:locationID,
+                imgURL:imgURL
+            })
+            return response;
+        }catch(error){
+            return error.response;
+        }
+    }
+
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import Home from './../view/Home';
 import {
-    createBrowserRouter,
+    createBrowserRouter
 } from "react-router-dom";
 import Login from "../view/Login";
 import Register from "../view/Register";
@@ -19,6 +19,7 @@ import EventsController from "../controllers/Events";
 import EventPreview from "../view/EventPreview";
 import OfflinePayment from "../view/OfflinePayment";
 import EditEvent from "../view/EditEvent";
+import Redirect from "../view/Redirect";
 
 const router = createBrowserRouter([
     {
@@ -88,6 +89,10 @@ const router = createBrowserRouter([
     {
         path:"/edit-event",
         element: <EventsController><EditEvent/></EventsController>
+    },
+    {
+        path:"/buy-ticket/:id",
+        element: <Redirect/>
     }
 ]);
 
