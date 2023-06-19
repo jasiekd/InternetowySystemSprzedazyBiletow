@@ -68,9 +68,6 @@ namespace QuickTickets.Tests.Tests
             var result2 = await _accountController.LoginUser(loginData);
 
             Assert.IsInstanceOf<NotFoundResult>(result2);
-            var okResult = (NotFoundResult)result2;
-            //Assert.AreEqual(result2, okResult.Value);
-
         }
     }
 }
