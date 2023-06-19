@@ -26,7 +26,7 @@ namespace QuickTickets.Api.Services
             }
             else
             {
-                var accountEntity = _context.Accounts.Where(x=> x.Login == loginData.UserName).FirstOrDefault();
+                var accountEntity = _context.Accounts.Where(x=> x.Login == loginData.UserName && x.IsDeleted==false).FirstOrDefault();
                 if (accountEntity!=null) {
                     SHA256 sha256 = SHA256Managed.Create();
                     byte[] bytes = Encoding.UTF8.GetBytes(loginData.Password);
@@ -79,6 +79,10 @@ namespace QuickTickets.Api.Services
                 if (SubjectAlreadyExist(payload.Result.Subject))
                 {
                     var accountEntity = _context.Accounts.Where(x => x.GoogleSubject == payload.Result.Subject).FirstOrDefault();
+                    if (accountEntity.IsDeleted == true)
+                    {
+                        return null;
+                    }
                     var result = new TokenInfoDto();
                     result.AccessToken = _tokenService.GenerateBearerToken(accountEntity.Id.ToString(), accountEntity.RoleID.ToString());
                     result.RefreshToken = _tokenService.GenerateRefreshToken(accountEntity.Id.ToString(), accountEntity.RoleID.ToString());
@@ -90,6 +94,10 @@ namespace QuickTickets.Api.Services
                     if (EmailAlreadyExist(payload.Result.Email))
                     {
                         var accountEntity = _context.Accounts.Where(x => x.Email == payload.Result.Email).FirstOrDefault();
+                        if (accountEntity.IsDeleted == true)
+                        {
+                            return null;
+                        }
                         accountEntity.GoogleSubject = payload.Result.Subject;
                         _context.Accounts.Update(accountEntity);
                         _context.SaveChangesAsync();
