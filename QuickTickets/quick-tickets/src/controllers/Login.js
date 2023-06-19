@@ -130,12 +130,35 @@ export default function LoginController({children}){
         }
        
     }
+    const GetListOfUsers = async(pageIndex,pageSize) =>{
+        const gateway = new AccountService();
+        
+            const response = await gateway.GetListOfUsers(pageIndex,pageSize);
+            console.log('wtf',response);
+
+            if(response.status === 200)
+            {
+                
+                return response.data;
+            }
+            else 
+            {
+                Swal.fire(
+                    'Błąd pobrania użytkowników',
+                    'error'
+                )
+            }
+        
+       
+       
+    }
     return React.cloneElement(children,{
         onLogin: login,
         onLoginWithGoogle: loginWithGoogle,
         checkIsLogged: checkIsLogged,
         getUser,
-        updateAccount
+        updateAccount,
+        GetListOfUsers
     })
 
 }

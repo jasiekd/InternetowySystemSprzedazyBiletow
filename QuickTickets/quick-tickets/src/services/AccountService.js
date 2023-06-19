@@ -90,4 +90,16 @@ export default class AccountService{
             return error.response;
         }
     }
+    async GetListOfUsers(pageIndex,pageSize){
+        try{
+            const response = await axios.post(HostName+'/api/Account/GetListOfUsers',{
+                pageSize: pageSize,
+                pageIndex: pageIndex
+            })
+            return response;
+        }
+        catch(error){
+            return error.response;
+        }
+    }
 }
