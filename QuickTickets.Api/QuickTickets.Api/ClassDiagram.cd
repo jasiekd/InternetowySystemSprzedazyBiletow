@@ -1,0 +1,326 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="QuickTickets.Api.Program" Collapsed="true">
+    <Position X="7.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Controllers.AccountController" Collapsed="true">
+    <Position X="7.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAgAAAAAAABAAIAAAARAAAAACAAAAAAAAgAUAAAAE=</HashCode>
+      <FileName>Controllers\AccountController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Controllers.CommentController" Collapsed="true">
+    <Position X="10.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAoAAAABAAAAAAAAAAAAAAggAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Controllers\CommentController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Controllers.EventsController" Collapsed="true">
+    <Position X="10.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACEQEAABgAAAAAAIABCEAAIAAAAAIAAAAAACAA=</HashCode>
+      <FileName>Controllers\EventsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Controllers.LocationsController" Collapsed="true">
+    <Position X="7.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAABgAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\LocationsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Controllers.OrganiserApplicationController" Collapsed="true">
+    <Position X="10.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAEAABAAAAAAAAAAAAEAAAAAIAAACAAAAAAA=</HashCode>
+      <FileName>Controllers\OrganiserApplicationController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Controllers.TicketController" Collapsed="true">
+    <Position X="12.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAABAAAAAAAIAACAAAIAAAAAAAAQAAAAAg=</HashCode>
+      <FileName>Controllers\TicketController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Controllers.TimeController" Collapsed="true">
+    <Position X="17.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Controllers\TimeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Controllers.TokenController" Collapsed="true">
+    <Position X="7.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\TokenController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Controllers.TransactionController" Collapsed="true">
+    <Position X="14.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAADKAAAAAMAADAAAEAACBAAAAAAAAAgAA=</HashCode>
+      <FileName>Controllers\TransactionController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Controllers.TypesOfEventsController" Collapsed="true">
+    <Position X="9" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAARAAAAA=</HashCode>
+      <FileName>Controllers\TypesOfEventsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Data.DataContext" Collapsed="true">
+    <Position X="7.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AASAAAgBAAAAAAAAAAIAAAAAEgAAAACAAAAAAAAAIAA=</HashCode>
+      <FileName>Data\DataContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Dto.CreateCommentDto" Collapsed="true">
+    <Position X="16" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dto\CreateCommentDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Dto.CreateEventDto" Collapsed="true">
+    <Position X="17.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAACAAgAEAAEgAAgAAAAAAAAAApAAAAAAAAAAA=</HashCode>
+      <FileName>Dto\CreateEventDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Dto.EventInfoDto" Collapsed="true">
+    <Position X="4.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ICAAAAAAAAAgAEAAEgIAgAAAAAAAAAAJAQAAAAAAAAA=</HashCode>
+      <FileName>Dto\EventInfoDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Dto.GoogleLoginRequestDto" Collapsed="true">
+    <Position X="17.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dto\GoogleLoginRequestDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Dto.OrganiserApplicationDto" Collapsed="true">
+    <Position X="12.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dto\OrganiserApplicationDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Dto.OrganiserInfoDto" Collapsed="true">
+    <Position X="17.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADAAAEAAAgAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Dto\OrganiserInfoDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Dto.PaginationDto" Collapsed="true">
+    <Position X="1.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Dto\PaginationDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Dto.RegisterInfoDto" Collapsed="true">
+    <Position X="9" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAQABAAQAAACAAAQAAAAAAA=</HashCode>
+      <FileName>Dto\RegisterInfoDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Dto.SearchEventDto" Collapsed="true">
+    <Position X="1.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAQACAAAAAAAACAAAAAAAAAAAAAAAAAAIAAAAAQ=</HashCode>
+      <FileName>Dto\SearchEventDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Dto.TokenInfoDto" Collapsed="true">
+    <Position X="9" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dto\TokenInfoDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Dto.TransactionRequestDto" Collapsed="true">
+    <Position X="17.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BCAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Dto\TransactionRequestDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Dto.UserInfoDto" Collapsed="true">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAQABAAQAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Dto\UserInfoDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Dto.UserLoginRequestDto" Collapsed="true">
+    <Position X="12.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAQAAAAAAAAA=</HashCode>
+      <FileName>Dto\UserLoginRequestDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Entities.AccountEntity" Collapsed="true">
+    <Position X="1.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAACAAAAAAAAAAAAQABAAQBAACAAAUAQAAAAA=</HashCode>
+      <FileName>Entities\AccountEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Entities.BaseDbItem" Collapsed="true">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\BaseDbItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Entities.CommentEntity" Collapsed="true">
+    <Position X="12.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACABAAAAAgAAAAAAAAAAAAgAAAAAAAAgAAAEAAAAAAA=</HashCode>
+      <FileName>Entities\CommentEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Entities.EventsEntity" Collapsed="true">
+    <Position X="12.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ICAAAACECAAgCEAAEgIAgAQAAAAAAAApAQAEAAAAAAA=</HashCode>
+      <FileName>Entities\EventsEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Entities.LocationsEntity" Collapsed="true">
+    <Position X="9" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAACAAgAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\LocationsEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Entities.OrganiserApplicationEntity" Collapsed="true">
+    <Position X="14.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADAAAEAAAgAAAAAAAAAAwAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Entities\OrganiserApplicationEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Entities.RoleEntity" Collapsed="true">
+    <Position X="10.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\RoleEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Entities.TicketEntity" Collapsed="true">
+    <Position X="14.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACCAAAAAAAAAAAAAEAAAAACgAgAAAAAAAAAEAAAQAAA=</HashCode>
+      <FileName>Entities\TicketEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Entities.TransactionEntity" Collapsed="true">
+    <Position X="16" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAEAQAAAAAgAAAAAAgggAAAAABAAAAEAAAAAAA=</HashCode>
+      <FileName>Entities\TransactionEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Entities.TypesOfEventsEntity" Collapsed="true">
+    <Position X="10.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\TypesOfEventsEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Migrations.final" Collapsed="true">
+    <Position X="16" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAI=</HashCode>
+      <FileName>Migrations\20230618192806_final.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Migrations.DataContextModelSnapshot" Collapsed="true">
+    <Position X="9" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Migrations\DataContextModelSnapshot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Services.AccountService" Collapsed="true">
+    <Position X="9" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAgAAgABEBIAAAAAAAAAAAAgAAAABAAAAAAEAAAE=</HashCode>
+      <FileName>Services\AccountService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Services.CommentService" Collapsed="true">
+    <Position X="14.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAABAAAAAAAAAAAAAAAABAIAAAAAAAAAAA=</HashCode>
+      <FileName>Services\CommentService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Services.EventsService" Collapsed="true">
+    <Position X="14.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABBAAACEAAAARAgAAAAAAAAAAAAgAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Services\EventsService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Services.OrganiserApplicationService" Collapsed="true">
+    <Position X="16" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\OrganiserApplicationService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Services.TicketService" Collapsed="true">
+    <Position X="16" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAhAAAAAAABAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\TicketService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Services.TokenService" Collapsed="true">
+    <Position X="12.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAIAAAAAAAAAIABAAAAAAAAAAAAAAACACAACA=</HashCode>
+      <FileName>Services\TokenService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Services.TransactionService" Collapsed="true">
+    <Position X="7.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAQAAMABCEAAEAAAAEAAAAQAAAAgABAAgAAAAA=</HashCode>
+      <FileName>Services\TransactionService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickTickets.Api.Settings.TokenOptions" Collapsed="true">
+    <Position X="10.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEQAEAAAAAEQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Settings\TokenOptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="QuickTickets.Api.Entities.StatusEnum" Collapsed="true">
+    <Position X="7.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAIAAAAAAEAAAAAAAAAAAgIAAAAAA=</HashCode>
+      <FileName>Entities\StatusEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

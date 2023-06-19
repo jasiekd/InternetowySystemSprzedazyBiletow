@@ -16,16 +16,11 @@ namespace QuickTickets.Api.Controllers
     [Authorize]
     public class TicketController : ControllerBase
     {
-        private readonly DataContext _context;
-        private readonly EventsService _eventsService;
-        private readonly AccountService _accountService;
+
         private readonly TicketService _ticketService;
 
-        public TicketController(DataContext context, EventsService eventsService, AccountService accountService, TicketService ticketService)
+        public TicketController(TicketService ticketService)
         {
-            _context = context;
-            _eventsService = eventsService;
-            _accountService = accountService;
             _ticketService = ticketService;
         }
 
@@ -36,8 +31,7 @@ namespace QuickTickets.Api.Controllers
             Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             //Guid userId = Guid.Parse("BB47EEDE-6953-43DF-A26F-CDAC99BE8E87");
 
-            var result = await _ticketService.GetTicketsForUser(paginationDto, userId, choice);
-            return Ok(result);
+            return await _ticketService.GetMyTickets(paginationDto, userId, choice);
         }
 
 
@@ -48,25 +42,7 @@ namespace QuickTickets.Api.Controllers
             Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             //Guid userId = Guid.Parse("BB47EEDE-6953-43DF-A26F-CDAC99BE8E87");
 
-            if (_context.Tickets == null)
-            {
-                return NotFound();
-            }
-            if (!TicketEntityExists(ticketID))
-            {
-                return NotFound();
-            }
-
-            var data = await _context.Tickets.Include(x => x.Transaction).ThenInclude(y => y.User).Include(x => x.Event).ThenInclude(y => y.Owner).Include(x => x.Event).ThenInclude(y => y.Type).Include(x => x.Event).ThenInclude(y => y.Location).FirstOrDefaultAsync(x => x.TicketID == ticketID);
-            var response = new
-            {
-                TicketID = data.TicketID,
-                Event = _eventsService.GetEventInfoDto(data.Event),
-                NumberOfTickets = data.Amount,
-                Cost = data.Transaction.Price,
-                User = _accountService.GetUserInfoDto(data.Transaction.User),
-            };
-            return Ok(response);
+            return await _ticketService.GetMyTicket(ticketID);
         }
 
         [HttpPost("GetMyTicketForTransactionID")]
@@ -76,27 +52,8 @@ namespace QuickTickets.Api.Controllers
             Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             //Guid userId = Guid.Parse("BB47EEDE-6953-43DF-A26F-CDAC99BE8E87");
 
-            if (_context.Tickets == null)
-            {
-                return NotFound();
-            }
-
-            var data = await _context.Tickets.Include(x => x.Transaction).ThenInclude(y => y.User).Include(x => x.Event).ThenInclude(y => y.Owner).Include(x => x.Event).ThenInclude(y => y.Type).Include(x => x.Event).ThenInclude(y => y.Location).FirstOrDefaultAsync(x => x.TransactionID == transactionID);
-            var response = new
-            {
-                TicketID = data.TicketID,
-                Event = _eventsService.GetEventInfoDto(data.Event),
-                NumberOfTickets = data.Amount,
-                Cost = data.Transaction.Price,
-                User = _accountService.GetUserInfoDto(data.Transaction.User),
-            };
-            return Ok(response);
+            return await _ticketService.GetMyTicketForTransactionID(transactionID);
         }
 
-
-        private bool TicketEntityExists(long id)
-        {
-            return (_context.Tickets?.Any(e => e.TicketID == id)).GetValueOrDefault();
-        }
     }
 }

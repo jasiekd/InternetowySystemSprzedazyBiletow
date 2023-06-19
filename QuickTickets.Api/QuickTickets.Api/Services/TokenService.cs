@@ -8,7 +8,7 @@ using QuickTickets.Api.Settings;
 
 namespace QuickTickets.Api.Services
 {
-    public class TokenService
+    public class TokenService : ITokenService
     {
         private readonly TokenOptions _tokenOptions;
 
@@ -100,5 +100,7 @@ namespace QuickTickets.Api.Services
 
             return claims;
         }
+
+
     }
 }

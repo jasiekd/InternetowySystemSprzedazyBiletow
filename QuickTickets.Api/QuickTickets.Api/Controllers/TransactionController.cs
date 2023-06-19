@@ -19,13 +19,10 @@ namespace QuickTickets.Api.Controllers
         private const string DotpayPin = "hgX5Sz100itQogpXX4V31iXzvDy1fRYA";
         private const string ipAddress = "192.168.30.2";
 
+        private readonly ITransactionService _transactionService;
 
-        private readonly DataContext _context;
-        private readonly TransactionService _transactionService;
-
-        public TransactionController(DataContext context, TransactionService transactionService)
+        public TransactionController(ITransactionService transactionService)
         {
-            _context = context;
             _transactionService = transactionService;
         }
 
@@ -81,22 +78,7 @@ namespace QuickTickets.Api.Controllers
                 Guid transactionId = Guid.Parse(HttpContext.Request.Query["transactionId"]);
                 var status = formData["operation_status"];
                 var number = formData["operation_number"];
-                var transaction = await _context.Transactions.FindAsync(transactionId);
-                transaction.DotPayID = number;
-                transaction.DateUpdated = DateTime.Now;
-
-                if (status == "rejected")
-                    transaction.Status = StatusEnum.Unpaid.ToString();
-                else if (status == "completed")
-                {
-                    transaction.Status = StatusEnum.Paid.ToString();
-                    var ticket = await _context.Tickets.Where(x => x.TransactionID == transactionId).FirstOrDefaultAsync();
-                    ticket.IsActive = true;
-                    _context.Tickets.Update(ticket);
-                }
-
-                _context.Transactions.Update(transaction);
-                await _context.SaveChangesAsync();
+                await _transactionService.DotPayTrans(transactionId, number, status);
             }
 
             return Ok("OK");
@@ -127,98 +109,37 @@ namespace QuickTickets.Api.Controllers
             Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             //Guid userId = Guid.Parse("BB47EEDE-6953-43DF-A26F-CDAC99BE8E87");
 
-            var transaction = await _context.Transactions.FindAsync(transactionID);
-
-            if (transaction.UserId!=userId)
-            {
-                return Unauthorized();
-            }
-
-            var response = new
-            {
-                transactionID = transaction.TransactionID,
-                transactionStatus = transaction.Status,
-            };
-
-            return Ok(response);
+            return await _transactionService.GetStatusTransaction(transactionID, userId);
         }
 
         [HttpPost("GetPendingTransactions")]
         [AdminAuthorize]
         public async Task<IActionResult> GetPendingTransactions([FromBody]PaginationDto paginationDto)
         {
-            if (_context.Transactions == null)
-            {
-                return NotFound();
-            }
-            var transactions = await _transactionService.GetPendingTransactionsForAdmin(paginationDto);
-            return transactions;
+            return await _transactionService.GetPendingTransactions(paginationDto);
         }
 
         [HttpPost("GetAllTransactions")]
         [AdminAuthorize]
         public async Task<IActionResult> GetAllTransactions([FromBody] PaginationDto paginationDto)
         {
-            if (_context.Transactions == null)
-            {
-                return NotFound();
-            }
-            var transactions = await _transactionService.GetTransactionsForAdmin(paginationDto);
-            return transactions;
+            return await _transactionService.GetAllTransactions(paginationDto);
         }
-
 
         [HttpPut("AcceptTransaction")]
         [AdminAuthorize]
         
         public async Task<IActionResult> AcceptTransaction(Guid transactionID)
         {
-            if (_context.Transactions == null)
-            {
-                return NotFound();
-            }
-            if(!TransactionEntityExists(transactionID))
-            {
-                return NotFound();
-            }
-
-            var transaction = await _context.Transactions.FindAsync(transactionID);
-            if (transaction.Status != StatusEnum.Pending.ToString())
-                return BadRequest();
-            transaction.Status = StatusEnum.AdminOffPaid.ToString();
-            transaction.DateUpdated = DateTime.Now;
-            _context.Transactions.Update(transaction);
-            await _context.SaveChangesAsync();
-
-            return Ok();
+            return await _transactionService.AcceptTransaction(transactionID);
         }
 
         [HttpPut("CancelTransaction")]
         [AdminAuthorize]
         public async Task<IActionResult> CancelTransaction(Guid transactionID)
         {
-            if (_context.Transactions == null)
-            {
-                return NotFound();
-            }
-            if (!TransactionEntityExists(transactionID))
-            {
-                return NotFound();
-            }
-            var transaction = await _context.Transactions.FindAsync(transactionID);
-            if (transaction.Status != StatusEnum.Pending.ToString())
-                return BadRequest();
-            transaction.Status = StatusEnum.Cancelled.ToString();
-            transaction.DateUpdated = DateTime.Now;
-            _context.Transactions.Update(transaction);
-            await _context.SaveChangesAsync();
-
-            return Ok();
+            return await _transactionService.CancelTransaction(transactionID);
         }
 
-        private bool TransactionEntityExists(Guid id)
-        {
-            return (_context.Transactions?.Any(e => e.TransactionID == id)).GetValueOrDefault();
-        }
     }
 }

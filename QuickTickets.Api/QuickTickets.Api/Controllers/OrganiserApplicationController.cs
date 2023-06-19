@@ -15,81 +15,38 @@ namespace QuickTickets.Api.Controllers
     [ApiController]
     public class OrganiserApplicationController : ControllerBase
     {
-        private readonly DataContext _context;
-        private readonly OrganiserApplicationService _organiserApplicationService;
+        private readonly IOrganiserApplicationService _organiserApplicationService;
 
-        public OrganiserApplicationController(DataContext context, OrganiserApplicationService organiserApplicationService)
+        public OrganiserApplicationController(IOrganiserApplicationService organiserApplicationService)
         {
-            _context = context;
             _organiserApplicationService = organiserApplicationService;
         }
-
-
 
         [HttpPost("SendOrganiserApplication")]
         [Authorize]
         public async Task<IActionResult> SendOrganiserApplication([FromBody]OrganiserApplicationDto organiserApp)
         {
-            var application = new OrganiserApplicationEntity
-            {
-                Id = 0,
-                UserId = organiserApp.UserId,
-                Description = organiserApp.Description,
-            };
-            _context.OrganisersApplications.Add(application);
-            await _context.SaveChangesAsync();
-
-            return Ok();
+            return await _organiserApplicationService.SendOrganiserApplication(organiserApp);
         }
 
         [HttpPost("GetPendingOrganiserApplications")]
         [AdminAuthorize]
         public async Task<IActionResult> GetPendingOrganiserApplications([FromBody] PaginationDto paginationDto)
         {
-            var result = await _organiserApplicationService.GetPendingOrganiserApplications(paginationDto);
-            return Ok(result);
+            return await _organiserApplicationService.GetPendingOrganiserApplications(paginationDto);
         }
-
 
         [HttpPost("AcceptOrganiserApplication")]
         [AdminAuthorize]
         public async Task<IActionResult> AcceptOrganiserApplication([FromBody]long id)
         {
-
-            OrganiserApplicationEntity organiserApplication = await _context.OrganisersApplications.FindAsync(id);
-            AccountEntity accountEntity = await _context.Accounts.FindAsync(organiserApplication.UserId);
-
-            if (organiserApplication == null)
-            {
-                return NotFound();
-            }
-            organiserApplication.Status = StatusEnum.Confirmed.ToString();
-            organiserApplication.DateModified = DateTime.Now;
-            accountEntity.RoleID = 3;
-            
-            _context.OrganisersApplications.Update(organiserApplication);
-            _context.Accounts.Update(accountEntity);
-            await _context.SaveChangesAsync();
-            return Ok();
+            return await _organiserApplicationService.AcceptOrganiserApplication(id);
         }
         [HttpPost("CancelOrganiserApplication")]
         [AdminAuthorize]
         public async Task<IActionResult> CancelOrganiserApplication([FromBody] long id)
         {
-
-            OrganiserApplicationEntity organiserApplication = await _context.OrganisersApplications.FindAsync(id);
-
-            if (organiserApplication == null)
-            {
-                return NotFound();
-            }
-            organiserApplication.Status = StatusEnum.Cancelled.ToString();
-            organiserApplication.DateModified = DateTime.Now;
-
-            _context.OrganisersApplications.Update(organiserApplication);
-            await _context.SaveChangesAsync();
-
-            return Ok();
+            return await _organiserApplicationService.CancelOrganiserApplication(id);
         }
 
     }

@@ -15,37 +15,26 @@ namespace QuickTickets.Api.Controllers
     [ApiController]
     public class TypesOfEventsController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly ITypesOfEventsService _typesOfEventsService;
 
-        public TypesOfEventsController(DataContext context)
+        public TypesOfEventsController(ITypesOfEventsService typesOfEventsService)
         {
-            _context = context;
+            _typesOfEventsService = typesOfEventsService;
         }
 
-        // GET: api/TypesOfEvents
         [HttpGet]
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<TypesOfEventsEntity>>> GetTypesOfEvents()
         {
-          if (_context.TypesOfEvents == null)
-          {
-              return NotFound();
-          }
-            return await _context.TypesOfEvents.ToListAsync();
+
+            return await _typesOfEventsService.GetTypesOfEvents();
         }
 
         [HttpPost("AddTypeOfEvent")]
         [AdminAuthorize]
         public async Task<ActionResult<TypesOfEventsEntity>> PostTypesOfEventsEntity(TypesOfEventsEntity typesOfEventsEntity)
         {
-          if (_context.TypesOfEvents == null)
-          {
-              return Problem("Entity set 'DataContext.TypesOfEvents'  is null.");
-          }
-            _context.TypesOfEvents.Add(typesOfEventsEntity);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("PostTypesOfEventsEntity", new { id = typesOfEventsEntity.TypeID }, typesOfEventsEntity);
+            return await _typesOfEventsService.PostTypesOfEventsEntity(typesOfEventsEntity);
         }
 
     }

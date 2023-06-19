@@ -11,7 +11,7 @@ using System.Text;
 namespace QuickTickets.Api.Services
 {
 
-        public class TransactionService
+        public class TransactionService : ITransactionService
         {
             private readonly AccountService _accountService;
             private readonly DataContext _context;
@@ -190,6 +190,111 @@ namespace QuickTickets.Api.Services
                 };
                 return new OkObjectResult(result);
             }
+
+            public async Task DotPayTrans(Guid transactionId, string number, string status)
+            {
+                
+                var transaction = await _context.Transactions.FindAsync(transactionId);
+                transaction.DotPayID = number;
+                transaction.DateUpdated = DateTime.Now;
+
+                if (status == "rejected")
+                    transaction.Status = StatusEnum.Unpaid.ToString();
+                else if (status == "completed")
+                {
+                    transaction.Status = StatusEnum.Paid.ToString();
+                    var ticket = await _context.Tickets.Where(x => x.TransactionID == transactionId).FirstOrDefaultAsync();
+                    ticket.IsActive = true;
+                    _context.Tickets.Update(ticket);
+                }
+
+                _context.Transactions.Update(transaction);
+                await _context.SaveChangesAsync();
+            }
+
+            public async Task<IActionResult> GetStatusTransaction(Guid transactionID, Guid userId)
+            {
+                var transaction = await _context.Transactions.FindAsync(transactionID);
+
+                if (transaction.UserId != userId)
+                {
+                    return new UnauthorizedResult();
+                }
+
+                var response = new
+                {
+                    transactionID = transaction.TransactionID,
+                    transactionStatus = transaction.Status,
+                };
+            return new OkObjectResult(response);
+            }
+            public async Task<IActionResult> GetPendingTransactions(PaginationDto paginationDto)
+            {
+                if (_context.Transactions == null)
+                {
+                    return new NotFoundResult();
+                }
+                var transactions = await GetPendingTransactionsForAdmin(paginationDto);
+                return transactions;
+            }
+
+            public async Task<IActionResult> GetAllTransactions([FromBody] PaginationDto paginationDto)
+            {
+                if (_context.Transactions == null)
+                {
+                    return new NotFoundResult();
+                }
+                var transactions = await GetTransactionsForAdmin(paginationDto);
+                return transactions;
+            }
+            public async Task<IActionResult> AcceptTransaction(Guid transactionID)
+            {
+                if (_context.Transactions == null)
+                {
+                    return new NotFoundResult();
+                }
+                if (!TransactionEntityExists(transactionID))
+                {
+                    return new NotFoundResult();
+            }
+
+                var transaction = await _context.Transactions.FindAsync(transactionID);
+                if (transaction.Status != StatusEnum.Pending.ToString())
+                    return new BadRequestResult();
+                transaction.Status = StatusEnum.AdminOffPaid.ToString();
+                transaction.DateUpdated = DateTime.Now;
+                _context.Transactions.Update(transaction);
+                await _context.SaveChangesAsync();
+
+                return new OkResult();
+            }
+            public async Task<IActionResult> CancelTransaction(Guid transactionID)
+            {
+                if (_context.Transactions == null)
+                {
+                    return new NotFoundResult();
+                }
+                if (!TransactionEntityExists(transactionID))
+                {
+                    return new NotFoundResult();
+                }
+
+                var transaction = await _context.Transactions.FindAsync(transactionID);
+                if (transaction.Status != StatusEnum.Pending.ToString())
+                    return new BadRequestResult();
+                transaction.Status = StatusEnum.Cancelled.ToString();
+                transaction.DateUpdated = DateTime.Now;
+                _context.Transactions.Update(transaction);
+                await _context.SaveChangesAsync();
+
+                return new OkResult();
+            }
+
+
+        private bool TransactionEntityExists(Guid id)
+        {
+            return (_context.Transactions?.Any(e => e.TransactionID == id)).GetValueOrDefault();
         }
     }
+}
 
