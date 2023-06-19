@@ -10,7 +10,7 @@ using QuickTickets.Api.Entities;
 
 namespace QuickTickets.Api.Services
 {
-    public class AccountService
+    public class AccountService : IAccountService
     {
         private readonly TokenService _tokenService;
         private readonly DataContext _context;
@@ -18,6 +18,111 @@ namespace QuickTickets.Api.Services
         {
             _tokenService = tokenService;
             _context = context;
+        }
+        private bool AccountEntityExists(Guid id)
+        {
+            return (_context.Accounts?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        private bool LoginEmailExists(string email, string login)
+        {
+            return (_context.Accounts?.Any(e => e.Email == email || e.Login == login)).GetValueOrDefault();
+        }
+
+        public async Task<IActionResult> Update(RegisterInfoDto registerInfoDto, Guid accountId)
+        {
+            AccountEntity accountEntity = await _context.Accounts.FindAsync(accountId);
+            if (LoginEmailExists(registerInfoDto.Email, registerInfoDto.Login) && registerInfoDto.Email != accountEntity.Email && registerInfoDto.Login != accountEntity.Login)
+            {
+                return new BadRequestObjectResult("User istnieje!");
+            }
+
+            accountEntity.Surname = registerInfoDto.Surname;
+            accountEntity.Name = registerInfoDto.Name;
+            accountEntity.Login = registerInfoDto.Login;
+            accountEntity.DateOfBirth = registerInfoDto.DateOfBirth;
+            accountEntity.Password = HashPassword(registerInfoDto.Password);
+            accountEntity.Email = registerInfoDto.Email;
+
+            try
+            {
+                _context.Accounts.Update(accountEntity);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!AccountEntityExists(accountId))
+                {
+                    return new NotFoundResult();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return new OkResult();
+        }
+
+        public async Task<IActionResult> Register(RegisterInfoDto registerInfoDto)
+        {
+            if (_context.Accounts == null)
+            {
+                return new NotFoundResult();
+            }
+            AccountEntity accountEntity = new AccountEntity
+            {
+                Id = Guid.NewGuid(),
+                Name = registerInfoDto.Name,
+                Surname = registerInfoDto.Surname,
+                Login = registerInfoDto.Login,
+                Email = registerInfoDto.Email,
+                Password = HashPassword(registerInfoDto.Password),
+                DateOfBirth = registerInfoDto.DateOfBirth,
+                RoleID = 2
+            };
+
+            if (LoginEmailExists(accountEntity.Email, accountEntity.Login))
+                return new NotFoundResult();
+            _context.Accounts.Add(accountEntity);
+            await _context.SaveChangesAsync();
+
+            return new OkResult();
+        }
+
+        public async Task<IActionResult> Delete(Guid accountID)
+        {
+            if (_context.Accounts == null)
+            {
+                return new NotFoundResult();
+            }
+            if (!AccountEntityExists(accountID))
+            {
+                return new NotFoundResult();
+            }
+
+            var accountEntity = await _context.Accounts.FindAsync(accountID);
+
+            accountEntity.IsDeleted = true;
+
+            _context.Accounts.Update(accountEntity);
+            await _context.SaveChangesAsync();
+            return new OkResult();
+        }
+        public async Task<IActionResult> GetListOfUsers(PaginationDto paginationDto)
+        {
+            if (_context.Accounts == null)
+            {
+                return new NotFoundResult();
+            }
+
+            return new OkObjectResult(await GetAllUsers(paginationDto));
+        }
+        public async Task<UserInfoDto> GetAccount(Guid accountId)
+        {
+            AccountEntity accountEntity = await _context.Accounts.FindAsync(accountId);
+
+            UserInfoDto temp = GetUserInfoDto(accountEntity);
+            return temp;
         }
 
         public TokenInfoDto LoginUser(UserLoginRequestDto loginData)
@@ -61,11 +166,11 @@ namespace QuickTickets.Api.Services
             return validPayload;
         }
 
-        private bool EmailAlreadyExist(string email)
+        public bool EmailAlreadyExist(string email)
         {
             return (_context.Accounts?.Any(e => e.Email == email)).GetValueOrDefault();
         }
-        private bool SubjectAlreadyExist(string subject)
+        public bool SubjectAlreadyExist(string subject)
         {
             return (_context.Accounts?.Any(e => e.GoogleSubject == subject)).GetValueOrDefault();
         }
@@ -175,7 +280,7 @@ namespace QuickTickets.Api.Services
                 throw;
             }
         }
-        private async Task<IActionResult> GetPaginatedUsers(PaginationDto paginationDto, IQueryable<AccountEntity> data)
+        public async Task<IActionResult> GetPaginatedUsers(PaginationDto paginationDto, IQueryable<AccountEntity> data)
         {
 
             var totalCount = await data.CountAsync();
@@ -207,14 +312,5 @@ namespace QuickTickets.Api.Services
             };
             return new OkObjectResult(result);
         }
-
-
-
-
-
-
-
-
-
     }
 }
