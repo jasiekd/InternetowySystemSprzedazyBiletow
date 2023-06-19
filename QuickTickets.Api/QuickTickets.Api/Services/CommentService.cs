@@ -72,7 +72,7 @@ namespace QuickTickets.Api.Services
         {
             try
             {
-                var data = _context.Comments.AsQueryable().Include(e => e.User).Where(e => e.EventID == eventID);
+                var data = _context.Comments.AsQueryable().Include(e => e.User).Where(e => e.EventID == eventID).OrderByDescending(x => x.DateCreated);
 
 
                 return await GetPaginatedComments(paginationDto, data);

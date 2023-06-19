@@ -16,5 +16,7 @@ namespace QuickTickets.Api.Services
         public Task<IActionResult> GetPendingEventsAction(PaginationDto paginationDto);
         public Task<IActionResult> GetOrganisatorEventsAction(PaginationDto paginationDto, string statusChoice, Guid userId);
         public Task<IActionResult> UpdateEvent(CreateEventDto createEventDto, long eventID);
+        public EventInfoDto GetEventInfoDto(EventsEntity eventsEntity);
+        public Task<IActionResult> CanBuyTicket(long eventID);
     }
 }

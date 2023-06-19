@@ -81,7 +81,12 @@ namespace QuickTickets.Api.Controllers
         {
             return await _accountService.GetListOfUsers(paginationDto);
         }
-
+        [HttpPost("AddAdmin")]
+        [AdminAuthorize]
+        public async Task<IActionResult> AddAdmin(RegisterInfoDto registerInfoDto)
+        {
+            return await _accountService.AddAdmin(registerInfoDto);
+        }
     }
 }
 

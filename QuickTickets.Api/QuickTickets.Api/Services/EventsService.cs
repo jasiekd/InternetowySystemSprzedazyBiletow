@@ -303,7 +303,7 @@ namespace QuickTickets.Api.Services
                 {
                     data = data.Where(e => e.TypeID == searchEventDto.typeId.Value);
                 }
-                
+                data = data.OrderByDescending(e => e.Date);
                 return await GetPaginatedEvents(searchEventDto, data);
 
             }
@@ -389,8 +389,19 @@ namespace QuickTickets.Api.Services
              };
             
         }
+        public async Task<IActionResult> CanBuyTicket(long eventID)
+        {
+            var data = await _context.Events.FindAsync(eventID);
+            if (data.Date < DateTime.Now)
+            {
+                data.Status = StatusEnum.Cancelled.ToString();
+                data.DateModified = DateTime.Now;
 
-
-
+                _context.Events.Update(data);
+                await _context.SaveChangesAsync();
+                return new NotFoundResult();
+            }
+            return new OkResult();
+        }
     }
 }

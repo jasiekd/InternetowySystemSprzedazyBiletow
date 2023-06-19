@@ -17,7 +17,7 @@ namespace QuickTickets.Api.Controllers
     public class TransactionController : ControllerBase
     {
         private const string DotpayPin = "hgX5Sz100itQogpXX4V31iXzvDy1fRYA";
-        private const string ipAddress = "192.168.30.2";
+        private const string ipAddress = "192.168.1.100";
 
         private readonly ITransactionService _transactionService;
 

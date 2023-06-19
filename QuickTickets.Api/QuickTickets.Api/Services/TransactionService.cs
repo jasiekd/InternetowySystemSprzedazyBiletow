@@ -13,16 +13,16 @@ namespace QuickTickets.Api.Services
 
         public class TransactionService : ITransactionService
         {
-            private readonly AccountService _accountService;
+            private readonly IAccountService _accountService;
             private readonly DataContext _context;
-            private const string tunnelLink = "https://zrtc29r2-7235.euw.devtunnels.ms";
+            private const string tunnelLink = "https://r15lg05v-7235.euw.devtunnels.ms";
             private const string clientId = "753756";
             private const string username = "bilety188@gmail.com";
             private const string password = "Biletybilety123$";
             private const string apiUrl = $"https://ssl.dotpay.pl/test_seller/api/v1/accounts/{clientId}/payment_links/";
             private const string DotpayPin = "hgX5Sz100itQogpXX4V31iXzvDy1fRYA";
 
-        public TransactionService(AccountService accountService, DataContext context)
+        public TransactionService(IAccountService accountService, DataContext context)
             {
                 _accountService = accountService;
                 _context = context;

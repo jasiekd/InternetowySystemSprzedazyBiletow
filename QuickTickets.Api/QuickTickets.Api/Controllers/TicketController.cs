@@ -17,9 +17,9 @@ namespace QuickTickets.Api.Controllers
     public class TicketController : ControllerBase
     {
 
-        private readonly TicketService _ticketService;
+        private readonly ITicketService _ticketService;
 
-        public TicketController(TicketService ticketService)
+        public TicketController(ITicketService ticketService)
         {
             _ticketService = ticketService;
         }

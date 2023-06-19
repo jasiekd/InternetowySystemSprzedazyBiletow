@@ -11,9 +11,9 @@ namespace QuickTickets.Api.Services
     public class TicketService : ITicketService
     {
         private readonly DataContext _context;
-        private readonly EventsService _eventsService;
-        private readonly AccountService _accountService;
-        public TicketService(DataContext context, EventsService eventsService, AccountService accountService)
+        private readonly IEventsService _eventsService;
+        private readonly IAccountService _accountService;
+        public TicketService(DataContext context, IEventsService eventsService, IAccountService accountService)
         {
             _context = context;
             _eventsService = eventsService;

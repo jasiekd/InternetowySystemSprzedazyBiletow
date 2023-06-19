@@ -10967,7 +10967,7 @@
       "projectName": "QuickTickets.Tests",
       "projectPath": "C:\\Users\\artur\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Tests\\QuickTickets.Tests.csproj",
       "packagesPath": "C:\\Users\\artur\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\artur\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Tests\\obj\\",
+      "outputPath": "C:\\Users\\artur\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -11054,6 +11054,12 @@
     }
   },
   "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Wystąpił problem podczas czytania pliku pamięci podręcznej C:\\Users\\artur\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Tests\\obj\\project.nuget.cache: Invalid property identifier character: <. Path 'version', line 3, position 0."
+    },
     {
       "code": "NU1701",
       "level": "Warning",

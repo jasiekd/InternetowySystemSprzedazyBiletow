@@ -12,9 +12,9 @@ namespace QuickTickets.Api.Services
 {
     public class AccountService : IAccountService
     {
-        private readonly TokenService _tokenService;
+        private readonly ITokenService _tokenService;
         private readonly DataContext _context;
-        public AccountService(TokenService tokenService, DataContext context)
+        public AccountService(ITokenService tokenService, DataContext context)
         {
             _tokenService = tokenService;
             _context = context;
@@ -32,7 +32,7 @@ namespace QuickTickets.Api.Services
         public async Task<IActionResult> Update(RegisterInfoDto registerInfoDto, Guid accountId)
         {
             AccountEntity accountEntity = await _context.Accounts.FindAsync(accountId);
-            if (LoginEmailExists(registerInfoDto.Email, registerInfoDto.Login) && registerInfoDto.Email != accountEntity.Email && registerInfoDto.Login != accountEntity.Login)
+            if (LoginEmailExists(registerInfoDto.Email, registerInfoDto.Login) && (registerInfoDto.Email != accountEntity.Email || registerInfoDto.Login != accountEntity.Login))
             {
                 return new BadRequestObjectResult("User istnieje!");
             }
@@ -269,7 +269,7 @@ namespace QuickTickets.Api.Services
         {
             try
             {
-                var data = _context.Accounts.AsQueryable().Where(x => x.IsDeleted == false);
+                var data = _context.Accounts.AsQueryable().Where(x => x.IsDeleted == false).OrderByDescending(x => x.DateCreated);
 
 
                 return await GetPaginatedUsers(paginationDto, data);
@@ -311,6 +311,33 @@ namespace QuickTickets.Api.Services
                 Users = userList
             };
             return new OkObjectResult(result);
+        }
+
+
+        public async Task<IActionResult> AddAdmin(RegisterInfoDto registerInfoDto)
+        {
+            if (_context.Accounts == null)
+            {
+                return new NotFoundResult();
+            }
+            AccountEntity accountEntity = new AccountEntity
+            {
+                Id = Guid.NewGuid(),
+                Name = registerInfoDto.Name,
+                Surname = registerInfoDto.Surname,
+                Login = registerInfoDto.Login,
+                Email = registerInfoDto.Email,
+                Password = HashPassword(registerInfoDto.Password),
+                DateOfBirth = registerInfoDto.DateOfBirth,
+                RoleID = 1
+            };
+
+            if (LoginEmailExists(accountEntity.Email, accountEntity.Login))
+                return new NotFoundResult();
+            _context.Accounts.Add(accountEntity);
+            await _context.SaveChangesAsync();
+
+            return new OkResult();
         }
     }
 }

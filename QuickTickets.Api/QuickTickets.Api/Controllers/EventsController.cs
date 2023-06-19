@@ -91,5 +91,11 @@ namespace QuickTickets.Api.Controllers
         {
             return await _eventsService.UpdateEvent(createEventDto, eventID);
         }
+        [HttpPost("CanBuyTicket")]
+        [Authorize]
+        public async Task<IActionResult> CanBuyTicket(long eventID)
+        {
+            return await _eventsService.CanBuyTicket(eventID);
+        }
     }
 }

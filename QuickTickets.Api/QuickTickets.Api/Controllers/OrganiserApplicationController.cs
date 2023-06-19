@@ -24,7 +24,7 @@ namespace QuickTickets.Api.Controllers
 
         [HttpPost("SendOrganiserApplication")]
         [Authorize]
-        public async Task<IActionResult> SendOrganiserApplication([FromBody]OrganiserApplicationDto organiserApp)
+        public async Task<IActionResult> SendOrganiserApplication([FromBody] OrganiserApplicationDto organiserApp)
         {
             return await _organiserApplicationService.SendOrganiserApplication(organiserApp);
         }

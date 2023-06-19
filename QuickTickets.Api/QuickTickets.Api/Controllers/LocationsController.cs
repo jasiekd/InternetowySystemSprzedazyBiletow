@@ -15,60 +15,32 @@ namespace QuickTickets.Api.Controllers
     [ApiController]
     public class LocationsController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly ILocationsService _locationsService;
 
-        public LocationsController(DataContext context)
+        public LocationsController(ILocationsService locationsService)
         {
-            _context = context;
+            _locationsService = locationsService;
         }
 
-        // GET: api/Locations
         [HttpGet]
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<LocationsEntity>>> GetLocations()
         {
-          if (_context.Locations == null)
-          {
-              return NotFound();
-          }
-            return await _context.Locations.ToListAsync();
+          return await _locationsService.GetLocations();
         }
 
-        // GET: api/Locations/5
         [HttpGet("{id}")]
         [AllowAnonymous]
         public async Task<ActionResult<LocationsEntity>> GetLocationsEntity(long id)
         {
-          if (_context.Locations == null)
-          {
-              return NotFound();
-          }
-            var locationsEntity = await _context.Locations.FindAsync(id);
-
-            if (locationsEntity == null)
-            {
-                return NotFound();
-            }
-
-            return locationsEntity;
+          return await _locationsService.GetLocationsEntity(id);
         }
 
-   
-
-        // POST: api/Locations
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("addLocation")]
         [AdminAuthorize]
         public async Task<ActionResult<LocationsEntity>> PostLocationsEntity(LocationsEntity locationsEntity)
         {
-          if (_context.Locations == null)
-          {
-              return Problem("Entity set 'DataContext.Locations'  is null.");
-          }
-            _context.Locations.Add(locationsEntity);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetLocationsEntity", new { id = locationsEntity.LocationID }, locationsEntity);
+          return await _locationsService.PostLocationsEntity(locationsEntity);
         }
 
     }

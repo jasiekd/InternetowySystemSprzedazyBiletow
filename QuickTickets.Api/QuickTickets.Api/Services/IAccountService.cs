@@ -34,9 +34,7 @@ namespace QuickTickets.Api.Services
             byte[] hash = sha256.ComputeHash(bytes);
             return Convert.ToBase64String(hash);
         }
-        //public Task<IActionResult> GetAllUsers(PaginationDto paginationDto);
-
-        //public Task<IActionResult> GetPaginatedUsers(PaginationDto paginationDto, IQueryable<AccountEntity> data);
+        public Task<IActionResult> AddAdmin(RegisterInfoDto registerInfoDto);
 
     }
 }

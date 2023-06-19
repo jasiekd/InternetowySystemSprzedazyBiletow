@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace QuickTickets.Api.Services
 {
-    public class TypesOfEventsService
+    public class TypesOfEventsService : ITypesOfEventsService
     {
         private readonly DataContext _context;
         public TypesOfEventsService(DataContext context)
@@ -20,7 +20,7 @@ namespace QuickTickets.Api.Services
             {
                 return new NotFoundResult();
             }
-            return await _context.TypesOfEvents.ToListAsync();
+            return await _context.TypesOfEvents.OrderByDescending(x => x.Description).ToListAsync();
         }
 
         public async Task<ActionResult<TypesOfEventsEntity>> PostTypesOfEventsEntity(TypesOfEventsEntity typesOfEventsEntity)

@@ -18,13 +18,13 @@ namespace QuickTickets.Api.Services
         {
             try
             {
-                var data = _context.OrganisersApplications.AsQueryable().Include(x => x.User).Where(e => e.Status == StatusEnum.Pending.ToString());
+                var data = _context.OrganisersApplications.AsQueryable().Include(x => x.User).Where(e => e.Status == StatusEnum.Pending.ToString()).OrderByDescending(x => x.DateCreated);
 
 
                 var totalCount = await data.CountAsync();
                 var totalPages = (int)Math.Ceiling(totalCount / (double)paginationDto.pageSize);
 
-                data = data.Skip((paginationDto.pageIndex - 1) * paginationDto.pageSize).Take(paginationDto.pageSize);
+                data = (IOrderedQueryable<OrganiserApplicationEntity>)data.Skip((paginationDto.pageIndex - 1) * paginationDto.pageSize).Take(paginationDto.pageSize);
 
                 List<OrganiserInfoDto> listOfOrganiserApps = new List<OrganiserInfoDto>();
 
