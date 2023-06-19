@@ -10,14 +10,182 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace QuickTickets.Api.Services
 {
-    public class EventsService
+    public class EventsService : IEventsService
     {
         private readonly DataContext _context;
         public EventsService(DataContext context)
         {
             _context = context;
         }
+        private bool EventsEntityExists(long id)
+        {
+            return (_context.Events?.Any(e => e.EventID == id)).GetValueOrDefault();
+        }
 
+        public async Task<IActionResult> PostEventEntity(CreateEventDto createEventDto, Guid userId)
+        {
+            if (_context.Events == null)
+            {
+                return new NotFoundResult();
+            }
+
+            EventsEntity eventEntity = new EventsEntity
+            {
+                EventID = 0,
+                Title = createEventDto.Title,
+                Seats = createEventDto.Seats,
+                TicketPrice = createEventDto.TicketPrice,
+                Description = createEventDto.Description,
+                Date = createEventDto.Date,
+                IsActive = createEventDto.IsActive,
+                AdultsOnly = createEventDto.AdultsOnly,
+                TypeID = createEventDto.TypeID,
+                LocationID = createEventDto.LocationID,
+                ImgURL = createEventDto.ImgURL,
+                OwnerID = userId
+            };
+
+            _context.Events.Add(eventEntity);
+            await _context.SaveChangesAsync();
+            return new OkResult();
+        }
+
+        public async Task<ActionResult<EventInfoDto>> GetEvent(long id)
+        {
+            if (_context.Events == null)
+            {
+                return new NotFoundResult();
+            }
+            EventInfoDto eventInfo = await GetEventInfo(id);
+
+            if (eventInfo == null)
+            {
+                return new NotFoundResult();
+            }
+
+            return new OkObjectResult(eventInfo);
+        }
+
+        public async Task<ActionResult<IEnumerable<EventInfoDto>>> getHotEvents()
+        {
+            if (_context.Events == null)
+            {
+                return new NotFoundResult();
+            }
+            var eventsInfo = await getHotEventsInfo();
+
+            if (eventsInfo == null)
+            {
+                return new NotFoundResult();
+            }
+
+            return new OkObjectResult(eventsInfo);
+        }
+
+        public async Task<ActionResult<IEnumerable<LocationsEntity>>> getHotLocations()
+        {
+            if (_context.Events == null)
+            {
+                return new NotFoundResult();
+            }
+            var eventsInfo = await getHotLocationsInfo();
+
+            if (eventsInfo == null)
+            {
+                return new NotFoundResult();
+            }
+
+            return new OkObjectResult(eventsInfo);
+        }
+        public async Task<IActionResult> SearchEvents([FromBody] SearchEventDto searchEventDto)
+        {
+            var result = await GetForSearch(searchEventDto);
+            return new OkObjectResult(result);
+        }
+        public async Task<IActionResult> AcceptEvent([FromBody] long id)
+        {
+            EventsEntity events = await _context.Events.FindAsync(id);
+
+            if (events == null)
+            {
+                return new NotFoundResult();
+            }
+            events.Status = StatusEnum.Confirmed.ToString();
+            events.DateModified = DateTime.Now;
+
+            _context.Events.Update(events);
+            await _context.SaveChangesAsync();
+
+            return new OkResult();
+        }
+        public async Task<IActionResult> CancelEvent([FromBody] long id)
+        {
+            EventsEntity events = await _context.Events.FindAsync(id);
+
+            if (events == null)
+            {
+                return new NotFoundResult();
+            }
+            events.Status = StatusEnum.Cancelled.ToString();
+            events.DateModified = DateTime.Now;
+
+            _context.Events.Update(events);
+            await _context.SaveChangesAsync();
+
+            return new OkResult();
+        }
+        public async Task<IActionResult> GetPendingEventsAction(PaginationDto paginationDto)
+        {
+            var result = await GetPendingEvents(paginationDto);
+            return new OkObjectResult(result);
+        }
+        public async Task<IActionResult> GetOrganisatorEventsAction(PaginationDto paginationDto, string statusChoice, Guid userId)
+        {
+            var result = await GetOrganisatorEvents(paginationDto, userId, statusChoice);
+            return new OkObjectResult(result);
+        }
+        public async Task<IActionResult> UpdateEvent(CreateEventDto createEventDto, long eventID)
+        {
+            if (!EventsEntityExists(eventID))
+            {
+                return new NotFoundResult();
+            }
+            var data = await _context.Events.FindAsync(eventID);
+            if (data.Status != StatusEnum.Pending.ToString())
+            {
+                return new BadRequestObjectResult("Status nie jest pending");
+            }
+            data.AdultsOnly = createEventDto.AdultsOnly;
+            data.TicketPrice = createEventDto.TicketPrice;
+            data.LocationID = createEventDto.LocationID;
+            data.Date = createEventDto.Date;
+            data.DateModified = DateTime.Now;
+            data.Description = createEventDto.Description;
+            data.TypeID = createEventDto.TypeID;
+            data.ImgURL = createEventDto.ImgURL;
+            data.Title = createEventDto.Title;
+            data.Seats = createEventDto.Seats;
+
+
+            try
+            {
+                _context.Events.Update(data);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!EventsEntityExists(eventID))
+                {
+                    return new NotFoundResult();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return new OkResult();
+        }
         public async Task<EventInfoDto> GetEventInfo(long id)
         {
             var eventsEntity = await _context.Events.Include(x => x.Type).Include(x => x.Location).Include(x => x.Owner).Where(x => x.IsActive == true && x.Status == StatusEnum.Confirmed.ToString()).FirstOrDefaultAsync(x => x.EventID == id);

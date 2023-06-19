@@ -72,11 +72,11 @@ namespace QuickTickets.Api
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<TokenService>();
-            builder.Services.AddScoped<AccountService>();
-            builder.Services.AddScoped<EventsService>();
+            builder.Services.AddScoped<IAccountService, AccountService>();
+            builder.Services.AddScoped<IEventsService, EventsService>();
             builder.Services.AddScoped<OrganiserApplicationService>();
             builder.Services.AddScoped<TransactionService>();
-            builder.Services.AddScoped<CommentService>();
+            builder.Services.AddScoped<ICommentService, CommentService>();
             builder.Services.AddScoped<TicketService>();
             builder.Services.AddScoped<TransactionStatusUpdateService>();
 

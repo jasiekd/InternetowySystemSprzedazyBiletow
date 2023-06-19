@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.EntityFrameworkCore;
 using QuickTickets.Api.Data;
 using QuickTickets.Api.Dto;
@@ -6,17 +7,66 @@ using QuickTickets.Api.Entities;
 
 namespace QuickTickets.Api.Services
 {
-    public class CommentService
+    public class CommentService : ICommentService
     {
-        private readonly AccountService _accountService;
+        private readonly IAccountService _accountService;
         private readonly DataContext _context;
-        public CommentService(AccountService accountService, DataContext context)
+        public CommentService(IAccountService accountService, DataContext context)
         {
             _accountService = accountService;
             _context = context;
         }
 
+        private bool CommentEntityExists(long id)
+        {
+            return (_context.Comments?.Any(e => e.CommentID == id)).GetValueOrDefault();
+        }
 
+        public async Task<IActionResult> GetComments(PaginationDto paginationDto, long eventID)
+        {
+            if (_context.Comments == null)
+            {
+                return new NotFoundResult();
+            }
+            return await GetCommentsForEvent(paginationDto, eventID);
+        }
+        public async Task<IActionResult> AddComment(CreateCommentDto createCommentDto, Guid userId)
+        {
+            if (_context.Comments == null)
+            {
+                return new NotFoundResult();
+            }
+
+
+            var commentEntity = new CommentEntity
+            {
+                CommentID = 0,
+                Content = createCommentDto.Content,
+                EventID = createCommentDto.EventID,
+                UserID = userId,
+            };
+
+            _context.Comments.Add(commentEntity);
+            await _context.SaveChangesAsync();
+            return new OkResult();
+        }
+        public async Task<IActionResult> DeleteCommentEntity(long id)
+        {
+            if (_context.Comments == null)
+            {
+                return new NotFoundResult();
+            }
+            if (!CommentEntityExists(id))
+            {
+                return new NotFoundResult();
+            }
+            var commentEntity = await _context.Comments.FindAsync(id);
+
+
+            _context.Comments.Remove(commentEntity);
+            await _context.SaveChangesAsync();
+            return new NoContentResult();
+        }
 
         public async Task<IActionResult> GetCommentsForEvent(PaginationDto paginationDto, long eventID)
         {
