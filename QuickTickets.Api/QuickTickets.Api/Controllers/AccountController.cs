@@ -26,7 +26,7 @@ namespace QuickTickets.Api.Controllers
 
         [HttpPost("login")]
         [AllowAnonymous]
-        public IActionResult LoginUser([FromBody] UserLoginRequestDto loginData)
+        public async Task<IActionResult> LoginUser([FromBody] UserLoginRequestDto loginData)
         {
             var result = _accountService.LoginUser(loginData);
             if (result == null)
@@ -36,7 +36,7 @@ namespace QuickTickets.Api.Controllers
         }
         [HttpPost("loginWithGoogle")]
         [AllowAnonymous]
-        public IActionResult LoginUserWithGoogle([FromBody] GoogleLoginRequestDto loginData)
+        public async Task<IActionResult> LoginUserWithGoogle([FromBody] GoogleLoginRequestDto loginData)
         {
             var result = _accountService.LoginUserWithGoogle(loginData);
             if (result == null)
@@ -125,7 +125,7 @@ namespace QuickTickets.Api.Controllers
             _context.Accounts.Add(accountEntity);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAccountEntity", new { id = accountEntity.Id }, accountEntity);
+            return CreatedAtAction("PostAccountEntity", new { id = accountEntity.Id }, accountEntity);
         }
 
         [HttpPut("DeleteAccount/{accountID}")]
