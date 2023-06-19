@@ -1,6 +1,8 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 using Google.Apis.Auth;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Update.Internal;
 using QuickTickets.Api.Data;
 using QuickTickets.Api.Dto;
@@ -157,6 +159,61 @@ namespace QuickTickets.Api.Services
             byte[] hash = sha256.ComputeHash(bytes);
             return Convert.ToBase64String(hash);
         }
+
+        public async Task<IActionResult> GetAllUsers(PaginationDto paginationDto)
+        {
+            try
+            {
+                var data = _context.Accounts.AsQueryable().Where(x => x.IsDeleted == false);
+
+
+                return await GetPaginatedUsers(paginationDto, data);
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+        private async Task<IActionResult> GetPaginatedUsers(PaginationDto paginationDto, IQueryable<AccountEntity> data)
+        {
+
+            var totalCount = await data.CountAsync();
+            var totalPages = (int)Math.Ceiling(totalCount / (double)paginationDto.pageSize);
+
+            data = data.Skip((paginationDto.pageIndex - 1) * paginationDto.pageSize).Take(paginationDto.pageSize);
+
+            var userList = new List<dynamic>();
+
+            foreach (var temp in await data.ToListAsync())
+            {
+                userList.Add(new
+                {
+                    UserID = temp.Id,
+                    User = GetUserInfoDto(temp),
+                    DateCreated = temp.DateCreated,
+
+                });
+                    
+            }
+
+            var result = new
+            {
+                TotalCount = totalCount,
+                TotalPages = totalPages,
+                PageIndex = paginationDto.pageIndex,
+                PageSize = paginationDto.pageSize,
+                Users = userList
+            };
+            return new OkObjectResult(result);
+        }
+
+
+
+
+
+
+
 
 
     }

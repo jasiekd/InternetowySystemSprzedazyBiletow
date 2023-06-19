@@ -153,24 +153,14 @@ namespace QuickTickets.Api.Controllers
 
         [HttpPost("GetListOfUsers")]
         [AdminAuthorize]
-        public async Task<IActionResult> GetListOfUsers()
+        public async Task<IActionResult> GetListOfUsers([FromBody]PaginationDto paginationDto)
         {
             if (_context.Accounts == null)
             {
                 return NotFound();
             }
 
-            var users = new List<dynamic>();
-            foreach(var user in await _context.Accounts.Where(x => x.IsDeleted == false).ToListAsync())
-            {
-                users.Add(new
-                {
-                    UserID = user.Id,
-                    User = _accountService.GetUserInfoDto(user),
-                    DateCreated = user.DateCreated,
-                });
-            }
-            return Ok(users);
+            return Ok(await _accountService.GetAllUsers(paginationDto));
         }
 
         private bool AccountEntityExists(Guid id)

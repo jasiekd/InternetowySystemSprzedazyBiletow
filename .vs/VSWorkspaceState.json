@@ -1,10 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\QuickTickets.Api",
-    "\\QuickTickets.Api\\QuickTickets.Api",
-    "\\QuickTickets.Api\\QuickTickets.Api\\Attributes"
+    ""
   ],
-  "SelectedNode": "\\QuickTickets.Api\\QuickTickets.Api.sln",
+  "SelectedNode": "\\QuickTickets.Api.sln",
   "PreviewInSolutionExplorer": false
 }
