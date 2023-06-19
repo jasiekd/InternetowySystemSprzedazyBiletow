@@ -1,6 +1,8 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 using Google.Apis.Auth;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Update.Internal;
 using QuickTickets.Api.Data;
 using QuickTickets.Api.Dto;
@@ -26,7 +28,7 @@ namespace QuickTickets.Api.Services
             }
             else
             {
-                var accountEntity = _context.Accounts.Where(x=> x.Login == loginData.UserName).FirstOrDefault();
+                var accountEntity = _context.Accounts.Where(x=> x.Login == loginData.UserName && x.IsDeleted==false).FirstOrDefault();
                 if (accountEntity!=null) {
                     SHA256 sha256 = SHA256Managed.Create();
                     byte[] bytes = Encoding.UTF8.GetBytes(loginData.Password);
@@ -79,6 +81,10 @@ namespace QuickTickets.Api.Services
                 if (SubjectAlreadyExist(payload.Result.Subject))
                 {
                     var accountEntity = _context.Accounts.Where(x => x.GoogleSubject == payload.Result.Subject).FirstOrDefault();
+                    if (accountEntity.IsDeleted == true)
+                    {
+                        return null;
+                    }
                     var result = new TokenInfoDto();
                     result.AccessToken = _tokenService.GenerateBearerToken(accountEntity.Id.ToString(), accountEntity.RoleID.ToString());
                     result.RefreshToken = _tokenService.GenerateRefreshToken(accountEntity.Id.ToString(), accountEntity.RoleID.ToString());
@@ -90,6 +96,10 @@ namespace QuickTickets.Api.Services
                     if (EmailAlreadyExist(payload.Result.Email))
                     {
                         var accountEntity = _context.Accounts.Where(x => x.Email == payload.Result.Email).FirstOrDefault();
+                        if (accountEntity.IsDeleted == true)
+                        {
+                            return null;
+                        }
                         accountEntity.GoogleSubject = payload.Result.Subject;
                         _context.Accounts.Update(accountEntity);
                         _context.SaveChangesAsync();
@@ -149,6 +159,61 @@ namespace QuickTickets.Api.Services
             byte[] hash = sha256.ComputeHash(bytes);
             return Convert.ToBase64String(hash);
         }
+
+        public async Task<IActionResult> GetAllUsers(PaginationDto paginationDto)
+        {
+            try
+            {
+                var data = _context.Accounts.AsQueryable().Where(x => x.IsDeleted == false);
+
+
+                return await GetPaginatedUsers(paginationDto, data);
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+        private async Task<IActionResult> GetPaginatedUsers(PaginationDto paginationDto, IQueryable<AccountEntity> data)
+        {
+
+            var totalCount = await data.CountAsync();
+            var totalPages = (int)Math.Ceiling(totalCount / (double)paginationDto.pageSize);
+
+            data = data.Skip((paginationDto.pageIndex - 1) * paginationDto.pageSize).Take(paginationDto.pageSize);
+
+            var userList = new List<dynamic>();
+
+            foreach (var temp in await data.ToListAsync())
+            {
+                userList.Add(new
+                {
+                    UserID = temp.Id,
+                    User = GetUserInfoDto(temp),
+                    DateCreated = temp.DateCreated,
+
+                });
+                    
+            }
+
+            var result = new
+            {
+                TotalCount = totalCount,
+                TotalPages = totalPages,
+                PageIndex = paginationDto.pageIndex,
+                PageSize = paginationDto.pageSize,
+                Users = userList
+            };
+            return new OkObjectResult(result);
+        }
+
+
+
+
+
+
+
 
 
     }

@@ -128,24 +128,39 @@ namespace QuickTickets.Api.Controllers
             return CreatedAtAction("GetAccountEntity", new { id = accountEntity.Id }, accountEntity);
         }
 
-        [HttpDelete("{id}")]
+        [HttpPut("DeleteAccount/{accountID}")]
         [AdminAuthorize]
-        public async Task<IActionResult> DeleteAccountEntity(Guid id)
+        public async Task<IActionResult> DeleteAccount(Guid accountID)
         {
             if (_context.Accounts == null)
             {
                 return NotFound();
             }
-            var accountEntity = await _context.Accounts.FindAsync(id);
-            if (accountEntity == null)
+            if (!AccountEntityExists(accountID))
             {
                 return NotFound();
             }
 
-            _context.Accounts.Remove(accountEntity);
+            var accountEntity = await _context.Accounts.FindAsync(accountID);
+
+            accountEntity.IsDeleted = true;
+
+            _context.Accounts.Update(accountEntity);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok();
+        }
+
+        [HttpPost("GetListOfUsers")]
+        [AdminAuthorize]
+        public async Task<IActionResult> GetListOfUsers([FromBody]PaginationDto paginationDto)
+        {
+            if (_context.Accounts == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(await _accountService.GetAllUsers(paginationDto));
         }
 
         private bool AccountEntityExists(Guid id)

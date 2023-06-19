@@ -170,6 +170,9 @@ export default function Header({isLogged}) {
                                     <MenuItem onClick={()=>navigate("/offline-payment")}>
                                         Opłacanie biletów offline
                                     </MenuItem>
+                                    <MenuItem onClick={()=>navigate("/show-users")}>
+                                        Lista użytkowników strony
+                                    </MenuItem>
                                 </>
                                 :
                                 null
