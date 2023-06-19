@@ -16,8 +16,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-
-function ShowUnpaidTickets({GetPendingTransactions,AcceptTransaction,CancelTransaction,GetAllTransactions,showAll}){
+import Alert from '@mui/material/Alert';
+function ShowUnpaidTickets({showButtons,GetPendingTransactions,AcceptTransaction,CancelTransaction,GetAllTransactions,showAll}){
     
     const [unpaidTickets,setUnpaidTickets] = useState([]);
     const [pageIndex,setpageIndex] = useState(1);
@@ -92,10 +92,10 @@ function ShowUnpaidTickets({GetPendingTransactions,AcceptTransaction,CancelTrans
                 <div className='title'>Lista nieopłaconych biletów</div>
             }
             
-                {       unpaidTickets!== undefined &&
+                {       unpaidTickets!== undefined && unpaidTickets.totalCount>0?
                         unpaidTickets.transactions?.map((transaction,index)=>(
 
-                                <div className='organisers-list' style={{boxShadow:" 0 10px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)"}} key={index}>
+                                <div className='organisers-list' style={{boxShadow:" 0 10px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)",width:"100%"}} key={index}>
                                     <div className='organisers-list-row'>
                                         <h3>Dane:</h3>
                                     </div>
@@ -119,13 +119,25 @@ function ShowUnpaidTickets({GetPendingTransactions,AcceptTransaction,CancelTrans
                                         Data transakcji: {moment(transaction.transactionDate).format('MMMM Do YYYY, h:mm:ss a')}
                                     </div>
                                     <div className='organisers-list-row'>
-                                        <button className='main-btn2' onClick={()=>showCaptcha(transaction.transactionID)}>Opłać</button >
-                                        <button className='cancel-btn' onClick={()=>cancelUnpaidTicket(transaction.transactionID)}>Anuluj</button>
+                                        {
+                                            showButtons?
+                                            <React.Fragment>
+                                                <button className='main-btn2' onClick={()=>showCaptcha(transaction.transactionID)}>Opłać</button >
+                                                <button className='cancel-btn' onClick={()=>cancelUnpaidTicket(transaction.transactionID)}>Anuluj</button>
+                                            </React.Fragment>
+                                            :
+                                            null
+                                        }
+                                        
                                     </div>
                                     {captcha[transaction.transactionID] && <ReCAPTCHA sitekey='6LcxKagmAAAAAMoALPGOnG9rmQwJRCNVpdhRQvfm' onChange={(value)=>payOffline(transaction.transactionID,value)}/>}
                                 </div>
                             
                         ))
+                        :
+                        <Alert variant="filled" severity="info">
+                            Brak biletów do wyświetlenia
+                        </Alert>
                    
                 }  
                 {
@@ -186,7 +198,9 @@ export default function OfflinePayment(){
                     </Box>
                     <TabPanel value={value} index={0}>
                         <TransactionController>
-                            <ShowUnpaidTickets />
+                            <ShowUnpaidTickets 
+                                showButtons={true}
+                            />
                         </TransactionController>
                     </TabPanel>
                     <TabPanel value={value} index={1}>

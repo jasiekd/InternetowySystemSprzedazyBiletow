@@ -43,6 +43,7 @@ export default function Event({getEvent}) {
                             eventData={eventInfos}
                             availableSeats={eventInfos.availableSeats}
                             seats={eventInfos.seats}
+                            eventPrice={eventInfos.ticketPrice}
                         />
                         <LocationComponent 
                             localImg={eventInfos.location.imgURL} 

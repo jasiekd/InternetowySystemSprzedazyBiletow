@@ -1,6 +1,8 @@
 import ProfileTicket from "./ProfileTicket"
 import { Pagination } from '@mui/material';
 import React, { useEffect, useState } from "react";
+import Alert from '@mui/material/Alert';
+
 export default function ProfileTicketsList({getMyTickets,choice})
 {
     const [eventList,setEventList] = useState()
@@ -13,8 +15,9 @@ export default function ProfileTicketsList({getMyTickets,choice})
     },[pageCount])
     return(
         <React.Fragment>
+            <h1>Lista biletów</h1>
              {
-                eventList?
+                eventList&&eventList.value.totalCount>0?
                     eventList.value.tickets.map((val,key)=>{
                        console.log(val);
                         return(
@@ -33,10 +36,12 @@ export default function ProfileTicketsList({getMyTickets,choice})
                         
                     })
                 :
-                    null     
+                <Alert variant="filled" severity="info">
+                 Brak biletów
+                </Alert>  
             }
             {
-                 eventList!==undefined?
+                 eventList&&eventList.value.totalCount>0?
                  <Pagination count={Math.ceil(eventList.value.totalCount/10)} size='large' onChange={(e,v)=>{setPageCount(v)}}/>
                  :
                  null

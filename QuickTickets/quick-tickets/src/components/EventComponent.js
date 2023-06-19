@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import people from '../images/people.png'
 import moment from "moment/moment";
 
-export default function EventComponent({eventImg,eventTitle,eventDate,eventPlace,eventText, disableBuy,eventData,displayPreview,seats,availableSeats}){
+export default function EventComponent({eventPrice,eventImg,eventTitle,eventDate,eventPlace,eventText, disableBuy,eventData,displayPreview,seats,availableSeats}){
     const navigate = useNavigate();
     // useEffect(()=>{
     //     // let date=eventDate.toISOString();
@@ -22,8 +22,7 @@ export default function EventComponent({eventImg,eventTitle,eventDate,eventPlace
                     </div>
                     <div>
                         {
-                            !isNaN(eventDate)&&   
-                            moment(eventDate.toISOString()).format('MMMM Do YYYY, h:mm:ss a') ||"Data wydarzenia"
+                            !isNaN(eventDate)&& moment(eventDate.toISOString()).format('DD-MM-YYYY, hh:mm a') ||moment(eventDate).format('DD-MM-YYYY, hh:mm a')
 
 
                             // console.log('aha',eventDate.$d.toISOString())
@@ -80,7 +79,7 @@ export default function EventComponent({eventImg,eventTitle,eventDate,eventPlace
                             </div>
                         }
                         <div style={{display:"flex",gap:"2rem"}}>
-                            <button className='main-btn' onClick={()=>navigate("/buy-ticket",{state:{event:eventData}})} disabled={disableBuy}>Kup teraz</button>
+                            <button className='main-btn' onClick={()=>navigate("/buy-ticket",{state:{event:eventData}})} disabled={disableBuy}>Kup teraz za {eventPrice} PLN</button>
                             <h2> Pzostałe bilety: {availableSeats}</h2>
                         </div>
                         

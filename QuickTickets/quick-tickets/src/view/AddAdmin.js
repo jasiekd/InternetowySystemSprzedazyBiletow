@@ -61,7 +61,7 @@ function AddAdminForm(){
                         <GreenInput label="Email" error={errorStatus} value={emailRegVal} helperText={errorText} onChange={(e)=>onChangeEmailVal(e.target.value)}/>
                         <GreenInput label="Imię"  error={errorStatus} value={nameRegVal} onChange={(e)=>onChangeNameVal(e.target.value)}/>
                         <GreenInput label="Nazwisko" error={errorStatus} value={surnameRegVal} onChange={(e)=>onChangeSurnameVal(e.target.value)}/>
-                        <GreenInput type="date" label="Data urodzenia" error={errorStatus} value={dateOfBirthRegVal} onChange={(e)=>onChangeDateOfBirthVal(e.target.value)} fullWidth></GreenInput>
+                        <GreenInput type="date" error={errorStatus} value={dateOfBirthRegVal} onChange={(e)=>onChangeDateOfBirthVal(e.target.value)} fullWidth></GreenInput>
 
                     </div>
                     <div className='buttonsAccountMenu'>

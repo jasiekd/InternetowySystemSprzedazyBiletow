@@ -60,7 +60,10 @@ export default function Header({isLogged}) {
     const handleClose = () => {
       setAnchorEl(null);
     };
-    
+    const onLogOut =()=>{
+        logOut();
+        navigate('/home');
+    }
     return (
         <header className="App-header">
                 <img className='main-logo' onClick={()=>navigate("/home")} src={logo}/>
@@ -173,7 +176,7 @@ export default function Header({isLogged}) {
                             }
                             <Divider />
                         
-                            <MenuItem onClick={logOut}>
+                            <MenuItem onClick={()=>onLogOut()}>
                             <ListItemIcon>
                                 <Logout fontSize="small" />
                             </ListItemIcon>

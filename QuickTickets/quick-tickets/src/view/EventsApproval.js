@@ -9,6 +9,7 @@ import Pagination from '@mui/material/Pagination';
 import moment from 'moment';
 import "../styles/EventApprovals.css"
 import Button from '@mui/material/Button';
+import Alert from '@mui/material/Alert';
 export default function EventsApproval({getPendingEvents,cancleEvent,acceptEvent}){
     const navigate = useNavigate();
     
@@ -44,7 +45,7 @@ export default function EventsApproval({getPendingEvents,cancleEvent,acceptEvent
         <div className='searchList'>
             <div className='title'>Zatwierdzanie wydarzeń</div>
             {
-                pendingEvents?
+                pendingEvents&&pendingEvents.totalCount>0?
                     
                     pendingEvents.events.map((val,key)=>{
                         return(
@@ -96,10 +97,12 @@ export default function EventsApproval({getPendingEvents,cancleEvent,acceptEvent
                         )
                     })
                 :
-                    null
+                <Alert variant="filled" severity="info">
+                    Brak wydarzeń do wyświetlenia
+                </Alert>
             }  
             {
-                pendingEvents?
+                pendingEvents&&pendingEvents.totalCount>0?
                 <Pagination count={Math.ceil(pendingEvents.totalCount/10)} size='large' onChange={(e,v)=>{setPageCount(v)}}/>
                 :
                 null

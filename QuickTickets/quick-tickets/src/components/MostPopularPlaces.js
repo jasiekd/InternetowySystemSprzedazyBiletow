@@ -17,7 +17,7 @@ export default function MostPopularPlaces({getHotLocations}){
             popularPlaces.map((val,key)=>{
                 
                 return(
-                    <div className="place-event" data-testid='test-place-event' onClick={()=>navigate("/search-list",{state:{phrase:"",location:val}})}>
+                    <div key={key} className="place-event" data-testid='test-place-event' onClick={()=>navigate("/search-list",{state:{phrase:"",location:val.locationID}})}>
                         <img className='place-img' src={val.imgURL}  alt=""/>
                         <div className="place-info">
                             <div className="place-title">

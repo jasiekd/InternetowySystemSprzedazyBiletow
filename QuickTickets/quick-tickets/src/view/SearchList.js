@@ -36,12 +36,8 @@ function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocation
     };
     const [categoryList,setCategoryList] = React.useState([]);
     const [locationsList,setLocationsList] = React.useState([]);
-    //const [selectedCategory,setSelectedCategory] = React.useState("Kategoria");
-    //const [selecredLocation,setSelectedLocation] = React.useState("Miejsce");
-    //const [selectedDate,setSelectedDate] = React.useState("Data");
     const [dateFrom,setDateFrom] = React.useState(null); 
     const [dateTo,setDateTo] = React.useState(null); 
-    //const [selectedPrice,setSelectedPrice] = React.useState("Cena");
     const [priceFrom,setPriceFrom] = React.useState("");
     const [priceTo,setPriceTo] = React.useState("");
     React.useEffect(()=>{
@@ -60,7 +56,7 @@ function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocation
             setFilters(prev =>({
                 ...prev,
                 place: null,
-                selectLocation: "wszystkie"
+                selectedLocation: "wszystkie"
             }))
             
             handleOpenPlace();
@@ -80,7 +76,7 @@ function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocation
             setFilters(prev =>({
                 ...prev,
                 type: null,
-                selectedCategory: "wszystki"
+                selectedCategory: "wszystkie"
             }))
             handleOpenCategory();
         }else{
@@ -99,7 +95,7 @@ function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocation
             ...prev,
             dateFrom: dateFrom,
             dateTo: dateTo,
-            selectedDate: "od "+dateFrom+" do "+dateTo
+            selectedDate: dateFrom+" - "+dateTo
         }))
            
            
@@ -221,11 +217,9 @@ function SearchEvents({search,filters}){
     const [events,setEvents] = React.useState();
     const [pageCount,setPageCount] = React.useState(1);
     React.useEffect(()=>{
-
         search(filters.phrase,filters.priceFrom,filters.priceTo,filters.dateFrom,filters.dateTo,filters.place,filters.type,pageCount,10).then(r=>{
-            setEvents(r);
-            
-        })
+                    setEvents(r);
+       })
     },[filters])
 
 
@@ -236,7 +230,7 @@ function SearchEvents({search,filters}){
                         
                         events.value.events.map((val,key)=>{
                             return(
-                                <div className='event-on-list'>
+                                <div className='event-on-list' key={key}>
                                     <div className='event-list-img'><img src={val.imgURL}/></div>
                                     <div className='event-list-info'>
                                         <div className='event-list-title'>{val.title}</div>
@@ -276,7 +270,7 @@ export default function SearchList() {
         place: null,
         type: null,
         selectedCategory:"Kategoria",
-        selecredLocation:"Miejsce",
+        selectedLocation:"Miejsce",
         selectedDate:"Data",
         selectedPrice:"Cena",
       });
@@ -287,6 +281,7 @@ export default function SearchList() {
     
  
     React.useEffect(()=>{
+            debugger
             if(location.state === null || location.state.phrase === null )
             {
                  navigate("/home")
@@ -296,7 +291,7 @@ export default function SearchList() {
                     setFilters(prev =>({
                         ...prev,
                         phrase: location.state.phrase,
-                        place: location.state.location.locationID,
+                        place: location.state.location,
                         selectedLocation: location.state.location.name,
                         type: location.state.type
                     }))

@@ -202,7 +202,8 @@ export function EventForm({editData,editMode,onAddEvent,getTypesOfEvents,getEven
                                 disableBuy={true}
                                 displayPreview={true}
                                 occupiedSeats={0}
-                                seats={seats}
+                                availableSeats={seats}
+                                eventPrice={ticketPrice}
                             />
                             
                         </div>

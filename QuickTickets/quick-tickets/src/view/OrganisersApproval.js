@@ -9,6 +9,7 @@ import "../styles/SearchList.css";
 import Pagination from '@mui/material/Pagination';
 import OrganiserApplicationController from "../controllers/OrganiserApplicationController";
 import { useEffect, useState } from "react";
+import  Alert  from '@mui/material/Alert';
 import moment from 'moment';
 
 function ShowOrganisers({getOrganiserApplication,acceptOrganiserApplication,cancelOrganiserApplication}){
@@ -52,7 +53,7 @@ function ShowOrganisers({getOrganiserApplication,acceptOrganiserApplication,canc
         <div className='searchList'>
             <div className='title'>Organizatorzy do zatwierdzenia</div>
                 {
-                    organisersToAprove!==undefined &&
+                    organisersToAprove!==undefined && organisersToAprove.totalCount>0 ?
                         organisersToAprove.value.organiserApplications.map((val,index)=>{
                             return(
                                 <div className='organisers-list' key={index}>
@@ -81,11 +82,16 @@ function ShowOrganisers({getOrganiserApplication,acceptOrganiserApplication,canc
                                 </div>
                             )
                         })
+                    :
+                    <Alert variant="filled" severity="info">
+                            Brak użytkowników do wyświetlenia
+                    </Alert>
                    
                 }  
                 {
-                    organisersToAprove!==undefined &&
+                    organisersToAprove!==undefined && organisersToAprove.totalCount>0 &&
                     <Pagination count={Math.ceil(organisersToAprove.value.totalPages)} size='large' onChange={(e,v)=>(setpageIndex(v))}/>
+                    
                 }
         </div>
     );

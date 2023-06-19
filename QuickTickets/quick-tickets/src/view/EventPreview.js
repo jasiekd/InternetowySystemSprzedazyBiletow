@@ -41,13 +41,14 @@ export default function EventPreview({}) {
                         <EventComponent
                             eventImg={eventInfos.imgURL}
                             eventTitle={eventInfos.title}
-                            eventDate={moment(eventInfos.date).format("DD-MM-YYYY")}
+                            eventDate={eventInfos.date}
                             eventPlace={eventInfos.location.name}
                             eventText={eventInfos.description}
                             eventData={eventInfos}
                             disableBuy={true}
                             occupiedSeats={eventInfos.occupiedSeats}
-                            seats={eventInfos.seats}
+                            availableSeats={eventInfos.seats}
+                            eventPrice={eventInfos.ticketPrice}
                         />
                         <LocationComponent 
                             localImg={eventInfos.location.imgURL} 
