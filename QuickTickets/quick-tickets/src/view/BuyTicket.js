@@ -18,7 +18,7 @@ import LoginController from '../controllers/Login';
 
 
 
-export default function BuyTicket({getMyTicketByID}) {
+export default function BuyTicket({getMyTicketByID,GetStatusTransaction}) {
     const [ticketsCounter,setTicketCounter] = React.useState(0);
     const [eventData,setEventData] = React.useState();
     const [ticketData,setTicketData] = React.useState();
@@ -26,9 +26,15 @@ export default function BuyTicket({getMyTicketByID}) {
     const steps = ['Wybierz bilety', 'Dane użytkownika', 'Zapłać','Podsumowanie'];
     const buyPages = [
         <ChooseTicket eventData={eventData} counter={ticketsCounter} setCounter={setTicketCounter}/>,
-        <LoginController><FillInData eventData={eventData}/></LoginController>,
-        <TransactionController><Pay eventData={eventData} counter={ticketsCounter}/></TransactionController>,
-        <LoginController><SummaryBuy eventData={ticketData}/></LoginController>
+        <LoginController>
+            <FillInData eventData={eventData}/>
+        </LoginController>,
+        <TransactionController>
+            <Pay eventData={eventData} counter={ticketsCounter}/>
+        </TransactionController>,
+        <LoginController>
+            <SummaryBuy eventData={ticketData}/>
+        </LoginController>
     ];
 
     const navigate = useNavigate();
@@ -83,9 +89,15 @@ export default function BuyTicket({getMyTicketByID}) {
             if(id)
             {
                 setActiveStep(3);
-                getMyTicketByID(id).then(r=>{
-                    setTicketData(r);
+                GetStatusTransaction(id).then((r)=>{
+                    if(r){
+                        getMyTicketByID(id).then(r=>{
+                            setTicketData(r);
+                        })
+                    }
                 })
+               
+               
             }
             else
             {

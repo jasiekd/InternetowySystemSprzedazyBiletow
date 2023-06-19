@@ -17,16 +17,25 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-function ShowUnpaidTickets({GetPendingTransactions,AcceptTransaction,CancelTransaction}){
+function ShowUnpaidTickets({GetPendingTransactions,AcceptTransaction,CancelTransaction,GetAllTransactions,showAll}){
     
     const [unpaidTickets,setUnpaidTickets] = useState([]);
     const [pageIndex,setpageIndex] = useState(1);
 
         useEffect(  () => {
 
-            GetPendingTransactions(pageIndex,3).then((result)=>{
-                setUnpaidTickets(result);
-            });
+            if(showAll)
+            {
+                GetAllTransactions(pageIndex,3).then((result)=>{
+                    setUnpaidTickets(result);
+                });
+            }
+            else{
+                GetPendingTransactions(pageIndex,3).then((result)=>{
+                    setUnpaidTickets(result);
+                });
+            }
+           
           
 
         },[pageIndex]);
@@ -76,8 +85,13 @@ function ShowUnpaidTickets({GetPendingTransactions,AcceptTransaction,CancelTrans
     };
     return(
         <div className='searchList'>                                   
-
-            <div className='title'>Lista nieopłaconych biletów przez użytkowników</div>
+            {
+                showAll?
+                <div className='title'>Lista wszystkich biletów</div>
+                :
+                <div className='title'>Lista nieopłaconych biletów</div>
+            }
+            
                 {       unpaidTickets!== undefined &&
                         unpaidTickets.transactions?.map((transaction,index)=>(
 
@@ -176,7 +190,11 @@ export default function OfflinePayment(){
                         </TransactionController>
                     </TabPanel>
                     <TabPanel value={value} index={1}>
-                       
+                        <TransactionController>
+                            <ShowUnpaidTickets
+                                showAll={true}
+                            />
+                        </TransactionController>
                     </TabPanel>
                 </Box>
                 

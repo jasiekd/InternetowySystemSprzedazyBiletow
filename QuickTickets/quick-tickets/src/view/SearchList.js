@@ -241,7 +241,7 @@ function SearchEvents({search,filters}){
                                     <div className='event-list-info'>
                                         <div className='event-list-title'>{val.title}</div>
                                         <div className='event-list-placeTime'>
-                                            <div className='event-list-time'>{moment(val.dateCreated).format("DD-MM-YYYY")}</div>
+                                            <div className='event-list-time'>{moment(val.date).format("DD-MM-YYYY")}</div>
                                             <div className='event-list-place'>{val.location.name}</div>
                                         </div>
                                     </div>
