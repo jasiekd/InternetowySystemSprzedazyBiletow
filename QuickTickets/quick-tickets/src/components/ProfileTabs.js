@@ -163,7 +163,7 @@ export default function ProfileTabs({getUser,updateAccount}) {
       >
         <Tab label="Informacje o profilu" {...a11yProps(0)} />
         <Tab label="Aktywne bilety" {...a11yProps(1)} />
-        <Tab label="Przedawnione bilety" {...a11yProps(2)} />
+        <Tab label="Nieaktywne bilety" {...a11yProps(2)} />
         {
           checkIsLogged()==="3"?<Tab label="Organizowane wydarzenia" {...a11yProps(3)} />:null
         }

@@ -28,6 +28,17 @@ export default class TransactionService{
             return error.response;
         }
     }
+    async GetAllTransactions(pageIndex,pageSize){
+        try{
+            const response = await axios.post(HostName+"/api/Transaction/GetAllTransactions",{
+                pageIndex: pageIndex,
+                pageSize: pageSize
+            })
+            return response;
+        }catch(error){
+            return error.response;
+        }
+    }
     async AcceptTransaction(transactionID){
         try{
             const response = await axios.put(HostName+"/api/Transaction/AcceptTransaction?transactionID=" + transactionID,{})
@@ -39,6 +50,20 @@ export default class TransactionService{
     async CancelTransaction(transactionID){
         try{
             const response = await axios.put(HostName+"/api/Transaction/CancelTransaction?transactionID=" + transactionID,{})
+            return response;
+        }catch(error){
+            return error.response;
+        }
+    }
+    
+    async GetStatusTransaction(transactionID){
+        try{
+            const response = await axios.post(HostName+"/api/Transaction/GetStatusTransaction",transactionID,{
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: '*/*',
+                  }
+            })
             return response;
         }catch(error){
             return error.response;

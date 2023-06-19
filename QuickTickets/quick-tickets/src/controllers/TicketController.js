@@ -1,7 +1,7 @@
 import React from "react";
 import Swal from "sweetalert2";
 import TicketService from "../services/TicketService";
-export default function TicketController({children}){
+export default function TicketController({children,GetStatusTransaction}){
 
     const gateway = new TicketService();
 
@@ -53,6 +53,7 @@ export default function TicketController({children}){
     return React.cloneElement(children,{
         getMyTickets,
         getMyTicket,
-        getMyTicketByID
+        getMyTicketByID,
+        GetStatusTransaction
     })
 }

@@ -4,7 +4,7 @@ import '../styles/SummaryBuy.css';
 import QRCode from "react-qr-code";
 import { useReactToPrint } from "react-to-print";
 import moment from "moment";
-import LoginController from "../controllers/Login";
+
 class Ticket extends React.PureComponent {
   
   render(){
@@ -66,22 +66,22 @@ class Ticket extends React.PureComponent {
     useEffect(()=>{
       debugger
       getUser().then(r=>{
-        console.log(r);
         setUserData(r);
-        console.log("IN PROGRESS")
-        console.log(eventData)
       })
     },[eventData])
     return (
       <div className="summary">
-          test
-          <Ticket 
-            ref={componentRef}
-            eventData={eventData}  
-            userData={userData}
-          />
-       
-        
+          {
+            eventData&&eventData.event?
+              <Ticket 
+              ref={componentRef}
+              eventData={eventData}  
+              userData={userData}
+            />
+            :
+            null
+          }
+         
         <button className="main-btn" onClick={handlePrint}>
           Zapisz do pliku
         </button>
