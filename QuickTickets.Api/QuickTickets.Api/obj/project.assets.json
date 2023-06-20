@@ -11973,23 +11973,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\artur\\.nuget\\packages\\": {},
+    "C:\\Users\\Johny\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\artur\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\QuickTickets.Api.csproj",
+      "projectUniqueName": "C:\\Users\\Johny\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\QuickTickets.Api.csproj",
       "projectName": "QuickTickets.Api",
-      "projectPath": "C:\\Users\\artur\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\QuickTickets.Api.csproj",
-      "packagesPath": "C:\\Users\\artur\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\artur\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\obj\\",
+      "projectPath": "C:\\Users\\Johny\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\QuickTickets.Api.csproj",
+      "packagesPath": "C:\\Users\\Johny\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Johny\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\artur\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Johny\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -11998,7 +11998,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\sdk\\7.0.304\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
+        "C:\\Program Files\\dotnet\\sdk\\7.0.302\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -12089,7 +12089,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   },
