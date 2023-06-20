@@ -19,7 +19,7 @@ import LoginController from '../controllers/Login';
 
 
 export default function BuyTicket({getMyTicketByID,GetStatusTransaction}) {
-    const [ticketsCounter,setTicketCounter] = React.useState(0);
+    const [ticketsCounter,setTicketCounter] = React.useState(1);
     const [eventData,setEventData] = React.useState();
     const [ticketData,setTicketData] = React.useState();
     const location = useLocation();
@@ -116,10 +116,6 @@ export default function BuyTicket({getMyTicketByID,GetStatusTransaction}) {
             
         }
       },[])
-      const onBack = () =>{
-        debugger
-        navigate(-1)
-      }
     return (
 
         <div className="App">

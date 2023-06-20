@@ -4,7 +4,8 @@ import { useState,useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { checkIsLogged } from "../controllers/Login";
-function AddAdminForm(){
+import RegisterController from "../controllers/Register";
+export function AddAdminForm({AddAdmin}){
     const navigate = useNavigate();
 
     const [loginRegVal,setLoginRegVal] = useState("");
@@ -12,7 +13,7 @@ function AddAdminForm(){
     const [emailRegVal,setEmailRegVal] = useState("");
     const [nameRegVal, setNameRegVal] = useState("");
     const [surnameRegVal,setSurnameRegVal] = useState("");
-    const [dateOfBirthRegVal,setDateOfBirdthRegVal] = useState();
+    const [dateOfBirthRegVal,setDateOfBirdthRegVal] = useState(" ");
 
     const [errorStatus, setErrorStatus] = useState(false);
     const [errorText, setErrorText] = useState("");
@@ -49,7 +50,14 @@ function AddAdminForm(){
     }
 
     const onClickRegister = () =>{
-        
+        AddAdmin({loginRegVal,passwordRegVal,emailRegVal,nameRegVal,surnameRegVal,dateOfBirthRegVal}).then(r=>{
+            setLoginRegVal("");
+            setPasswordRegVal("");
+            setEmailRegVal("");
+            setNameRegVal("");
+            setSurnameRegVal("");
+            setDateOfBirdthRegVal("")
+        })
     } 
     return(
         <div className="content-data">
@@ -61,7 +69,7 @@ function AddAdminForm(){
                         <GreenInput label="Email" error={errorStatus} value={emailRegVal} helperText={errorText} onChange={(e)=>onChangeEmailVal(e.target.value)}/>
                         <GreenInput label="Imię"  error={errorStatus} value={nameRegVal} onChange={(e)=>onChangeNameVal(e.target.value)}/>
                         <GreenInput label="Nazwisko" error={errorStatus} value={surnameRegVal} onChange={(e)=>onChangeSurnameVal(e.target.value)}/>
-                        <GreenInput type="date" error={errorStatus} value={dateOfBirthRegVal} onChange={(e)=>onChangeDateOfBirthVal(e.target.value)} fullWidth></GreenInput>
+                        <GreenInput type="date" label="Data urodzenia" error={errorStatus} value={dateOfBirthRegVal} onChange={(e)=>onChangeDateOfBirthVal(e.target.value)} fullWidth></GreenInput>
 
                     </div>
                     <div className='buttonsAccountMenu'>
@@ -89,7 +97,9 @@ export default function AddAdmin(){
             {
                 ready?
                 <main className='content'>
-                    <AddAdminForm/>
+                    <RegisterController>
+                        <AddAdminForm/>
+                    </RegisterController>
                 </main>
                 :
                 null

@@ -203,6 +203,17 @@ export default function EventsController({children}){
             })
         }
     }
+    const canBuyTicket = async(eventID) => {
+        const response = await gateway.canBuyTicket(eventID);
+            let retVal;
+        if(response.status === 200)
+        {
+            retVal = true;
+        }else{
+            retVal = false;
+        }
+        return retVal;
+    }
     return React.cloneElement(children,{
         onAddEvent:addEvent,
         getHotEvents,
@@ -215,6 +226,7 @@ export default function EventsController({children}){
         acceptEvent,
         cancleEvent,
         getOrganisatorEvents,
-        updateEvent
+        updateEvent,
+        canBuyTicket
     })
 }

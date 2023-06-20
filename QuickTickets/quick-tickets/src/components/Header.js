@@ -74,7 +74,7 @@ export default function Header({isLogged}) {
                 {
                     
                     checkIsLogged()?
-                    <React.Fragment>
+                    <>
                         <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
                             <Tooltip title="Account settings">
                             <IconButton
@@ -140,18 +140,18 @@ export default function Header({isLogged}) {
                             
                             {
                                 checkIsLogged()==="3"?
-                                <>
+                                <div>
                                     <MenuItem onClick={()=>navigate("/add-event")}>
                                         Dodaj wydarzenie
                                     </MenuItem>
-                                </>
+                                </div>
                                 :
                                 null
                             }
                             
                             {
                                 checkIsLogged()==="1"?
-                                <>
+                                <div>
                                     <MenuItem onClick={()=>navigate("/add-localization")}>
                                         Dodaj lokalizacje
                                     </MenuItem>
@@ -173,7 +173,7 @@ export default function Header({isLogged}) {
                                     <MenuItem onClick={()=>navigate("/show-users")}>
                                         Lista użytkowników strony
                                     </MenuItem>
-                                </>
+                                </div>
                                 :
                                 null
                             }
@@ -186,7 +186,7 @@ export default function Header({isLogged}) {
                             Logout
                             </MenuItem>
                         </Menu>
-                    </React.Fragment>
+                    </>
                     :
                     <button className='main-btn login-nav-login' onClick={()=>navigate("/login")}>Zaloguj</button>
                 }

@@ -9,11 +9,11 @@ import LocationComponent from '../components/LocationComponent.js';
 import moment from 'moment';
 import CommentComponent from '../components/CommentComponent';
 import CommentController from '../controllers/CommentController';
-export default function Event({getEvent}) {
+export default function Event({getEvent,canBuyTicket}) {
     const location = useLocation();
     const navigate = useNavigate();
    
-    
+    const [canBuy,setCanBuy] = React.useState(false);
     const [ready,setReady] = React.useState(false);
     const [eventInfos,setEventInfos] = React.useState();
     React.useEffect(()=>{
@@ -24,8 +24,12 @@ export default function Event({getEvent}) {
             getEvent(location.state.eventId).then(r=>{
                 setEventInfos(r);
             })
+            canBuyTicket(location.state.eventId).then(r=>{
+                setCanBuy(r);
+            })
         }
     },[])
+
     return (
 
         <div className="App">
@@ -44,6 +48,7 @@ export default function Event({getEvent}) {
                             availableSeats={eventInfos.availableSeats}
                             seats={eventInfos.seats}
                             eventPrice={eventInfos.ticketPrice}
+                            canBuy={canBuy}
                         />
                         <LocationComponent 
                             localImg={eventInfos.location.imgURL} 

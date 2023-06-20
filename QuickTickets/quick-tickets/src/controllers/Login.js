@@ -30,11 +30,9 @@ export default function LoginController({children}){
     const login = async (loginData,setErrorStatus,setErrorText)=>{
         const gateway = new AccountService();
         const response = await gateway.login(loginData);
-        debugger
         if(response.status === 404)
         {
             console.log(response)
-            debugger
             Swal.fire(
                 'Błąd logowania',
                 'Niepoprawne dane logowania',

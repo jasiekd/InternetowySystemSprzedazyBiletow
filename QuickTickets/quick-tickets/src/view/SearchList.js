@@ -38,8 +38,8 @@ function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocation
     const [locationsList,setLocationsList] = React.useState([]);
     const [dateFrom,setDateFrom] = React.useState(null); 
     const [dateTo,setDateTo] = React.useState(null); 
-    const [priceFrom,setPriceFrom] = React.useState("");
-    const [priceTo,setPriceTo] = React.useState("");
+    const [priceFrom,setPriceFrom] = React.useState(0);
+    const [priceTo,setPriceTo] = React.useState(0);
     React.useEffect(()=>{
         getTypesOfEvents().then((result)=>{
             setCategoryList(result);
@@ -95,7 +95,7 @@ function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocation
             ...prev,
             dateFrom: dateFrom,
             dateTo: dateTo,
-            selectedDate: dateFrom+" - "+dateTo
+            selectedDate: (dateFrom===null?"∞":dateFrom+" - ")+(dateTo===null?"∞":dateTo)
         }))
            
            
@@ -116,7 +116,7 @@ function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocation
     }
 
     const selectPrice = () =>{
-
+        
         setFilters(prev =>({
             ...prev,
             priceFrom: priceFrom,
@@ -128,8 +128,8 @@ function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocation
     }
     const deletePrice = () =>{
         handleOpenPrice();
-        setPriceFrom(null);
-        setPriceTo(null);
+        setPriceFrom(0);
+        setPriceTo(0);
         setFilters(prev =>({
             ...prev,
             priceFrom: null,
@@ -281,7 +281,7 @@ export default function SearchList() {
     
  
     React.useEffect(()=>{
-            debugger
+            
             if(location.state === null || location.state.phrase === null )
             {
                  navigate("/home")
@@ -295,6 +295,7 @@ export default function SearchList() {
                         selectedLocation: location.state.location.name,
                         type: location.state.type
                     }))
+                    
                 else
                     setFilters(prev =>({
                         ...prev,

@@ -14,7 +14,7 @@ jest.mock('react-router-dom', () => ({
     checkIsLogged: ()=>'1',
 
 }))
-mock.onPost('https://localhost:7235/api/TypesOfEvents/AddTypeOfEvent').reply(201,
+mock.onPost('https://localhost:7235/api/TypesOfEvents/AddTypeOfEvent').reply(200,
     { typeID: 1, description: "TestName" }
 
 

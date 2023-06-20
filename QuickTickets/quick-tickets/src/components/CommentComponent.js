@@ -42,13 +42,19 @@ export default function CommentComponent({ getComments,addComment,deleteComment,
     useEffect(()=>{
         getComments(eventID,pageCount,10).then((r)=>{
             setComments(r)
-            console.log(r)
         })
        
     },[pageCount,updateComments])
     return(
         <div className='comments'>
-                        <div className='event-title-header' style={{paddingLeft:"2rem",paddingTop:"1rem"}}>Komentarze<button className='main-btn' style={{marginRight:"0",marginLeft:"auto"}} onClick={showAddComent}>Dodaj komentarz</button></div>
+                        <div className='event-title-header' style={{paddingLeft:"2rem",paddingTop:"1rem"}}>Komentarze
+                        {
+                            checkIsLogged()?
+                            <button className='main-btn' style={{marginRight:"0",marginLeft:"auto"}} onClick={showAddComent}>Dodaj komentarz</button>
+                            :
+                            null    
+                        }
+                        </div>
                             <div className='comment-list'>
                                 {
                                     comments?

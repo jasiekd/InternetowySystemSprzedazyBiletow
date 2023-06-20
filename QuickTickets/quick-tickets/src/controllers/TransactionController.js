@@ -78,7 +78,6 @@ export default function TransactionController({children}){
     }
     const GetStatusTransaction = async(transactionID)=>{
         const response = await gateway.GetStatusTransaction(transactionID);
-        debugger;
 
         if(response.status !== 200 ||response.data.transactionStatus!=="Paid"){
             Swal.fire({

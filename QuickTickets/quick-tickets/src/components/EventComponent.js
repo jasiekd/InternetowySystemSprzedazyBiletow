@@ -1,13 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import people from '../images/people.png'
 import moment from "moment/moment";
-
-export default function EventComponent({eventPrice,eventImg,eventTitle,eventDate,eventPlace,eventText, disableBuy,eventData,displayPreview,seats,availableSeats}){
+import Alert from "@mui/material/Alert";
+import { checkIsLogged } from "../controllers/Login";
+export default function EventComponent({eventPrice,eventImg,eventTitle,eventDate,eventPlace,eventText, disableBuy,eventData,displayPreview,seats,availableSeats,canBuy}){
     const navigate = useNavigate();
-    // useEffect(()=>{
-    //     // let date=eventDate.toISOString();
-    //     console.log(date);
-    // },[eventDate])
     return(
             <div className='event-info'>
                 <div className='event-title'>
@@ -24,11 +21,6 @@ export default function EventComponent({eventPrice,eventImg,eventTitle,eventDate
                         {
                             !isNaN(eventDate)&& moment(eventDate.toISOString()).format('DD-MM-YYYY, hh:mm a') ||moment(eventDate).format('DD-MM-YYYY, hh:mm a')
 
-
-                            // console.log('aha',eventDate.$d.toISOString())
-                            // eventDate!==""?
-                            // eventDate.$d.toISOString()
-                            // :
                         
                         }
                         {" "}   
@@ -79,7 +71,25 @@ export default function EventComponent({eventPrice,eventImg,eventTitle,eventDate
                             </div>
                         }
                         <div style={{display:"flex",gap:"2rem"}}>
-                            <button className='main-btn' onClick={()=>navigate("/buy-ticket",{state:{event:eventData}})} disabled={disableBuy}>Kup teraz za {eventPrice} PLN</button>
+                            {
+                                availableSeats<=0?
+                                    <Alert variant="filled" severity="warning">
+                                        Bilety wprzedane
+                                    </Alert>
+                                :
+                                    checkIsLogged()?
+                                        canBuy?
+                                        <button className='main-btn' onClick={()=>navigate("/buy-ticket",{state:{event:eventData}})} disabled={disableBuy}>Kup teraz za {eventPrice} PLN</button>
+                                        :
+                                        <Alert variant="filled" severity="warning">
+                                            Wydarzenie juz sie odbyło
+                                        </Alert>
+                                    :
+                                    <Alert variant="filled" severity="warning">
+                                        Zaloguj się, aby kupić bilet
+                                    </Alert>
+                            }
+                            
                             <h2> Pozostałe bilety: {availableSeats}</h2>
                         </div>
                         

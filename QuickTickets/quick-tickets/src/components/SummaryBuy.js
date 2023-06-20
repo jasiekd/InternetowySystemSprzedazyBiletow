@@ -64,7 +64,6 @@ class Ticket extends React.PureComponent {
     })
     const [userData,setUserData] = useState();
     useEffect(()=>{
-      debugger
       getUser().then(r=>{
         setUserData(r);
       })

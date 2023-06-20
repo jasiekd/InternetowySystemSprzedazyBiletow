@@ -152,7 +152,7 @@ export function EventForm({editData,editMode,onAddEvent,getTypesOfEvents,getEven
                 </div>
                 <GreenInput value={seats} label="Ilość miejsc" onChange={(e)=>setSeats(e.target.value)} fullWidth type="number" inputProps={{ "data-testid": "test-event-seats" }} ></GreenInput>
                 <GreenInput value={ticketPrice} label="Cena biletu" onChange={(e)=>setTicketPrice(e.target.value)} fullWidth type="number" inputProps={{ "data-testid": "test-event-price" }} ></GreenInput>
-                <GreenInput value={description} label="Opis" onChange={(e)=>setDescription(e.target.value)} fullWidth type="text" multiline rows={4} maxRows={40} inputProps={{ "data-testid": "test-event-description" }} ></GreenInput>
+                <GreenInput value={description} label="Opis" onChange={(e)=>setDescription(e.target.value)} fullWidth type="text" multiline rows={4} inputProps={{ "data-testid": "test-event-description" }} ></GreenInput>
                 {/* <GreenInput value={date} label="" onChange={(e)=>setDate(e.target.value)} fullWidth type="date" inputProps={{ "data-testid": "test-event-date" }}></GreenInput> */}
                 <LocalizationProvider dateAdapter={AdapterDayjs} sx={{width:"100%"}}>
                 <DemoContainer components={['DateTimePicker']} sx={{width:"100%"}}> 

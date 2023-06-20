@@ -102,4 +102,24 @@ export default class AccountService{
             return error.response;
         }
     }
+
+    async AddAdmin(data)
+    {
+        try{
+            const response = await axios.post(HostName+'/api/Account/AddAdmin',
+            {
+                name: data.nameRegVal,
+                surname: data.surnameRegVal,
+                email: data.emailRegVal,
+                login: data.loginRegVal,
+                password: data.passwordRegVal,
+                dateOfBirth: data.dateOfBirthRegVal
+            })
+
+            return response;
+        }
+        catch(error){
+            return error.response;
+        }
+    }
 }

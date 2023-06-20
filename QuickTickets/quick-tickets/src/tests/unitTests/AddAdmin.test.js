@@ -4,6 +4,7 @@ import AddAdmin from '../../view/AddAdmin';
 import { waitFor } from '@testing-library/react'
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+import { AddAdminForm } from '../../view/AddAdmin';
 const mock = new MockAdapter(axios);
 
 jest.mock('react-router-dom', () => ({
@@ -17,14 +18,16 @@ jest.mock('react-router-dom', () => ({
 
 test('test adding new event',async()=>{
 
+    const mockAddAdmin = jest.fn(async () => {
+        return Promise.resolve([]); 
+      })
     render(
-        <AddAdmin />
+        <AddAdminForm AddAdmin={mockAddAdmin} />
     );
 
   
     
-    await waitFor(() => {
-        //wpisywanie do pol testowych wartosci
+
           fireEvent.change(screen.getByLabelText('Login'),{target:{value:"TestLogin"}})
           fireEvent.change(screen.getByLabelText('Hasło'),{target:{value:"TestHaslo"}})
           fireEvent.change(screen.getByLabelText('Email'),{target:{value:"TestEmail"}})
@@ -34,8 +37,14 @@ test('test adding new event',async()=>{
           
         
           fireEvent.click(screen.getByText('Zarejestruj'));
-       })
-  
        
+          await waitFor(() => {
+            expect(screen.getByLabelText('Login').value).toBe('');
+            expect(screen.getByLabelText('Hasło').value).toBe('');
+            expect(screen.getByLabelText('Email').value).toBe('');
+            expect(screen.getByLabelText('Imię').value).toBe('');
+            expect(screen.getByLabelText('Nazwisko').value).toBe('');
+            expect(screen.getByLabelText('Data urodzenia').value).toBe('');
 
+          })
 })

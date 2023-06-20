@@ -188,4 +188,14 @@ export default class EventsService{
         }
     }
 
+    async canBuyTicket(eventID)
+    {
+        try{
+            const response = await axios.post(HostName+"/api/Events/CanBuyTicket?eventID="+eventID)
+            return response;
+        }catch(error){
+            return error.response;
+        }
+    }
+
 }

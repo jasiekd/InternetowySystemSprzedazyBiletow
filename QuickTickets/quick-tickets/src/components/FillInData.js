@@ -22,7 +22,7 @@ export default function FillInData({eventData,getUser}){
                         <span><h3>Imie: </h3>{userData.name}</span>
                         <span><h3>Nazwisko: </h3>{userData.surname}</span>
                         <span><h3>Email: </h3>{userData.email}</span>
-                        <span><h3>Data urodzenia: </h3>{userData.dateOfBirth}</span>
+                        <span><h3>Data urodzenia: </h3>{moment( userData.dateOfBirth).format("DD-MM-YYYY")}</span>
                     </React.Fragment>
                    
                     :

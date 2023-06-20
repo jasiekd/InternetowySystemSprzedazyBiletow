@@ -49,7 +49,51 @@ export default function RegisterController({children}){
             )
         }
     }
+
+    const AddAdmin = async (registerData,setErrorStatus,setErrorText,errorStatus)=>{
+
+        if(errorStatus)
+        {
+            Swal.fire(
+                'Błąd rejestracji',
+                'Niepoprawnie wypełniony formularz',
+                'error'
+            )
+            return;
+        }
+        const gateway = new AccountService();
+        const response = await gateway.AddAdmin(registerData);
+
+        if(response.status === 200)
+        {
+            Swal.fire({
+                icon: 'success',
+                title: 'Administrator dodany poprawnie',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
+        else if(response.status === 404)
+        {
+            Swal.fire(
+                'Błąd dodawania administratora',
+                'Konto o podanym adresie email lub loginie juz istnieje',
+                'error'
+            )
+            setErrorStatus(true);
+            setErrorText("Email lub login jest już zjęty")
+        }
+        else if(response.status === 400)
+        {
+            Swal.fire(
+                'Błąd rejestracji',
+                'Niepoprawne dane rejestracji',
+                'error'
+            )
+        }
+    }
     return React.cloneElement(children,{
-        onRegister: register
+        onRegister: register,
+        AddAdmin
     })
 }

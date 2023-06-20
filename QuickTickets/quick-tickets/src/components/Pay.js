@@ -6,9 +6,7 @@ import '../styles/Pay.css';
 
 export default function Pay({counter,eventData,createTransaction}){
     const onClickPay =() =>{
-        debugger
         createTransaction(counter*eventData.ticketPrice,"opis",eventData.eventID,counter).then(r=>{
-            console.log(r);
             window.location.href = r;
         })
     }
@@ -19,7 +17,7 @@ export default function Pay({counter,eventData,createTransaction}){
                 eventData?
                 <>
                     <div className="buy-title">Informacje o płatności</div>
-                        <table class="pay-summart-table">
+                        <table className="pay-summart-table">
                             <thead>
                                 <tr>
                                 <th>Ilość biletów</th>
