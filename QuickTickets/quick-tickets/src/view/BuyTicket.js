@@ -116,6 +116,10 @@ export default function BuyTicket({getMyTicketByID,GetStatusTransaction}) {
             
         }
       },[])
+      const onBack = () =>{
+        debugger
+        navigate(-1)
+      }
     return (
 
         <div className="App">
@@ -158,11 +162,12 @@ export default function BuyTicket({getMyTicketByID,GetStatusTransaction}) {
                         </Typography>
                         <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                             {
-                                activeStep===3?
-                                null:
-                                <button className='main-btn' disabled={activeStep === 0||activeStep===3} onClick={handleBack}>
-                                    Wróć
-                                </button>
+                                activeStep===3||activeStep===0?
+                                    null
+                                :
+                                    <button className='main-btn' disabled={activeStep === 0||activeStep===3} onClick={handleBack}>
+                                        Wróć
+                                    </button>
                             }
                            
                             <Box sx={{ flex: '1 1 auto' }} />

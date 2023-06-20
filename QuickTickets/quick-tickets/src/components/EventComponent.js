@@ -80,7 +80,7 @@ export default function EventComponent({eventPrice,eventImg,eventTitle,eventDate
                         }
                         <div style={{display:"flex",gap:"2rem"}}>
                             <button className='main-btn' onClick={()=>navigate("/buy-ticket",{state:{event:eventData}})} disabled={disableBuy}>Kup teraz za {eventPrice} PLN</button>
-                            <h2> Pzostałe bilety: {availableSeats}</h2>
+                            <h2> Pozostałe bilety: {availableSeats}</h2>
                         </div>
                         
                     </div>

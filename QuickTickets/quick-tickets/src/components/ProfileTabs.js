@@ -209,6 +209,7 @@ export default function ProfileTabs({getUser,updateAccount}) {
           <TicketController>
             <ProfileTicketsList
               choice={true}
+              printAble={true}
             />
           </TicketController>
         </div>
@@ -220,6 +221,7 @@ export default function ProfileTabs({getUser,updateAccount}) {
         <TicketController>
             <ProfileTicketsList
               choice={false}
+              
             />
           </TicketController>
         </div>

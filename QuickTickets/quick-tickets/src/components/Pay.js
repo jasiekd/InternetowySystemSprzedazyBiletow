@@ -22,7 +22,7 @@ export default function Pay({counter,eventData,createTransaction}){
                         <table class="pay-summart-table">
                             <thead>
                                 <tr>
-                                <th>Ilość bilrtów</th>
+                                <th>Ilość biletów</th>
                                 <th>Cena</th>
                                 <th>Suma</th>
                                 </tr>

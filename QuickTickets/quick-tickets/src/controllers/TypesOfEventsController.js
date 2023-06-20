@@ -7,7 +7,7 @@ export default function TypesOfEventsController({children}){
     const addCategory = async(typeID,description)=>{
         const response = await gateway.addCategory(typeID,description);
         console.log(response);
-        if(response.status === 201)
+        if(response.status === 200)
         {
             Swal.fire({
                 position: 'center',

@@ -111,7 +111,9 @@ export default function Home() {
                         <img className='img' src={theater} alt=""/>
                         <p>Teatr</p>
                     </button>
-                    <button className='btn events-categories-element'>
+                    <button className='btn events-categories-element'
+                        onClick={()=>navigate("/search-list",{state:{type:8}})} 
+                    >
                         <img className='img' src={children} alt=""/>
                         <p>Dla dzieci</p>
                     </button>
@@ -135,7 +137,9 @@ export default function Home() {
                         <img className='img' src={sports} alt=""/>
                         <p>Sport</p>
                     </button>
-                    <button className='btn events-categories-element'>
+                    <button className='btn events-categories-element'
+                        onClick={()=>navigate("/search-list",{state:{type:9}})} 
+                    >
                         <img className='img' src={classic} alt=""/>
                         <p>Klasyka</p>
                     </button>

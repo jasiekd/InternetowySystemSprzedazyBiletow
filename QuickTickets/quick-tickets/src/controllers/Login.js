@@ -114,10 +114,11 @@ export default function LoginController({children}){
             }
             else 
             {
-                Swal.fire(
-                    'Błąd zmiany danych',
-                    'error'
-                )
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Błąd zapisu zmian',
+                    showConfirmButton: true,
+                })
             }
         }
         else{

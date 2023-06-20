@@ -3,7 +3,7 @@ import { Pagination } from '@mui/material';
 import React, { useEffect, useState } from "react";
 import Alert from '@mui/material/Alert';
 
-export default function ProfileTicketsList({getMyTickets,choice})
+export default function ProfileTicketsList({getMyTickets,choice,printAble})
 {
     const [eventList,setEventList] = useState()
     const [pageCount,setPageCount] = React.useState(1);
@@ -23,7 +23,7 @@ export default function ProfileTicketsList({getMyTickets,choice})
                         return(
                             <ProfileTicket
                             key={key}
-                            printAble={true}
+                            printAble={printAble}
                             preview={true}
                             event={val}
                             imgURL={val.event.imgURL}

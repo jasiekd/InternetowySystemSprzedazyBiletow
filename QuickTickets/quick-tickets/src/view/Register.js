@@ -22,37 +22,71 @@ function RegisterFormView({onRegister})
     const [errorStatus, setErrorStatus] = React.useState(false);
     const [errorText, setErrorText] = React.useState("");
 
+    const [eStatus, setEStatus] = React.useState({
+        login: false,
+        password: false,
+        email: false,
+        name: false,
+        surname:false,
+        date: false,
+        loginText: "",
+        passwordText: "",
+        emailText: "",
+        nameText: "",
+        surnameText:"",
+        dateText: "",
+    });
+
     const onChangeLoginVal = (val) => {
         const regex = /^[a-zA-Z0-9._-]{5,}$/;
         setLoginRegVal(val);
-        setErrorStatus(false);
-        setErrorText("");
+        setEStatus(prev=>({
+            ...prev,
+            login: false,
+            loginText: ""
+        }))
         if(!regex.test(val))
         {
             setErrorStatus(true);
-            setErrorText("Login musi mieć minimum 5 znaków");
+            setEStatus(prev=>({
+                ...prev,
+                login: true,
+                loginText: "Login musi mieć minimum 5 znaków"
+            }))
         }
     }
     const onChangePasswordVal = (val) => {
         const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
         setPasswordRegVal(val);
-        setErrorStatus(false);
-        setErrorText("");
+        setEStatus(prev=>({
+            ...prev,
+            password: false,
+            passwordText: ""
+        }))
         if(!regex.test(val))
         {
-            setErrorStatus(true);
-            setErrorText("Hasło musi zawieraż conajmniej: jedną dużą i małą litere, liczbe oraz 8 znaków ");
+            setEStatus(prev=>({
+                ...prev,
+                password: true,
+                passwordText: "Hasło musi zawieraż conajmniej: jedną dużą i małą litere, liczbe oraz 8 znaków "
+            }))
         }
     }
     const onChangeEmailVal = (val) => {
         const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
         setEmailRegVal(val);
-        setErrorStatus(false);
-        setErrorText("");
+        setEStatus(prev=>({
+            ...prev,
+            email: false,
+            emailText: ""
+        }))
         if(!regex.test(val))
         {
-            setErrorStatus(true);
-            setErrorText("Nie poprawny format adresu email");
+            setEStatus(prev=>({
+                ...prev,
+                email: true,
+                emailText: "Nie poprawny format adresu email"
+            }))
         }
     }
     const onChangeNameVal = (val) => {
@@ -79,12 +113,12 @@ function RegisterFormView({onRegister})
     return(
         <div>
              <div className='accountFormInputs'>
-                    <GreenInput label="Login" error={errorStatus} value={loginRegVal} helperText={errorText} onChange={(e)=>onChangeLoginVal(e.target.value)}/>
-                    <GreenInput label="Hasło" error={errorStatus} value={passwordRegVal} helperText={errorText} onChange={(e)=>onChangePasswordVal(e.target.value)} type='password'/>
-                    <GreenInput label="Email" error={errorStatus} value={emailRegVal} helperText={errorText} onChange={(e)=>onChangeEmailVal(e.target.value)}/>
-                    <GreenInput label="Imię"  error={errorStatus} value={nameRegVal} helperText={errorText} onChange={(e)=>onChangeNameVal(e.target.value)}/>
-                    <GreenInput label="Nazwisko" error={errorStatus} value={surnameRegVal} helperText={errorText} onChange={(e)=>onChangeSurnameVal(e.target.value)}/>
-                    <GreenInput type="date" label="Data urodzenia" error={errorStatus} helperText={errorText} value={dateOfBirthRegVal} onChange={(e)=>onChangeDateOfBirthVal(e.target.value)} fullWidth></GreenInput>
+                    <GreenInput label="Login" error={eStatus.login} value={loginRegVal} helperText={eStatus.loginText} onChange={(e)=>onChangeLoginVal(e.target.value)}/>
+                    <GreenInput label="Hasło" error={eStatus.password} value={passwordRegVal} helperText={eStatus.passwordText} onChange={(e)=>onChangePasswordVal(e.target.value)} type='password'/>
+                    <GreenInput label="Email" error={eStatus.email} value={emailRegVal} helperText={eStatus.emailText} onChange={(e)=>onChangeEmailVal(e.target.value)}/>
+                    <GreenInput label="Imię"  error={eStatus.name} value={nameRegVal} helperText={eStatus.nameText} onChange={(e)=>onChangeNameVal(e.target.value)}/>
+                    <GreenInput label="Nazwisko" error={eStatus.surname} value={surnameRegVal} helperText={eStatus.surnameText} onChange={(e)=>onChangeSurnameVal(e.target.value)}/>
+                    <GreenInput type="date" label="Data urodzenia" error={eStatus.date} helperText={eStatus.dateText} value={dateOfBirthRegVal} onChange={(e)=>onChangeDateOfBirthVal(e.target.value)} fullWidth></GreenInput>
 
                 </div>
                 <div className='buttonsAccountMenu'>

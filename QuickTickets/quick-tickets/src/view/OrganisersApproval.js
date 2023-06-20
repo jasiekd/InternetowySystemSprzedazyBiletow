@@ -53,7 +53,7 @@ function ShowOrganisers({getOrganiserApplication,acceptOrganiserApplication,canc
         <div className='searchList'>
             <div className='title'>Organizatorzy do zatwierdzenia</div>
                 {
-                    organisersToAprove!==undefined && organisersToAprove.totalCount>0 ?
+                    organisersToAprove!==undefined && organisersToAprove.value.totalCount>0 ?
                         organisersToAprove.value.organiserApplications.map((val,index)=>{
                             return(
                                 <div className='organisers-list' key={index}>
@@ -89,7 +89,7 @@ function ShowOrganisers({getOrganiserApplication,acceptOrganiserApplication,canc
                    
                 }  
                 {
-                    organisersToAprove!==undefined && organisersToAprove.totalCount>0 &&
+                    organisersToAprove!==undefined && organisersToAprove.value.totalCount>0 &&
                     <Pagination count={Math.ceil(organisersToAprove.value.totalPages)} size='large' onChange={(e,v)=>(setpageIndex(v))}/>
                     
                 }
