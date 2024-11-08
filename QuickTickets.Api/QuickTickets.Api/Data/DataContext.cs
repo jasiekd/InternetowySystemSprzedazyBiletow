@@ -20,6 +20,7 @@ namespace QuickTickets.Api.Data
         public DbSet<TransactionEntity> Transactions { get; set; }
         public DbSet<TicketEntity> Tickets { get; set; }
         public DbSet<CommentEntity> Comments { get; set; }
+        public DbSet<UserEventHistoryEntity> UserEventHistory { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -81,6 +82,7 @@ namespace QuickTickets.Api.Data
                     DateOfBirth= DateTime.ParseExact("04-11-2000", "dd-MM-yyyy", CultureInfo.InvariantCulture),
                     IsDeleted= false,
                     RoleID = 1,
+                    ModelID = "041120001",
                 },
                 new AccountEntity
                 {
@@ -94,6 +96,7 @@ namespace QuickTickets.Api.Data
                     DateOfBirth = DateTime.ParseExact("11-06-2002", "dd-MM-yyyy", CultureInfo.InvariantCulture),
                     IsDeleted = false,
                     RoleID = 3,
+                    ModelID = "110620021",
                 }
             );
 
@@ -198,7 +201,7 @@ namespace QuickTickets.Api.Data
                     Seats = 123,
                     TicketPrice = 10,
                     Description = "\"Ludzie trzymajcie kapelusze\" to mój drugi solowy program, grany od grudnia 2016 do sierpnia 2017 roku.  Udostępniony materiał został zarejestrowany 10 lipca 2017 roku w gdańskim klubie \"Parlament\". Obok mnie na scenie pojawił się również Adam Van Bendler.",
-                    Date = DateTime.ParseExact("30-06-2023 18:00", "dd-MM-yyyy HH:mm", CultureInfo.InvariantCulture),
+                    Date = DateTime.ParseExact("30-11-2024 18:00", "dd-MM-yyyy HH:mm", CultureInfo.InvariantCulture),
                     Status = StatusEnum.Confirmed.ToString(),
                     IsActive = true,
                     AdultsOnly = true,
@@ -214,7 +217,7 @@ namespace QuickTickets.Api.Data
                     Seats = 60,
                     TicketPrice = 25,
                     Description = "Spływ kajakiem po rzece Morawka",
-                    Date = DateTime.ParseExact("01-07-2023 12:00", "dd-MM-yyyy HH:mm", CultureInfo.InvariantCulture),
+                    Date = DateTime.ParseExact("01-12-2024 12:00", "dd-MM-yyyy HH:mm", CultureInfo.InvariantCulture),
                     Status = StatusEnum.Confirmed.ToString(),
                     IsActive = true,
                     AdultsOnly = false,
@@ -231,7 +234,7 @@ namespace QuickTickets.Api.Data
                     Seats = 100,
                     TicketPrice = 15,
                     Description = "W swoim wykonaniu Pani Żak zaprezentuje swoje umiejętności artystyczne.",
-                    Date = DateTime.ParseExact("01-07-2023 18:00", "dd-MM-yyyy HH:mm", CultureInfo.InvariantCulture),
+                    Date = DateTime.ParseExact("03-12-2024 18:00", "dd-MM-yyyy HH:mm", CultureInfo.InvariantCulture),
                     Status = StatusEnum.Confirmed.ToString(),
                     IsActive = true,
                     AdultsOnly = false,
@@ -248,7 +251,7 @@ namespace QuickTickets.Api.Data
                     Seats = 600,
                     TicketPrice = 50,
                     Description = "W naszej ofercie po prostu tak jakby przedstawimy oferty grona firm mówiących o swoich zapotrzebowaniach i planach dla widza.",
-                    Date = DateTime.ParseExact("02-07-2023 12:00", "dd-MM-yyyy HH:mm", CultureInfo.InvariantCulture),
+                    Date = DateTime.ParseExact("30-11-2024 12:00", "dd-MM-yyyy HH:mm", CultureInfo.InvariantCulture),
                     Status = StatusEnum.Confirmed.ToString(),
                     IsActive = true,
                     AdultsOnly = true,

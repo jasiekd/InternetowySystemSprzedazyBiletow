@@ -49,6 +49,10 @@ namespace QuickTickets.Api.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("ModelID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -74,11 +78,12 @@ namespace QuickTickets.Api.Migrations
                         new
                         {
                             Id = new Guid("2ef422ae-0e8e-4f47-93bb-8b79f04123b6"),
-                            DateCreated = new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(4510),
+                            DateCreated = new DateTime(2024, 11, 8, 16, 58, 4, 608, DateTimeKind.Local).AddTicks(4570),
                             DateOfBirth = new DateTime(2000, 11, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "agardian00@cos.nie",
                             IsDeleted = false,
                             Login = "agardian",
+                            ModelID = "041120001",
                             Name = "Artur",
                             Password = "jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=",
                             RoleID = 1,
@@ -87,11 +92,12 @@ namespace QuickTickets.Api.Migrations
                         new
                         {
                             Id = new Guid("bb47eede-6953-43df-a26f-cdac99be8e87"),
-                            DateCreated = new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(4694),
+                            DateCreated = new DateTime(2024, 11, 8, 16, 58, 4, 608, DateTimeKind.Local).AddTicks(4649),
                             DateOfBirth = new DateTime(2002, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jkowalski01@cos.nie",
                             IsDeleted = false,
                             Login = "jkowalski",
+                            ModelID = "110620021",
                             Name = "Jan",
                             Password = "jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=",
                             RoleID = 3,
@@ -196,9 +202,9 @@ namespace QuickTickets.Api.Migrations
                         {
                             EventID = 1L,
                             AdultsOnly = true,
-                            Date = new DateTime(2023, 6, 30, 18, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateCreated = new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(4880),
-                            DateModified = new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(4884),
+                            Date = new DateTime(2024, 11, 30, 18, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2024, 11, 8, 16, 58, 4, 608, DateTimeKind.Local).AddTicks(4739),
+                            DateModified = new DateTime(2024, 11, 8, 16, 58, 4, 608, DateTimeKind.Local).AddTicks(4740),
                             Description = "\"Ludzie trzymajcie kapelusze\" to mój drugi solowy program, grany od grudnia 2016 do sierpnia 2017 roku.  Udostępniony materiał został zarejestrowany 10 lipca 2017 roku w gdańskim klubie \"Parlament\". Obok mnie na scenie pojawił się również Adam Van Bendler.",
                             ImgURL = "https://images.unsplash.com/photo-1610964199131-5e29387e6267?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80",
                             IsActive = true,
@@ -214,9 +220,9 @@ namespace QuickTickets.Api.Migrations
                         {
                             EventID = 2L,
                             AdultsOnly = false,
-                            Date = new DateTime(2023, 7, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateCreated = new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(4989),
-                            DateModified = new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(5005),
+                            Date = new DateTime(2024, 12, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2024, 11, 8, 16, 58, 4, 608, DateTimeKind.Local).AddTicks(4774),
+                            DateModified = new DateTime(2024, 11, 8, 16, 58, 4, 608, DateTimeKind.Local).AddTicks(4776),
                             Description = "Spływ kajakiem po rzece Morawka",
                             ImgURL = "https://images.unsplash.com/photo-1472745942893-4b9f730c7668?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80",
                             IsActive = true,
@@ -232,9 +238,9 @@ namespace QuickTickets.Api.Migrations
                         {
                             EventID = 3L,
                             AdultsOnly = false,
-                            Date = new DateTime(2023, 7, 1, 18, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateCreated = new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(5043),
-                            DateModified = new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(5046),
+                            Date = new DateTime(2024, 12, 3, 18, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2024, 11, 8, 16, 58, 4, 608, DateTimeKind.Local).AddTicks(4783),
+                            DateModified = new DateTime(2024, 11, 8, 16, 58, 4, 608, DateTimeKind.Local).AddTicks(4784),
                             Description = "W swoim wykonaniu Pani Żak zaprezentuje swoje umiejętności artystyczne.",
                             ImgURL = "https://images.unsplash.com/photo-1521116103845-2170f3377fec?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
                             IsActive = true,
@@ -250,9 +256,9 @@ namespace QuickTickets.Api.Migrations
                         {
                             EventID = 4L,
                             AdultsOnly = true,
-                            Date = new DateTime(2023, 7, 2, 12, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateCreated = new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(5058),
-                            DateModified = new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(5061),
+                            Date = new DateTime(2024, 11, 30, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2024, 11, 8, 16, 58, 4, 608, DateTimeKind.Local).AddTicks(4791),
+                            DateModified = new DateTime(2024, 11, 8, 16, 58, 4, 608, DateTimeKind.Local).AddTicks(4792),
                             Description = "W naszej ofercie po prostu tak jakby przedstawimy oferty grona firm mówiących o swoich zapotrzebowaniach i planach dla widza.",
                             ImgURL = "https://images.unsplash.com/photo-1618092388874-e262a562887f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025&q=80",
                             IsActive = true,
@@ -530,6 +536,28 @@ namespace QuickTickets.Api.Migrations
                             TypeID = 9L,
                             Description = "Klasyka"
                         });
+                });
+
+            modelBuilder.Entity("QuickTickets.Api.Entities.UserEventHistoryEntity", b =>
+                {
+                    b.Property<long>("UserEventHistoryID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("UserEventHistoryID"));
+
+                    b.Property<long>("EventID")
+                        .HasColumnType("bigint");
+
+                    b.Property<float>("Label")
+                        .HasColumnType("real");
+
+                    b.Property<long>("UserID")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("UserEventHistoryID");
+
+                    b.ToTable("UserEventHistory");
                 });
 
             modelBuilder.Entity("QuickTickets.Api.Entities.CommentEntity", b =>

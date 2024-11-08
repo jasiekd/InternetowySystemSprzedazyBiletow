@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.ML;
 using QuickTickets.Api.Data;
 using QuickTickets.Api.Services;
 using QuickTickets.Api.Settings;
 using System.Text;
+using QuickTickets.Api.Entities;
 
 namespace QuickTickets.Api
 {
@@ -17,6 +19,11 @@ namespace QuickTickets.Api
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            string currentDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            string modelPath = Path.GetFullPath(Path.Combine(currentDirectory, "..\\..\\..\\Data\\EventRecommenderModel.zip"));
+
+            builder.Services.AddPredictionEnginePool<EventRating, EventRatingPrediction>()
+                .FromFile(modelName: "EventRecommenderModel", filePath: modelPath, watchForChanges: true);
 
             builder.Services.AddCors(options => {
                 options.AddPolicy(name: MyAllowSpecificOrigins,
@@ -80,6 +87,8 @@ namespace QuickTickets.Api
             builder.Services.AddScoped<ICommentService, CommentService>();
             builder.Services.AddScoped<ITypesOfEventsService, TypesOfEventsService>();
             builder.Services.AddScoped<ILocationsService, LocationsService>();
+            builder.Services.AddScoped<IUserEventHistoryService, UserEventHistoryService>();
+            builder.Services.AddHostedService<ModelTrainerService>();
 
             var app = builder.Build();
 

@@ -35,5 +35,7 @@ namespace QuickTickets.Api.Entities
         public int RoleID { get; set; }
 
         public string? GoogleSubject { get; set; }
+        [Required]
+        public string ModelID { get; set; }
     }
 }

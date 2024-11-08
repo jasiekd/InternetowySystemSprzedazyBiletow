@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickTickets.Api", "QuickTickets.Api\QuickTickets.Api.csproj", "{6D953C0D-9037-49EA-A7DD-6408490A1E3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickTickets.Tests", "..\QuickTickets.Tests\QuickTickets.Tests.csproj", "{FD0E6269-FB6A-42D6-9E0F-523110038499}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickTickets.Tests", "..\QuickTickets.Tests\QuickTickets.Tests.csproj", "{FD0E6269-FB6A-42D6-9E0F-523110038499}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -78,7 +78,8 @@ namespace QuickTickets.Api.Services
                 Email = registerInfoDto.Email,
                 Password = HashPassword(registerInfoDto.Password),
                 DateOfBirth = registerInfoDto.DateOfBirth,
-                RoleID = 2
+                RoleID = 2,
+                ModelID = TryModelID(registerInfoDto.DateOfBirth)
             };
 
             if (LoginEmailExists(accountEntity.Email, accountEntity.Login))
@@ -263,6 +264,13 @@ namespace QuickTickets.Api.Services
             byte[] bytes = Encoding.UTF8.GetBytes(password);
             byte[] hash = sha256.ComputeHash(bytes);
             return Convert.ToBase64String(hash);
+        }
+
+        public string TryModelID(DateTime birthday)
+        {
+            var userCount = _context.Accounts.AsQueryable().Where(x => x.DateOfBirth == birthday).Count();
+
+            return $"{birthday.Day.ToString("D2")}{birthday.Month.ToString("D2")}{birthday.Year}{userCount + 1}";
         }
 
         public async Task<IActionResult> GetAllUsers(PaginationDto paginationDto)
