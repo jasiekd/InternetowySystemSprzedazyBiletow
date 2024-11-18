@@ -260,6 +260,23 @@ namespace QuickTickets.Api.Data
                     ImgURL = "https://images.unsplash.com/photo-1618092388874-e262a562887f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025&q=80",
                     OwnerID = Guid.Parse("BB47EEDE-6953-43DF-A26F-CDAC99BE8E87")
                 }
+                ,
+                new EventsEntity
+                {
+                    EventID = 5,
+                    Title = "Targi pracy4",
+                    Seats = 600,
+                    TicketPrice = 50,
+                    Description = "test",
+                    Date = DateTime.ParseExact("18-11-2024 16:18", "dd-MM-yyyy HH:mm", CultureInfo.InvariantCulture),
+                    Status = StatusEnum.Confirmed.ToString(),
+                    IsActive = true,
+                    AdultsOnly = true,
+                    TypeID = 6,
+                    LocationID = 1,
+                    ImgURL = "https://images.unsplash.com/photo-1618092388874-e262a562887f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025&q=80",
+                    OwnerID = Guid.Parse("BB47EEDE-6953-43DF-A26F-CDAC99BE8E87")
+                }
                 ) ;
         }
     }

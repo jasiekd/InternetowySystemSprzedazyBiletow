@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using QuickTickets.Api.Data;
 using QuickTickets.Api.Entities;
 
@@ -28,14 +29,16 @@ namespace QuickTickets.Api.Services
                             .Where(e => e.IsActive == true
                                         && e.Status == StatusEnum.Confirmed.ToString()
                                         && e.Date < DateTime.Now);
-
+                        long eventCounter = 0;
                         foreach (var eventItem in outdatedEvents)
                         {
                             eventItem.IsActive = false;
+                            context.Events.Update(eventItem);
+                            eventCounter++;
                         }
 
                         await context.SaveChangesAsync(stoppingToken);
-                        Console.WriteLine($"Usunieto {outdatedEvents.Count()} wydarzen!");
+                        Console.WriteLine($"Usunieto {eventCounter} wydarzen!");
                     }
 
                     Console.WriteLine($"Sprawdzenie wydarzeń zostało zakonczone o: {DateTime.Now}");

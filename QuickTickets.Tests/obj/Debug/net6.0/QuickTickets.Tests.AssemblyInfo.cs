@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("QuickTickets.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+464ec9243ea0f8ad26e8afc74bddc4eb1ce0da7d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a451412cadfc25f0796e77bc5a1d5a3570772cf9")]
 [assembly: System.Reflection.AssemblyProductAttribute("QuickTickets.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("QuickTickets.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

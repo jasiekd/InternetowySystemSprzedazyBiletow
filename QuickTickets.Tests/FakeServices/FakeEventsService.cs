@@ -124,7 +124,7 @@ namespace QuickTickets.Tests.FakeServices
             _events.Add(eventEntity);
             return new OkResult();
         }
-        public async Task<ActionResult<EventInfoDto>> GetEvent(long id)
+        public async Task<ActionResult<EventInfoDto>> GetEvent(long id, Guid userId)
         {
             if(_events.Any(e => e.EventID != id))
             {
