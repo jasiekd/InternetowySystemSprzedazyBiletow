@@ -32,7 +32,16 @@ namespace QuickTickets.Api.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<EventInfoDto>> GetEvent(long id)
         {
-            return await _eventsService.GetEvent(id);
+            var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Guid userId = userIdClaim != null ? Guid.Parse(userIdClaim) : Guid.Empty;
+            var eventInfo = await _eventsService.GetEvent(id, userId);
+
+            if (eventInfo == null)
+            {
+                return NotFound("Event not found.");
+            }
+
+            return Ok(eventInfo);
         }
 
         [HttpGet("getHotEvents")]

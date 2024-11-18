@@ -7,7 +7,7 @@ namespace QuickTickets.Api.Services
     public interface IEventsService
     {
         public Task<IActionResult> PostEventEntity(CreateEventDto createEventDto, Guid userId);
-        public Task<ActionResult<EventInfoDto>> GetEvent(long id);
+        public Task<ActionResult<EventInfoDto>> GetEvent(long id, Guid userId);
         public Task<ActionResult<IEnumerable<EventInfoDto>>> getHotEvents();
         public Task<ActionResult<IEnumerable<LocationsEntity>>> getHotLocations();
         public Task<IActionResult> SearchEvents(SearchEventDto searchEventDto);

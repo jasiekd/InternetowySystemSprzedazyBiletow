@@ -13,9 +13,11 @@ namespace QuickTickets.Api.Services
     public class EventsService : IEventsService
     {
         private readonly DataContext _context;
-        public EventsService(DataContext context)
+        private readonly ITrackUserMovesService _trackUserMovesService;
+        public EventsService(DataContext context, ITrackUserMovesService trackUserMovesService)
         {
             _context = context;
+            _trackUserMovesService = trackUserMovesService;
         }
         private bool EventsEntityExists(long id)
         {
@@ -50,7 +52,7 @@ namespace QuickTickets.Api.Services
             return new OkResult();
         }
 
-        public async Task<ActionResult<EventInfoDto>> GetEvent(long id)
+        public async Task<ActionResult<EventInfoDto>> GetEvent(long id, Guid userId)
         {
             if (_context.Events == null)
             {
@@ -61,6 +63,14 @@ namespace QuickTickets.Api.Services
             if (eventInfo == null)
             {
                 return new NotFoundResult();
+            }
+            if (userId != Guid.Empty)
+            {
+                await _trackUserMovesService.Add(new AddUserEventHistoryRequestDto
+                {
+                    EventID = id,
+                    Label = (float)UserEventHistoryLabelEnum.Visited
+                }, userId);
             }
 
             return new OkObjectResult(eventInfo);

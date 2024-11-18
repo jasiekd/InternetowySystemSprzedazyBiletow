@@ -23,28 +23,6 @@ namespace QuickTickets.Api.Services
             _eventsService = eventsService;
         }
 
-        public async Task<IActionResult> Add(AddUserEventHistoryRequestDto addUserEventHistoryRequestDto, Guid userId)
-        {
-            if (_context.UserEventHistory == null)
-            {
-                return new NotFoundResult();
-            }
-
-            AccountEntity accountEntity = await _context.Accounts.FindAsync(userId);
-
-            var userEventHistoryEntity = new UserEventHistoryEntity
-            {
-                UserEventHistoryID = 0,
-                Label = addUserEventHistoryRequestDto.Label,
-                EventID = addUserEventHistoryRequestDto.EventID,
-                UserID = int.Parse(accountEntity.ModelID),
-            };
-
-            _context.UserEventHistory.Add(userEventHistoryEntity);
-            await _context.SaveChangesAsync();
-            return new OkResult();
-        }
-
         public async Task<IActionResult> GetPredictedEvents(Guid userId)
         {
             AccountEntity accountEntity = await _context.Accounts.FindAsync(userId);

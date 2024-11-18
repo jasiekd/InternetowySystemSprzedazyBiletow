@@ -17,15 +17,15 @@ namespace QuickTickets.Api.Controllers
             _userEventHistoryService = userEventHistoryService;
         }
 
-        [HttpPost("Add")]
-        [Authorize]
-        public async Task<IActionResult> Add([FromBody] AddUserEventHistoryRequestDto addUserEventHistoryRequestDto)
-        {
-            Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            //Guid userId = Guid.Parse("BB47EEDE-6953-43DF-A26F-CDAC99BE8E87");
+        //[HttpPost("Add")]
+        //[Authorize]
+        //public async Task<IActionResult> Add([FromBody] AddUserEventHistoryRequestDto addUserEventHistoryRequestDto)
+        //{
+        //    Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        //    //Guid userId = Guid.Parse("BB47EEDE-6953-43DF-A26F-CDAC99BE8E87");
 
-            return await _userEventHistoryService.Add(addUserEventHistoryRequestDto, userId);
-        }
+        //    return await _userEventHistoryService.Add(addUserEventHistoryRequestDto, userId);
+        //}
         [HttpGet("GetPredictedEvents")]
         [Authorize]
         public async Task<IActionResult> GetPredictedEvents()

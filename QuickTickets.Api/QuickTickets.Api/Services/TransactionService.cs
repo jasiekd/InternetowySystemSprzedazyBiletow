@@ -14,6 +14,7 @@ namespace QuickTickets.Api.Services
         public class TransactionService : ITransactionService
         {
             private readonly IAccountService _accountService;
+            private readonly ITrackUserMovesService _trackUserMovesService;
             private readonly DataContext _context;
             private const string tunnelLink = "https://r15lg05v-7235.euw.devtunnels.ms";
             private const string clientId = "753756";
@@ -22,11 +23,12 @@ namespace QuickTickets.Api.Services
             private const string apiUrl = $"https://ssl.dotpay.pl/test_seller/api/v1/accounts/{clientId}/payment_links/";
             private const string DotpayPin = "hgX5Sz100itQogpXX4V31iXzvDy1fRYA";
 
-        public TransactionService(IAccountService accountService, DataContext context)
+        public TransactionService(IAccountService accountService, DataContext context, ITrackUserMovesService trackUserMovesService)
             {
                 _accountService = accountService;
                 _context = context;
-            }
+            _trackUserMovesService = trackUserMovesService;
+        }
 
         public string Hash(string input)
         {
@@ -206,9 +208,14 @@ namespace QuickTickets.Api.Services
                     var ticket = await _context.Tickets.Where(x => x.TransactionID == transactionId).FirstOrDefaultAsync();
                     ticket.IsActive = true;
                     _context.Tickets.Update(ticket);
-                }
+                await _trackUserMovesService.Add(new AddUserEventHistoryRequestDto
+                {
+                    EventID = ticket.EventID,
+                    Label = (float)UserEventHistoryLabelEnum.Bought
+                }, transaction.UserId);
+            }
 
-                _context.Transactions.Update(transaction);
+            _context.Transactions.Update(transaction);
                 await _context.SaveChangesAsync();
             }
 

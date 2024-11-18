@@ -4,17 +4,20 @@ using Microsoft.EntityFrameworkCore;
 using QuickTickets.Api.Data;
 using QuickTickets.Api.Dto;
 using QuickTickets.Api.Entities;
+using System.Reflection.Emit;
 
 namespace QuickTickets.Api.Services
 {
     public class CommentService : ICommentService
     {
         private readonly IAccountService _accountService;
+        private readonly ITrackUserMovesService _trackUserMovesService;
         private readonly DataContext _context;
-        public CommentService(IAccountService accountService, DataContext context)
+        public CommentService(IAccountService accountService, DataContext context, ITrackUserMovesService trackUserMovesService)
         {
             _accountService = accountService;
             _context = context;
+            _trackUserMovesService = trackUserMovesService;
         }
 
         private bool CommentEntityExists(long id)
@@ -45,6 +48,12 @@ namespace QuickTickets.Api.Services
                 EventID = createCommentDto.EventID,
                 UserID = userId,
             };
+
+            await _trackUserMovesService.Add(new AddUserEventHistoryRequestDto
+            {
+                EventID = createCommentDto.EventID,
+                Label = (float)UserEventHistoryLabelEnum.Commented
+            }, userId);
 
             _context.Comments.Add(commentEntity);
             await _context.SaveChangesAsync();
