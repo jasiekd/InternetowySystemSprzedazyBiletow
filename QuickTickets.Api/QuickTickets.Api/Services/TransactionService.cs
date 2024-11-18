@@ -208,11 +208,11 @@ namespace QuickTickets.Api.Services
                     var ticket = await _context.Tickets.Where(x => x.TransactionID == transactionId).FirstOrDefaultAsync();
                     ticket.IsActive = true;
                     _context.Tickets.Update(ticket);
-                await _trackUserMovesService.Add(new AddUserEventHistoryRequestDto
-                {
-                    EventID = ticket.EventID,
-                    Label = (float)UserEventHistoryLabelEnum.Bought
-                }, transaction.UserId);
+                    await _trackUserMovesService.Add(new AddUserEventHistoryRequestDto
+                    {
+                        EventID = ticket.EventID,
+                        Label = (float)UserEventHistoryLabelEnum.Bought
+                    }, transaction.UserId);
             }
 
             _context.Transactions.Update(transaction);

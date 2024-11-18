@@ -3,8 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{6D953C0D-9037-49EA-A7DD-6408490A1E3B}|QuickTickets.Api\\QuickTickets.Api.csproj|c:\\users\\johny\\source\\repos\\jasiekd\\internetowysystemsprzedazybiletow\\quicktickets.api\\quicktickets.api\\services\\eventscheckerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D953C0D-9037-49EA-A7DD-6408490A1E3B}|QuickTickets.Api\\QuickTickets.Api.csproj|solutionrelative:quicktickets.api\\services\\eventscheckerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6D953C0D-9037-49EA-A7DD-6408490A1E3B}|QuickTickets.Api\\QuickTickets.Api.csproj|c:\\users\\johny\\source\\repos\\jasiekd\\internetowysystemsprzedazybiletow\\quicktickets.api\\quicktickets.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D953C0D-9037-49EA-A7DD-6408490A1E3B}|QuickTickets.Api\\QuickTickets.Api.csproj|solutionrelative:quicktickets.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6D953C0D-9037-49EA-A7DD-6408490A1E3B}|QuickTickets.Api\\QuickTickets.Api.csproj|c:\\users\\johny\\source\\repos\\jasiekd\\internetowysystemsprzedazybiletow\\quicktickets.api\\quicktickets.api\\entities\\eventsentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D953C0D-9037-49EA-A7DD-6408490A1E3B}|QuickTickets.Api\\QuickTickets.Api.csproj|solutionrelative:quicktickets.api\\entities\\eventsentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{6D953C0D-9037-49EA-A7DD-6408490A1E3B}|QuickTickets.Api\\QuickTickets.Api.csproj|c:\\users\\johny\\source\\repos\\jasiekd\\internetowysystemsprzedazybiletow\\quicktickets.api\\quicktickets.api\\services\\eventsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6D953C0D-9037-49EA-A7DD-6408490A1E3B}|QuickTickets.Api\\QuickTickets.Api.csproj|solutionrelative:quicktickets.api\\services\\eventsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6D953C0D-9037-49EA-A7DD-6408490A1E3B}|QuickTickets.Api\\QuickTickets.Api.csproj|c:\\users\\johny\\source\\repos\\jasiekd\\internetowysystemsprzedazybiletow\\quicktickets.api\\quicktickets.api\\services\\modeltrainerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D953C0D-9037-49EA-A7DD-6408490A1E3B}|QuickTickets.Api\\QuickTickets.Api.csproj|solutionrelative:quicktickets.api\\services\\modeltrainerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6D953C0D-9037-49EA-A7DD-6408490A1E3B}|QuickTickets.Api\\QuickTickets.Api.csproj|c:\\users\\johny\\source\\repos\\jasiekd\\internetowysystemsprzedazybiletow\\quicktickets.api\\quicktickets.api\\services\\ieventsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -29,10 +45,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{6D953C0D-9037-49EA-A7DD-6408490A1E3B}|QuickTickets.Api\\QuickTickets.Api.csproj|c:\\users\\johny\\source\\repos\\jasiekd\\internetowysystemsprzedazybiletow\\quicktickets.api\\quicktickets.api\\services\\usereventhistoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6D953C0D-9037-49EA-A7DD-6408490A1E3B}|QuickTickets.Api\\QuickTickets.Api.csproj|solutionrelative:quicktickets.api\\services\\usereventhistoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6D953C0D-9037-49EA-A7DD-6408490A1E3B}|QuickTickets.Api\\QuickTickets.Api.csproj|c:\\users\\johny\\source\\repos\\jasiekd\\internetowysystemsprzedazybiletow\\quicktickets.api\\quicktickets.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6D953C0D-9037-49EA-A7DD-6408490A1E3B}|QuickTickets.Api\\QuickTickets.Api.csproj|solutionrelative:quicktickets.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6D953C0D-9037-49EA-A7DD-6408490A1E3B}|QuickTickets.Api\\QuickTickets.Api.csproj|c:\\users\\johny\\source\\repos\\jasiekd\\internetowysystemsprzedazybiletow\\quicktickets.api\\quicktickets.api\\services\\trackusermovesservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -71,10 +83,6 @@
       "RelativeMoniker": "D:0:0:{6D953C0D-9037-49EA-A7DD-6408490A1E3B}|QuickTickets.Api\\QuickTickets.Api.csproj|solutionrelative:quicktickets.api\\entities\\statusenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D953C0D-9037-49EA-A7DD-6408490A1E3B}|QuickTickets.Api\\QuickTickets.Api.csproj|c:\\users\\johny\\source\\repos\\jasiekd\\internetowysystemsprzedazybiletow\\quicktickets.api\\quicktickets.api\\services\\modeltrainerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6D953C0D-9037-49EA-A7DD-6408490A1E3B}|QuickTickets.Api\\QuickTickets.Api.csproj|solutionrelative:quicktickets.api\\services\\modeltrainerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6D953C0D-9037-49EA-A7DD-6408490A1E3B}|QuickTickets.Api\\QuickTickets.Api.csproj|c:\\users\\johny\\source\\repos\\jasiekd\\internetowysystemsprzedazybiletow\\quicktickets.api\\quicktickets.api\\data\\datacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6D953C0D-9037-49EA-A7DD-6408490A1E3B}|QuickTickets.Api\\QuickTickets.Api.csproj|solutionrelative:quicktickets.api\\data\\datacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -85,10 +93,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{6D953C0D-9037-49EA-A7DD-6408490A1E3B}|QuickTickets.Api\\QuickTickets.Api.csproj|c:\\users\\johny\\source\\repos\\jasiekd\\internetowysystemsprzedazybiletow\\quicktickets.api\\quicktickets.api\\entities\\eventratingprediction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6D953C0D-9037-49EA-A7DD-6408490A1E3B}|QuickTickets.Api\\QuickTickets.Api.csproj|solutionrelative:quicktickets.api\\entities\\eventratingprediction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6D953C0D-9037-49EA-A7DD-6408490A1E3B}|QuickTickets.Api\\QuickTickets.Api.csproj|c:\\users\\johny\\source\\repos\\jasiekd\\internetowysystemsprzedazybiletow\\quicktickets.api\\quicktickets.api\\entities\\eventsentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6D953C0D-9037-49EA-A7DD-6408490A1E3B}|QuickTickets.Api\\QuickTickets.Api.csproj|solutionrelative:quicktickets.api\\entities\\eventsentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6D953C0D-9037-49EA-A7DD-6408490A1E3B}|QuickTickets.Api\\QuickTickets.Api.csproj|c:\\users\\johny\\source\\repos\\jasiekd\\internetowysystemsprzedazybiletow\\quicktickets.api\\quicktickets.api\\entities\\typesofeventsentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -218,7 +222,7 @@
         },
         {
           "DockedWidth": 20,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -238,46 +242,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "ITrackUserMovesService.cs",
-              "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\ITrackUserMovesService.cs",
-              "RelativeDocumentMoniker": "QuickTickets.Api\\Services\\ITrackUserMovesService.cs",
-              "ToolTip": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\ITrackUserMovesService.cs",
-              "RelativeToolTip": "QuickTickets.Api\\Services\\ITrackUserMovesService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAABxAAAA",
+              "DocumentIndex": 0,
+              "Title": "EventsCheckerService.cs",
+              "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\EventsCheckerService.cs",
+              "RelativeDocumentMoniker": "QuickTickets.Api\\Services\\EventsCheckerService.cs",
+              "ToolTip": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\EventsCheckerService.cs*",
+              "RelativeToolTip": "QuickTickets.Api\\Services\\EventsCheckerService.cs*",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAcwCUAAABXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-18T14:31:52.814Z",
+              "WhenOpened": "2024-11-18T14:45:34.439Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "TrackUserMovesService.cs",
-              "DocumentMoniker": "C:\\Users\\Johny\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\TrackUserMovesService.cs",
-              "RelativeDocumentMoniker": "QuickTickets.Api\\Services\\TrackUserMovesService.cs",
-              "ToolTip": "C:\\Users\\Johny\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\TrackUserMovesService.cs",
-              "RelativeToolTip": "QuickTickets.Api\\Services\\TrackUserMovesService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAABUAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-18T14:29:53.475Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "TransactionService.cs",
-              "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\TransactionService.cs",
-              "RelativeDocumentMoniker": "QuickTickets.Api\\Services\\TransactionService.cs",
-              "ToolTip": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\TransactionService.cs",
-              "RelativeToolTip": "QuickTickets.Api\\Services\\TransactionService.cs",
-              "ViewState": "AQIAAMAAAAAAAAAAAAAmwNYAAAAnAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2023-06-20T01:29:45.753Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 15,
               "Title": "TransactionController.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Controllers\\TransactionController.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Controllers\\TransactionController.cs",
@@ -290,25 +268,25 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "EventsService.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\EventsService.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Services\\EventsService.cs",
               "ToolTip": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\EventsService.cs",
               "RelativeToolTip": "QuickTickets.Api\\Services\\EventsService.cs",
-              "ViewState": "AQIAACMAAAAAAAAAAAAwwEIAAAAlAAAA",
+              "ViewState": "AQIAAAEBAAAAAAAAAAAjwBUBAADLAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2023-06-20T01:29:45.754Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "EventsController.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Controllers\\EventsController.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Controllers\\EventsController.cs",
-              "ToolTip": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Controllers\\EventsController.cs*",
-              "RelativeToolTip": "QuickTickets.Api\\Controllers\\EventsController.cs*",
+              "ToolTip": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Controllers\\EventsController.cs",
+              "RelativeToolTip": "QuickTickets.Api\\Controllers\\EventsController.cs",
               "ViewState": "AQIAABAAAAAAAAAAAAAgwCQAAAA5AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2023-06-20T01:29:45.754Z",
@@ -316,7 +294,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 22,
               "Title": "EventRatingPrediction.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Entities\\EventRatingPrediction.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Entities\\EventRatingPrediction.cs",
@@ -328,20 +306,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Program.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Program.cs",
               "ToolTip": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Program.cs",
               "RelativeToolTip": "QuickTickets.Api\\Program.cs",
-              "ViewState": "AQIAAEgAAAAAAAAAAADwv1gAAABcAAAA",
+              "ViewState": "AQIAABAAAAAAAAAAAADwv14AAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2023-06-20T01:29:45.8Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 14,
               "Title": "TicketService.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\TicketService.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Services\\TicketService.cs",
@@ -354,7 +332,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 10,
               "Title": "UserEventHistoryService.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\UserEventHistoryService.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Services\\UserEventHistoryService.cs",
@@ -367,7 +345,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 9,
               "Title": "CommentService.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\CommentService.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Services\\CommentService.cs",
@@ -380,7 +358,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "UserEventHistoryController.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Controllers\\UserEventHistoryController.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Controllers\\UserEventHistoryController.cs",
@@ -393,7 +371,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "IEventsService.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\IEventsService.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Services\\IEventsService.cs",
@@ -406,7 +384,72 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 4,
+              "Title": "ModelTrainerService.cs",
+              "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\ModelTrainerService.cs",
+              "RelativeDocumentMoniker": "QuickTickets.Api\\Services\\ModelTrainerService.cs",
+              "ToolTip": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\ModelTrainerService.cs",
+              "RelativeToolTip": "QuickTickets.Api\\Services\\ModelTrainerService.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAACgAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-08T14:19:11.54Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "EventsEntity.cs",
+              "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Entities\\EventsEntity.cs",
+              "RelativeDocumentMoniker": "QuickTickets.Api\\Entities\\EventsEntity.cs",
+              "ToolTip": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Entities\\EventsEntity.cs",
+              "RelativeToolTip": "QuickTickets.Api\\Entities\\EventsEntity.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T14:23:00.178Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "TransactionService.cs",
+              "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\TransactionService.cs",
+              "RelativeDocumentMoniker": "QuickTickets.Api\\Services\\TransactionService.cs",
+              "ToolTip": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\TransactionService.cs",
+              "RelativeToolTip": "QuickTickets.Api\\Services\\TransactionService.cs",
+              "ViewState": "AQIAAMAAAAAAAAAAAAAmwNYAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-06-20T01:29:45.753Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "TrackUserMovesService.cs",
+              "DocumentMoniker": "C:\\Users\\Johny\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\TrackUserMovesService.cs",
+              "RelativeDocumentMoniker": "QuickTickets.Api\\Services\\TrackUserMovesService.cs",
+              "ToolTip": "C:\\Users\\Johny\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\TrackUserMovesService.cs",
+              "RelativeToolTip": "QuickTickets.Api\\Services\\TrackUserMovesService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAABUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-18T14:29:53.475Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ITrackUserMovesService.cs",
+              "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\ITrackUserMovesService.cs",
+              "RelativeDocumentMoniker": "QuickTickets.Api\\Services\\ITrackUserMovesService.cs",
+              "ToolTip": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\ITrackUserMovesService.cs",
+              "RelativeToolTip": "QuickTickets.Api\\Services\\ITrackUserMovesService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAABxAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-18T14:31:52.814Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
               "Title": "AddUserEventHistoryRequestDto.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Dto\\AddUserEventHistoryRequestDto.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Dto\\AddUserEventHistoryRequestDto.cs",
@@ -419,7 +462,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 16,
               "Title": "UserEventHistoryLabelEnum.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Entities\\UserEventHistoryLabelEnum.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Entities\\UserEventHistoryLabelEnum.cs",
@@ -432,7 +475,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 13,
               "Title": "IUserEventHistoryService.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\IUserEventHistoryService.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Services\\IUserEventHistoryService.cs",
@@ -445,7 +488,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 18,
               "Title": "TicketEntity.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Entities\\TicketEntity.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Entities\\TicketEntity.cs",
@@ -458,7 +501,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 19,
               "Title": "StatusEnum.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Entities\\StatusEnum.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Entities\\StatusEnum.cs",
@@ -471,7 +514,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 21,
               "Title": "EventRating.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Entities\\EventRating.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Entities\\EventRating.cs",
@@ -483,19 +526,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "EventsEntity.cs",
-              "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Entities\\EventsEntity.cs",
-              "RelativeDocumentMoniker": "QuickTickets.Api\\Entities\\EventsEntity.cs",
-              "ToolTip": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Entities\\EventsEntity.cs",
-              "RelativeToolTip": "QuickTickets.Api\\Entities\\EventsEntity.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T14:23:00.178Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 30,
               "Title": "ILocationsService.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\ILocationsService.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Services\\ILocationsService.cs",
@@ -507,7 +538,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 20,
               "Title": "DataContext.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Data\\DataContext.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Data\\DataContext.cs",
@@ -519,19 +550,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "ModelTrainerService.cs",
-              "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\ModelTrainerService.cs",
-              "RelativeDocumentMoniker": "QuickTickets.Api\\Services\\ModelTrainerService.cs",
-              "ToolTip": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\ModelTrainerService.cs",
-              "RelativeToolTip": "QuickTickets.Api\\Services\\ModelTrainerService.cs",
-              "ViewState": "AQIAAHAAAAAAAAAAAAAcwJAAAABlAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-08T14:19:11.54Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 48,
               "Title": "20241108155804_test.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Migrations\\20241108155804_test.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Migrations\\20241108155804_test.cs",
@@ -543,7 +562,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "UserEventHistoryEntity.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Entities\\UserEventHistoryEntity.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Entities\\UserEventHistoryEntity.cs",
@@ -555,7 +574,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 28,
               "Title": "CommentEntity.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Entities\\CommentEntity.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Entities\\CommentEntity.cs",
@@ -567,7 +586,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 32,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\appsettings.json",
               "RelativeDocumentMoniker": "QuickTickets.Api\\appsettings.json",
@@ -579,7 +598,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "20241108150658_thirdAttemptForRecommendation.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Migrations\\20241108150658_thirdAttemptForRecommendation.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Migrations\\20241108150658_thirdAttemptForRecommendation.cs",
@@ -591,7 +610,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 49,
               "Title": "20241108150820_firstAttemptForRecommendation.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Migrations\\20241108150820_firstAttemptForRecommendation.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Migrations\\20241108150820_firstAttemptForRecommendation.cs",
@@ -603,7 +622,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "TypesOfEventsEntity.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Entities\\TypesOfEventsEntity.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Entities\\TypesOfEventsEntity.cs",
@@ -615,7 +634,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 27,
               "Title": "AccountEntity.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Entities\\AccountEntity.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Entities\\AccountEntity.cs",
@@ -627,7 +646,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "AccountService.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\AccountService.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Services\\AccountService.cs",
@@ -639,7 +658,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 31,
               "Title": "AccountController.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Controllers\\AccountController.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Controllers\\AccountController.cs",
@@ -651,7 +670,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 29,
               "Title": "IModelTrainerService.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\IModelTrainerService.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Services\\IModelTrainerService.cs",
@@ -663,7 +682,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 33,
               "Title": "BaseDbItem.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Entities\\BaseDbItem.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Entities\\BaseDbItem.cs",
@@ -675,7 +694,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 34,
               "Title": "LocationsController.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Controllers\\LocationsController.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Controllers\\LocationsController.cs",
@@ -687,7 +706,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 35,
               "Title": "LocationsService.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\LocationsService.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Services\\LocationsService.cs",
@@ -699,7 +718,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 37,
               "Title": "OrganiserApplicationService.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\OrganiserApplicationService.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Services\\OrganiserApplicationService.cs",
@@ -711,7 +730,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 36,
               "Title": "TypesOfEventsService.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\TypesOfEventsService.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Services\\TypesOfEventsService.cs",
@@ -723,7 +742,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 46,
               "Title": "TokenService.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\TokenService.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Services\\TokenService.cs",
@@ -735,7 +754,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 45,
               "Title": "ITokenService.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\ITokenService.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Services\\ITokenService.cs",
@@ -747,7 +766,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 44,
               "Title": "ITicketService.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\ITicketService.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Services\\ITicketService.cs",
@@ -759,7 +778,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 39,
               "Title": "TicketController.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Controllers\\TicketController.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Controllers\\TicketController.cs",
@@ -771,7 +790,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 38,
               "Title": "IAccountService.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\IAccountService.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Services\\IAccountService.cs",
@@ -783,7 +802,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 41,
               "Title": "OrganiserApplicationController.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Controllers\\OrganiserApplicationController.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Controllers\\OrganiserApplicationController.cs",
@@ -795,7 +814,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 40,
               "Title": "TypesOfEventsController.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Controllers\\TypesOfEventsController.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Controllers\\TypesOfEventsController.cs",
@@ -807,7 +826,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 43,
               "Title": "AccountControllerTests.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Tests\\Tests\\AccountControllerTests.cs",
               "RelativeDocumentMoniker": "..\\QuickTickets.Tests\\Tests\\AccountControllerTests.cs",
@@ -819,7 +838,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 42,
               "Title": "EventsControllerTests.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Tests\\Tests\\EventsControllerTests.cs",
               "RelativeDocumentMoniker": "..\\QuickTickets.Tests\\Tests\\EventsControllerTests.cs",
@@ -831,7 +850,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 47,
               "Title": "IOrganiserApplicationController.cs",
               "DocumentMoniker": "C:\\Users\\Johny\\source\\repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\Services\\IOrganiserApplicationController.cs",
               "RelativeDocumentMoniker": "QuickTickets.Api\\Services\\IOrganiserApplicationController.cs",

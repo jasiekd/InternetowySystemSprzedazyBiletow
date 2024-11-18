@@ -90,6 +90,7 @@ namespace QuickTickets.Api
             builder.Services.AddScoped<ITransactionService, TransactionService>();
             builder.Services.AddScoped<ICommentService, CommentService>();
             builder.Services.AddHostedService<ModelTrainerService>();
+            builder.Services.AddHostedService<EventsCheckerService>();
 
             var app = builder.Build();
 

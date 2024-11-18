@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("QuickTickets.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+464ec9243ea0f8ad26e8afc74bddc4eb1ce0da7d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7b67694e6949dd16b882ba66605ca49b7718c3f7")]
 [assembly: System.Reflection.AssemblyProductAttribute("QuickTickets.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("QuickTickets.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
