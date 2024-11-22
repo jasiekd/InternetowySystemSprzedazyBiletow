@@ -3623,7 +3623,10 @@
           "Swashbuckle.AspNetCore.SwaggerUI": "6.5.0"
         },
         "runtime": {
-          "QuickTickets.Api.dll": {}
+          "QuickTickets.Api.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "QuickTickets.Api.dll": {}

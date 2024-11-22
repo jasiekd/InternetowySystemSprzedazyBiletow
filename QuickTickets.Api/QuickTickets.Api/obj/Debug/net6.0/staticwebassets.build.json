@@ -1,11 +1,12 @@
 {
   "Version": 1,
-  "Hash": "85vXqIs94rssWwYT/gFc+sPDkoZGURaMK19XMU0TVmU=",
+  "Hash": "s8GrtQDpM4cWKJDJOhDLLCZHTTKZ7yZcI3QzbFBI5dE=",
   "Source": "QuickTickets.Api",
   "BasePath": "_content/QuickTickets.Api",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
-  "Assets": []
+  "Assets": [],
+  "Endpoints": []
 }

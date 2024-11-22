@@ -23,10 +23,12 @@ export default function Event({getEvent,canBuyTicket}) {
             setReady(true);
             getEvent(location.state.eventId).then(r=>{
                 setEventInfos(r);
+
             })
             canBuyTicket(location.state.eventId).then(r=>{
                 setCanBuy(r);
             })
+            
         }
     },[])
 
@@ -41,8 +43,8 @@ export default function Event({getEvent,canBuyTicket}) {
                         <EventComponent
                             eventImg={eventInfos.imgURL}
                             eventTitle={eventInfos.title}
-                            eventDate={eventInfos.date.$d}
-                            eventPlace={eventInfos.location.name}
+                            eventDate={eventInfos?.date?.$d}
+                            eventPlace={eventInfos.location?.name}
                             eventText={eventInfos.description}
                             eventData={eventInfos}
                             availableSeats={eventInfos.availableSeats}
@@ -51,8 +53,8 @@ export default function Event({getEvent,canBuyTicket}) {
                             canBuy={canBuy}
                         />
                         <LocationComponent 
-                            localImg={eventInfos.location.imgURL} 
-                            localText={eventInfos.location.description}
+                            localImg={eventInfos.location?.imgURL} 
+                            localText={eventInfos.location?.description}
                             location={eventInfos.location}
                         />
                         <CommentController>

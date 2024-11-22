@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Johny\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Tests\\QuickTickets.Tests.csproj": {}
+    "C:\\Users\\Admin\\Documents\\GitHub\\InternetowySystemSprzedazyBiletow\\QuickTickets.Tests\\QuickTickets.Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Johny\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\QuickTickets.Api.csproj": {
+    "C:\\Users\\Admin\\Documents\\GitHub\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\QuickTickets.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Johny\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\QuickTickets.Api.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\Documents\\GitHub\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\QuickTickets.Api.csproj",
         "projectName": "QuickTickets.Api",
-        "projectPath": "C:\\Users\\Johny\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\QuickTickets.Api.csproj",
-        "packagesPath": "C:\\Users\\Johny\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Johny\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\obj\\",
+        "projectPath": "C:\\Users\\Admin\\Documents\\GitHub\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\QuickTickets.Api.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Admin\\Documents\\GitHub\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Johny\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "c:\\program files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -39,8 +42,9 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "direct"
-        }
+          "auditMode": "all"
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net6.0": {
@@ -130,21 +134,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\8.0.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Johny\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Tests\\QuickTickets.Tests.csproj": {
+    "C:\\Users\\Admin\\Documents\\GitHub\\InternetowySystemSprzedazyBiletow\\QuickTickets.Tests\\QuickTickets.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Johny\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Tests\\QuickTickets.Tests.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\Documents\\GitHub\\InternetowySystemSprzedazyBiletow\\QuickTickets.Tests\\QuickTickets.Tests.csproj",
         "projectName": "QuickTickets.Tests",
-        "projectPath": "C:\\Users\\Johny\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Tests\\QuickTickets.Tests.csproj",
-        "packagesPath": "C:\\Users\\Johny\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Johny\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Tests\\obj\\",
+        "projectPath": "C:\\Users\\Admin\\Documents\\GitHub\\InternetowySystemSprzedazyBiletow\\QuickTickets.Tests\\QuickTickets.Tests.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Admin\\Documents\\GitHub\\InternetowySystemSprzedazyBiletow\\QuickTickets.Tests\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Johny\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -152,15 +160,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "c:\\program files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Johny\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\QuickTickets.Api.csproj": {
-                "projectPath": "C:\\Users\\Johny\\Source\\Repos\\jasiekd\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\QuickTickets.Api.csproj"
+              "C:\\Users\\Admin\\Documents\\GitHub\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\QuickTickets.Api.csproj": {
+                "projectPath": "C:\\Users\\Admin\\Documents\\GitHub\\InternetowySystemSprzedazyBiletow\\QuickTickets.Api\\QuickTickets.Api\\QuickTickets.Api.csproj"
               }
             }
           }
@@ -173,8 +180,9 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "direct"
-        }
+          "auditMode": "all"
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net6.0": {
@@ -225,7 +233,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\8.0.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

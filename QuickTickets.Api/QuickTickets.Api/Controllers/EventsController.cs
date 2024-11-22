@@ -41,7 +41,7 @@ namespace QuickTickets.Api.Controllers
                 return NotFound("Event not found.");
             }
 
-            return Ok(eventInfo);
+            return Ok(eventInfo.Result);
         }
 
         [HttpGet("getHotEvents")]
