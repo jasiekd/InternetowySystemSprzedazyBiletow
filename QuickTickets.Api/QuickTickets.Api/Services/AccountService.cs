@@ -228,7 +228,8 @@ namespace QuickTickets.Api.Services
                             DateOfBirth = new DateTime(2008, 3, 1, 7, 0, 0),
                             IsDeleted = false,
                             RoleID = 2,
-                            GoogleSubject = payload.Result.Subject
+                            GoogleSubject = payload.Result.Subject,
+                            ModelID = TryModelID(new DateTime(2008, 3, 1, 7, 0, 0))
                         };
 
                         _context.Accounts.Add(newAccountEntity);
