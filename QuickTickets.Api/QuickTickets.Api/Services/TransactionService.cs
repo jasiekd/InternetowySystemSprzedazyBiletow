@@ -16,18 +16,19 @@ namespace QuickTickets.Api.Services
             private readonly IAccountService _accountService;
             private readonly ITrackUserMovesService _trackUserMovesService;
             private readonly DataContext _context;
-            private const string tunnelLink = "https://r15lg05v-7235.euw.devtunnels.ms";
+            private readonly string tunnelLink;
             private const string clientId = "753756";
             private const string username = "bilety188@gmail.com";
             private const string password = "Biletybilety123$";
             private const string apiUrl = $"https://ssl.dotpay.pl/test_seller/api/v1/accounts/{clientId}/payment_links/";
             private const string DotpayPin = "hgX5Sz100itQogpXX4V31iXzvDy1fRYA";
 
-        public TransactionService(IAccountService accountService, DataContext context, ITrackUserMovesService trackUserMovesService)
-            {
+        public TransactionService(IConfiguration configuration,IAccountService accountService, DataContext context, ITrackUserMovesService trackUserMovesService)
+        {
                 _accountService = accountService;
                 _context = context;
-            _trackUserMovesService = trackUserMovesService;
+                _trackUserMovesService = trackUserMovesService;
+                tunnelLink = configuration["AppSettings:TunnelLink"];
         }
 
         public string Hash(string input)

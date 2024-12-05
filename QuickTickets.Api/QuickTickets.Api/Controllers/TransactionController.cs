@@ -17,13 +17,14 @@ namespace QuickTickets.Api.Controllers
     public class TransactionController : ControllerBase
     {
         private const string DotpayPin = "hgX5Sz100itQogpXX4V31iXzvDy1fRYA";
-        private const string ipAddress = "192.168.1.100";
+        private readonly string _ipAddress;
 
         private readonly ITransactionService _transactionService;
 
-        public TransactionController(ITransactionService transactionService)
+        public TransactionController(ITransactionService transactionService, IConfiguration configuration)
         {
             _transactionService = transactionService;
+            _ipAddress = configuration["AppSettings:IpAddress"];
         }
 
         [HttpPost("Notify")]
@@ -89,7 +90,7 @@ namespace QuickTickets.Api.Controllers
         {
             // Przekieruj użytkownika do docelowej strony frontendowej
             var transactionId = HttpContext.Request.Query["transactionId"];
-            return Redirect($"http://{ipAddress}:3000/buy-ticket/{transactionId}/");
+            return Redirect($"{_ipAddress}/buy-ticket/{transactionId}/");
         }
 
         [HttpPost("CreateTransaction")]
