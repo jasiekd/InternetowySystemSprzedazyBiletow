@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\QuickTickets.Api.props" />
-</Project>
