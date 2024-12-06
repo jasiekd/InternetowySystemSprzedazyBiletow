@@ -27,7 +27,8 @@ namespace QuickTickets.Api.Migrations
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     RoleID = table.Column<int>(type: "int", nullable: false),
-                    GoogleSubject = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    GoogleSubject = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModelID = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -73,6 +74,21 @@ namespace QuickTickets.Api.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TypesOfEvents", x => x.TypeID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserEventHistory",
+                columns: table => new
+                {
+                    UserEventHistoryID = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserID = table.Column<long>(type: "bigint", nullable: false),
+                    EventID = table.Column<long>(type: "bigint", nullable: false),
+                    Label = table.Column<float>(type: "real", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserEventHistory", x => x.UserEventHistoryID);
                 });
 
             migrationBuilder.CreateTable(
@@ -218,11 +234,11 @@ namespace QuickTickets.Api.Migrations
 
             migrationBuilder.InsertData(
                 table: "Accounts",
-                columns: new[] { "Id", "DateCreated", "DateOfBirth", "Email", "GoogleSubject", "IsDeleted", "Login", "Name", "Password", "RoleID", "Surname" },
+                columns: new[] { "Id", "DateCreated", "DateOfBirth", "Email", "GoogleSubject", "IsDeleted", "Login", "ModelID", "Name", "Password", "RoleID", "Surname" },
                 values: new object[,]
                 {
-                    { new Guid("2ef422ae-0e8e-4f47-93bb-8b79f04123b6"), new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(4510), new DateTime(2000, 11, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), "agardian00@cos.nie", null, false, "agardian", "Artur", "jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=", 1, "Gardian" },
-                    { new Guid("bb47eede-6953-43df-a26f-cdac99be8e87"), new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(4694), new DateTime(2002, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "jkowalski01@cos.nie", null, false, "jkowalski", "Jan", "jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=", 3, "Kowalski" }
+                    { new Guid("2ef422ae-0e8e-4f47-93bb-8b79f04123b6"), new DateTime(2024, 12, 6, 13, 28, 27, 608, DateTimeKind.Local).AddTicks(8201), new DateTime(2000, 11, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), "agardian00@cos.nie", null, false, "agardian", "041120001", "Artur", "jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=", 1, "Gardian" },
+                    { new Guid("bb47eede-6953-43df-a26f-cdac99be8e87"), new DateTime(2024, 12, 6, 13, 28, 27, 608, DateTimeKind.Local).AddTicks(8266), new DateTime(2002, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "jkowalski01@cos.nie", null, false, "jkowalski", "110620021", "Jan", "jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=", 3, "Kowalski" }
                 });
 
             migrationBuilder.InsertData(
@@ -269,10 +285,11 @@ namespace QuickTickets.Api.Migrations
                 columns: new[] { "EventID", "AdultsOnly", "Date", "DateCreated", "DateModified", "Description", "ImgURL", "IsActive", "LocationID", "OwnerID", "Seats", "Status", "TicketPrice", "Title", "TypeID" },
                 values: new object[,]
                 {
-                    { 1L, true, new DateTime(2023, 6, 30, 18, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(4880), new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(4884), "\"Ludzie trzymajcie kapelusze\" to mój drugi solowy program, grany od grudnia 2016 do sierpnia 2017 roku.  Udostępniony materiał został zarejestrowany 10 lipca 2017 roku w gdańskim klubie \"Parlament\". Obok mnie na scenie pojawił się również Adam Van Bendler.", "https://images.unsplash.com/photo-1610964199131-5e29387e6267?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80", true, 2L, new Guid("bb47eede-6953-43df-a26f-cdac99be8e87"), 123, "Confirmed", 10f, "Ludzie trzymajcie spodnie", 7L },
-                    { 2L, false, new DateTime(2023, 7, 1, 12, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(4989), new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(5005), "Spływ kajakiem po rzece Morawka", "https://images.unsplash.com/photo-1472745942893-4b9f730c7668?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80", true, 6L, new Guid("bb47eede-6953-43df-a26f-cdac99be8e87"), 60, "Confirmed", 25f, "Spływ kajakowy", 3L },
-                    { 3L, false, new DateTime(2023, 7, 1, 18, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(5043), new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(5046), "W swoim wykonaniu Pani Żak zaprezentuje swoje umiejętności artystyczne.", "https://images.unsplash.com/photo-1521116103845-2170f3377fec?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80", true, 5L, new Guid("bb47eede-6953-43df-a26f-cdac99be8e87"), 100, "Confirmed", 15f, "Recital Pani Żak", 1L },
-                    { 4L, true, new DateTime(2023, 7, 2, 12, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(5058), new DateTime(2023, 6, 18, 21, 28, 5, 927, DateTimeKind.Local).AddTicks(5061), "W naszej ofercie po prostu tak jakby przedstawimy oferty grona firm mówiących o swoich zapotrzebowaniach i planach dla widza.", "https://images.unsplash.com/photo-1618092388874-e262a562887f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025&q=80", true, 1L, new Guid("bb47eede-6953-43df-a26f-cdac99be8e87"), 600, "Confirmed", 50f, "Targi pracy", 6L }
+                    { 1L, true, new DateTime(2024, 11, 30, 18, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 12, 6, 13, 28, 27, 608, DateTimeKind.Local).AddTicks(8307), new DateTime(2024, 12, 6, 13, 28, 27, 608, DateTimeKind.Local).AddTicks(8309), "\"Ludzie trzymajcie kapelusze\" to mój drugi solowy program, grany od grudnia 2016 do sierpnia 2017 roku.  Udostępniony materiał został zarejestrowany 10 lipca 2017 roku w gdańskim klubie \"Parlament\". Obok mnie na scenie pojawił się również Adam Van Bendler.", "https://images.unsplash.com/photo-1610964199131-5e29387e6267?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80", true, 2L, new Guid("bb47eede-6953-43df-a26f-cdac99be8e87"), 123, "Confirmed", 10f, "Ludzie trzymajcie spodnie", 7L },
+                    { 2L, false, new DateTime(2024, 12, 1, 12, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 12, 6, 13, 28, 27, 608, DateTimeKind.Local).AddTicks(8419), new DateTime(2024, 12, 6, 13, 28, 27, 608, DateTimeKind.Local).AddTicks(8420), "Spływ kajakiem po rzece Morawka", "https://images.unsplash.com/photo-1472745942893-4b9f730c7668?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80", true, 6L, new Guid("bb47eede-6953-43df-a26f-cdac99be8e87"), 60, "Confirmed", 25f, "Spływ kajakowy", 3L },
+                    { 3L, false, new DateTime(2024, 12, 3, 18, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 12, 6, 13, 28, 27, 608, DateTimeKind.Local).AddTicks(8429), new DateTime(2024, 12, 6, 13, 28, 27, 608, DateTimeKind.Local).AddTicks(8430), "W swoim wykonaniu Pani Żak zaprezentuje swoje umiejętności artystyczne.", "https://images.unsplash.com/photo-1521116103845-2170f3377fec?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80", true, 5L, new Guid("bb47eede-6953-43df-a26f-cdac99be8e87"), 100, "Confirmed", 15f, "Recital Pani Żak", 1L },
+                    { 4L, true, new DateTime(2024, 11, 30, 12, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 12, 6, 13, 28, 27, 608, DateTimeKind.Local).AddTicks(8437), new DateTime(2024, 12, 6, 13, 28, 27, 608, DateTimeKind.Local).AddTicks(8438), "W naszej ofercie po prostu tak jakby przedstawimy oferty grona firm mówiących o swoich zapotrzebowaniach i planach dla widza.", "https://images.unsplash.com/photo-1618092388874-e262a562887f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025&q=80", true, 1L, new Guid("bb47eede-6953-43df-a26f-cdac99be8e87"), 600, "Confirmed", 50f, "Targi pracy", 6L },
+                    { 5L, true, new DateTime(2024, 11, 18, 16, 18, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 12, 6, 13, 28, 27, 608, DateTimeKind.Local).AddTicks(8444), new DateTime(2024, 12, 6, 13, 28, 27, 608, DateTimeKind.Local).AddTicks(8446), "test", "https://images.unsplash.com/photo-1618092388874-e262a562887f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025&q=80", true, 1L, new Guid("bb47eede-6953-43df-a26f-cdac99be8e87"), 600, "Confirmed", 50f, "Targi pracy4", 6L }
                 });
 
             migrationBuilder.CreateIndex(
@@ -330,6 +347,9 @@ namespace QuickTickets.Api.Migrations
 
             migrationBuilder.DropTable(
                 name: "Tickets");
+
+            migrationBuilder.DropTable(
+                name: "UserEventHistory");
 
             migrationBuilder.DropTable(
                 name: "Events");
