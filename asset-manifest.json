@@ -1,0 +1,35 @@
+{
+  "files": {
+    "main.css": "/InternetowySystemSprzedazyBiletow/static/css/main.4dd48acd.css",
+    "main.js": "/InternetowySystemSprzedazyBiletow/static/js/main.b4469842.js",
+    "static/js/453.7cb6cd4f.chunk.js": "/InternetowySystemSprzedazyBiletow/static/js/453.7cb6cd4f.chunk.js",
+    "static/media/event.jpg": "/InternetowySystemSprzedazyBiletow/static/media/event.7f5c54abe50e8ec2264d.jpg",
+    "static/media/logBack.jpg": "/InternetowySystemSprzedazyBiletow/static/media/logBack.f6593273cb6e72e83830.jpg",
+    "static/media/regBack.jpg": "/InternetowySystemSprzedazyBiletow/static/media/regBack.add0df5ff67d83fdf10a.jpg",
+    "static/media/example-event.png": "/InternetowySystemSprzedazyBiletow/static/media/example-event.bad0e3ca6a14bab1ca93.png",
+    "static/media/stand-up-comedy.png": "/InternetowySystemSprzedazyBiletow/static/media/stand-up-comedy.71c53b52d313cd912f82.png",
+    "static/media/people.png": "/InternetowySystemSprzedazyBiletow/static/media/people.8a98a674e458ccb4da71.png",
+    "static/media/children.png": "/InternetowySystemSprzedazyBiletow/static/media/children.74723f51f8399a42179e.png",
+    "static/media/sports.png": "/InternetowySystemSprzedazyBiletow/static/media/sports.bacb0c2522740585564e.png",
+    "static/media/festival.png": "/InternetowySystemSprzedazyBiletow/static/media/festival.d7d9e675775c9c3f92f8.png",
+    "static/media/theater.png": "/InternetowySystemSprzedazyBiletow/static/media/theater.54be002ae13c784a0187.png",
+    "static/media/cinema.png": "/InternetowySystemSprzedazyBiletow/static/media/cinema.0a1047b9cbf516a27cf2.png",
+    "static/media/fair.png": "/InternetowySystemSprzedazyBiletow/static/media/fair.379157bebca315d5696b.png",
+    "static/media/place.png": "/InternetowySystemSprzedazyBiletow/static/media/place.4ba2450b71e973e57b09.png",
+    "static/media/classic.png": "/InternetowySystemSprzedazyBiletow/static/media/classic.bbea730631d6c8fe178a.png",
+    "static/media/price.png": "/InternetowySystemSprzedazyBiletow/static/media/price.3667b5556c076d57419e.png",
+    "static/media/concert.png": "/InternetowySystemSprzedazyBiletow/static/media/concert.c91ef6df6f1302eeeadd.png",
+    "static/media/calendar.png": "/InternetowySystemSprzedazyBiletow/static/media/calendar.6eb851b26701ca82444d.png",
+    "static/media/category.png": "/InternetowySystemSprzedazyBiletow/static/media/category.6689c75b4cf7c8b6b81e.png",
+    "static/media/logo.png": "/InternetowySystemSprzedazyBiletow/static/media/logo.4fca9321624bdbe82336.png",
+    "static/media/logo.svg": "/InternetowySystemSprzedazyBiletow/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/InternetowySystemSprzedazyBiletow/index.html",
+    "main.4dd48acd.css.map": "/InternetowySystemSprzedazyBiletow/static/css/main.4dd48acd.css.map",
+    "main.b4469842.js.map": "/InternetowySystemSprzedazyBiletow/static/js/main.b4469842.js.map",
+    "453.7cb6cd4f.chunk.js.map": "/InternetowySystemSprzedazyBiletow/static/js/453.7cb6cd4f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4dd48acd.css",
+    "static/js/main.b4469842.js"
+  ]
+}
