@@ -5,9 +5,6 @@ import "../styles/MainStyle.css";
 import Header from "../components/Header";
 import { useState, useEffect } from "react";
 import EventsController from "../controllers/Events.js";
-import { createPortal } from "react-dom";
-import router from "../router/router";
-import { RouterProvider } from "react-router-dom";
 import concert from "../images/category-icons/concert.png";
 import theater from "../images/category-icons/theater.png";
 import cinema from "../images/category-icons/cinema.png";
@@ -18,10 +15,7 @@ import standUp from "../images/category-icons/stand-up-comedy.png";
 import children from "../images/category-icons/children.png";
 import classic from "../images/category-icons/classic.png";
 import MostPopularPlaces from "../components/MostPopularPlaces";
-import SuggestedEvents from "../components/SuggestedEvents";
-import UserEventHistoryController from "../controllers/UserEventHistoryController";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
+
 import { useNavigate } from "react-router-dom";
 function TrendyContent({ getHotEvents }) {
   const [trendyEvent, setTrendyEvent] = useState(null);
@@ -59,45 +53,14 @@ function TrendyContent({ getHotEvents }) {
     </div>
   );
 }
-const SuggestedEventsModal = () => {
-  const MySwal = withReactContent(Swal);
-  const [swalShown, setSwalShown] = useState(false);
 
-  const showSwal = () => {
-    MySwal.fire({
-      position: "center",
-      showConfirmButton: false,
-      width: "auto",
-      didOpen: () => setSwalShown(true),
-      didClose: () => setSwalShown(false),
-    });
-  };
-  return (
-    <>
-      <button onClick={showSwal}>SuggestedEventsModal</button>
-      {swalShown &&
-        createPortal(
-          <div className="trendy">
-            <div>
-              <UserEventHistoryController>
-                <SuggestedEvents setSwalShown={setSwalShown} MySwal={MySwal} />
-              </UserEventHistoryController>
-            </div>
-          </div>,
-          MySwal.getHtmlContainer()
-        )}
-    </>
-  );
-};
 export default function Home() {
   const navigate = useNavigate();
   return (
-    <div className="App">
+    <>
       <Header />
 
       <main className="content">
-        <>{SuggestedEventsModal()}</>
-
         <div className="info">
           <div className="info-left">
             <img className="info-event-img" src={mainImg} alt="" />
@@ -220,6 +183,6 @@ export default function Home() {
         </div>
       </main>
       <Footer />
-    </div>
+    </>
   );
 }
