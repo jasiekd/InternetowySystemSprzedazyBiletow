@@ -15,12 +15,14 @@ namespace QuickTickets.Api.Services
     {
         private readonly DataContext _context;
         private readonly IEventsService _eventsService;
+        private readonly ITicketService _ticketService;
         private readonly PredictionEnginePool<EventRating, EventRatingPrediction> _predictionEnginePool;
-        public UserEventHistoryService(DataContext context, PredictionEnginePool<EventRating, EventRatingPrediction> predictionEnginePool, IEventsService eventsService)
+        public UserEventHistoryService(DataContext context, PredictionEnginePool<EventRating, EventRatingPrediction> predictionEnginePool, IEventsService eventsService, ITicketService ticketService)
         {
             _context = context;
             _predictionEnginePool = predictionEnginePool;
             _eventsService = eventsService;
+            _ticketService = ticketService;
         }
 
         public async Task<IActionResult> GetPredictedEvents(Guid userId)
@@ -45,15 +47,40 @@ namespace QuickTickets.Api.Services
 
             }
 
-            var topEvents = predictions.OrderByDescending(p => p.Score).Take(3);
+            var ticketsQuery = await _ticketService.GetTicketsForUserFromDb(userId, true);
+
+            var ticketEventIds = ticketsQuery.Select(ticket => ticket.EventID).ToList();
+
+            var topEvents = predictions
+                            .Where(p => !ticketEventIds.Contains(p.EventId))         //nowe
+                            .OrderByDescending(p => p.Score)  // Sortuj po najwyższym score
+                            .Take(3)  // Weź 3 najlepsze
+                            .ToList();
+
+            //var topEvents = predictions.OrderByDescending(p => p.Score).Take(3);   //stare
             var ListOfEventsInfo = new List<EventInfoDto>();
 
-            Console.WriteLine($"Top 3 recommended events for user {ModelID}:");
-            foreach (var (eventId, score) in topEvents)
-            {
-                Console.WriteLine($"EventId: {eventId}, Predicted Score: {score}");
-                ListOfEventsInfo.Add(_eventsService.GetEventInfoDto(eventsEntity.Find(x=> x.EventID == eventId)));
+            bool showingHotEvents = false;
+            foreach (var eventEntity in topEvents) { 
+                if(float.IsNaN(eventEntity.Score) || eventEntity.Score == 0)
+                    showingHotEvents = true;
             }
+
+            if (showingHotEvents) 
+            {
+                Console.WriteLine($"Hot events for user {ModelID}");
+                var hotEvents = await _eventsService.getHotEventsInfo();
+            }
+            else
+            {
+                Console.WriteLine($"Top 3 recommended events for user {ModelID}:");
+                foreach (var (eventId, score) in topEvents)
+                {
+                    Console.WriteLine($"EventId: {eventId}, Predicted Score: {score}");
+                    ListOfEventsInfo.Add(_eventsService.GetEventInfoDto(eventsEntity.Find(x => x.EventID == eventId)));
+                }
+            }
+            
             
             return new OkObjectResult(ListOfEventsInfo);
         }

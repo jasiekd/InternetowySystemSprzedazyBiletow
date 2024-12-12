@@ -18,5 +18,6 @@ namespace QuickTickets.Api.Services
         public Task<IActionResult> UpdateEvent(CreateEventDto createEventDto, long eventID);
         public EventInfoDto GetEventInfoDto(EventsEntity eventsEntity);
         public Task<IActionResult> CanBuyTicket(long eventID);
+        public Task<IEnumerable<EventInfoDto>> getHotEventsInfo();
     }
 }

@@ -207,25 +207,60 @@ namespace QuickTickets.Api.Services
             
             return GetEventInfoDto(eventsEntity);
         }
-
         public async Task<IEnumerable<EventInfoDto>> getHotEventsInfo()
         {
-            var eventsEntity = await _context.Events.Include(x => x.Owner).Include(x => x.Type).Include(x => x.Location).Where(x => x.IsActive == true && x.Status == StatusEnum.Confirmed.ToString()).OrderByDescending(x => x.Date).Take(4).ToListAsync();
-            if (eventsEntity == null)
+            var eventsEntity = await _context.Events.Include(x => x.Owner).Include(x => x.Type).Include(x => x.Location).Where(x => x.IsActive == true && x.Status == StatusEnum.Confirmed.ToString()).OrderByDescending(x => x.Date).ToListAsync();
+
+            if (eventsEntity == null || !eventsEntity.Any())
             {
                 return null;
             }
 
+            List<Tuple<EventsEntity, float>> tmpList = new();
+
+            foreach (var eventEntity in eventsEntity)
+            {
+                int ticketsCount = await GetCountTicketForTransaction(eventEntity.EventID);
+                var occupiedPercentage = CalculateOccupiedPercentage(ticketsCount, eventEntity.Seats);
+                var dateDifference = CalculateDateDifference(eventEntity.Date);
+
+                var attractivenessScore = occupiedPercentage + dateDifference;
+
+                tmpList.Add(new Tuple<EventsEntity, float>(eventEntity, attractivenessScore));
+            }
+
+            var hotEvents = tmpList.OrderByDescending(x => x.Item2).Take(4).ToList();
+
             var ListOfEventsInfo = new List<EventInfoDto>();
 
-            foreach(var temp in eventsEntity)
+            foreach (var temp in hotEvents)
             {
-                ListOfEventsInfo.Add(GetEventInfoDto(temp));
+                ListOfEventsInfo.Add(GetEventInfoDto(temp.Item1));
             }
             return ListOfEventsInfo;
-
         }
+        private float CalculateOccupiedPercentage(int ticketsCount, int totalSeats)
+        {
+            if (totalSeats == 0) return 0;
+            return (float)ticketsCount / totalSeats * 100;
+        }
+        private async Task<int> GetCountTicketForTransaction(long eventID)
+        {
+            var countTickets = await _context.Tickets.Where(x => x.EventID == eventID).CountAsync();
+            return countTickets;
+        }
+        private float CalculateDateDifference(DateTime eventDate)
+        {
+            var today = DateTime.Now;
+            var dateDifference = (eventDate - today).Days;
 
+            if (dateDifference < 0)
+            {
+                return 0;
+            }
+
+            return Math.Max(0, 30 - dateDifference); 
+        }
         public async Task<IEnumerable<LocationsEntity>> getHotLocationsInfo()
         {
             var topLocationsEvent = await _context.Events

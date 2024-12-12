@@ -4,6 +4,7 @@ using QuickTickets.Api.Data;
 using QuickTickets.Api.Dto;
 using QuickTickets.Api.Entities;
 using QuickTickets.Api.Services;
+using System.Net.Sockets;
 using System.Security.Claims;
 
 namespace QuickTickets.Api.Services
@@ -25,10 +26,10 @@ namespace QuickTickets.Api.Services
         {
             try
             {
-                var data = _context.Tickets.AsQueryable().Include(e => e.Transaction).Include(x => x.Event).ThenInclude(y => y.Owner).Include(x => x.Event).ThenInclude(y => y.Type).Include(x => x.Event).ThenInclude(y => y.Location).Where(e => e.IsActive == choice && e.Transaction.UserId == userId);
 
-                var totalCount = await data.CountAsync();
-                return await GetPaginatedTickets(paginationDto, data);
+                var ticketsQuery = await GetTicketsForUserFromDb(userId, choice);
+
+                return await GetPaginatedTickets(paginationDto, ticketsQuery);
 
             }
             catch (Exception ex)
@@ -36,7 +37,28 @@ namespace QuickTickets.Api.Services
                 throw;
             }
         }
+        public async Task<IQueryable<TicketEntity>> GetTicketsForUserFromDb(Guid userId, bool isActive)
+        {
+            try
+            {
+                var tickets = _context.Tickets
+                    .AsQueryable()
+                    .Include(e => e.Transaction)
+                    .Include(x => x.Event)
+                        .ThenInclude(y => y.Owner)
+                    .Include(x => x.Event)
+                        .ThenInclude(y => y.Type)
+                    .Include(x => x.Event)
+                        .ThenInclude(y => y.Location)
+                    .Where(e => e.IsActive == isActive && e.Transaction.UserId == userId);
 
+                return tickets;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Błąd podczas pobierania biletów z bazy.", ex);
+            }
+        }
         private async Task<IActionResult> GetPaginatedTickets(PaginationDto paginationDto, IQueryable<TicketEntity> data)
         {
 
@@ -76,8 +98,6 @@ namespace QuickTickets.Api.Services
             var result = await GetTicketsForUser(paginationDto, userId, choice);
             return new OkObjectResult(result);
         }
-
-
         public async Task<IActionResult> GetMyTicket(long ticketID)
         {
 
@@ -101,8 +121,6 @@ namespace QuickTickets.Api.Services
             };
             return new OkObjectResult(response);
         }
-
-
         public async Task<IActionResult> GetMyTicketForTransactionID(Guid transactionID)
         {
             if (_context.Tickets == null)
