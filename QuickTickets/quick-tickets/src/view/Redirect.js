@@ -7,7 +7,7 @@ export default function Redirect(){
         console.log(location);
         const pathname = location.pathname;
         const id = pathname.split('/')[2];
-        window.location.href = "http://localhost:3000/buy-ticket?id="+id;
+        window.location.href = "https://ef6b-95-49-68-176.ngrok-free.app/buy-ticket?id="+id;
     },[location])
     return(
         <div>

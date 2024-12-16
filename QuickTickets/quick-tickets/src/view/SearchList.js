@@ -17,7 +17,16 @@ import { useLocation } from 'react-router-dom';
 import moment from 'moment';
 
 
-function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocations}){
+function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocations,locationSelected,categorySelected}){
+    const [linkParams,setLinkParams] = React.useState({
+        date_d:null,
+        date_u:null,
+        location:locationSelected,
+        category:categorySelected,
+        price_d:null,
+        price_u:null,
+    })
+    const navigate = useNavigate();
     const [openDate, setOpenDate] = React.useState(false);
     const [openPlace, setOpenPlace] = React.useState(false);
     const [openCategory, setOpenCategory] = React.useState(false);
@@ -40,17 +49,29 @@ function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocation
     const [dateTo,setDateTo] = React.useState(null); 
     const [priceFrom,setPriceFrom] = React.useState(0);
     const [priceTo,setPriceTo] = React.useState(0);
+
+
+    const [currentCategory,setCurrentCategory] = React.useState("Kategoria")
+    const [currentLocation,setCurrentLocation] = React.useState("Miejsce")
+
     React.useEffect(()=>{
         getTypesOfEvents().then((result)=>{
             setCategoryList(result);
+            const category = result.find(e=>e.typeID===parseInt(filters.type));
+            setCurrentCategory(category.description)
         })
 
         getEventLocations().then((result)=>{
             setLocationsList(result);
+            
+            const location = result.find(e=>e.locationID===parseInt(filters.place));
+            setCurrentLocation(location.name)
         })
-    },[])
+    },[filters])
 
     const selectLocation = (loc) =>{
+
+        debugger
         if(loc === null)
         {
             setFilters(prev =>({
@@ -58,8 +79,12 @@ function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocation
                 place: null,
                 selectedLocation: "wszystkie"
             }))
-            
+            setCurrentLocation("wszystkie")
             handleOpenPlace();
+            setLinkParams(prev=>({
+                ...prev,
+                location:null
+               }))
         }else{
             
             setFilters(prev =>({
@@ -68,7 +93,12 @@ function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocation
                 selectedLocation: loc.name
             }))
             handleOpenPlace();
+            setLinkParams(prev=>({
+                ...prev,
+                location:loc.locationID
+               }))
         }
+        
         
     }
     const selectCategory = (type) =>{
@@ -78,6 +108,8 @@ function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocation
                 type: null,
                 selectedCategory: "wszystkie"
             }))
+            setCurrentCategory("wszystkie")
+            setLinkParams(prev=>({...prev,category:null}))
             handleOpenCategory();
         }else{
             setFilters(prev =>({
@@ -85,6 +117,7 @@ function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocation
                 type: type.typeID,
                 selectedCategory: type.description
             }))
+            setLinkParams(prev=>({...prev,category:type.typeID}))
             handleOpenCategory();
         }
        
@@ -97,7 +130,11 @@ function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocation
             dateTo: dateTo,
             selectedDate: (dateFrom===null?"∞":dateFrom+" - ")+(dateTo===null?"∞":dateTo)
         }))
-           
+           setLinkParams(prev=>({
+            ...prev,
+            date_d:(dateFrom===null?"∞":dateFrom),
+            date_u:(dateTo===null?"∞":dateTo)
+           }))
            
         handleOpenDate();
     }
@@ -111,6 +148,11 @@ function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocation
             dateTo: null,
             selectedDate: "Data"
         }))
+        setLinkParams(prev=>({
+            ...prev,
+            date_d:null,
+            date_u:null
+        }))
         
         
     }
@@ -122,6 +164,12 @@ function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocation
             priceFrom: priceFrom,
             priceTo: priceTo,
             selectedPrice: "od "+priceFrom + " do "+priceTo
+        }))
+
+        setLinkParams(prev=>({
+            ...prev,
+            price_d: priceFrom,
+            price_u: priceTo
         }))
             
         handleOpenPrice();
@@ -136,9 +184,28 @@ function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocation
             priceTo: null,
             selectedPrice:"Cena"
         }))
+
+        setLinkParams(prev=>({
+            ...prev,
+            price_d: null,
+            price_u: null
+        }))
+    }
+    const navigateToFilter = () =>{
+        let filterParams = "?";
+            filterParams+="date_d="+linkParams.date_d+"&";
+            filterParams+="date_u="+linkParams.date_u+"&";
+            filterParams+="location="+linkParams.location+"&";
+            filterParams+="category="+linkParams.category+"&";
+            filterParams+="price_d="+linkParams.price_d+"&";
+            filterParams+="pice_u="+linkParams.price_u+"&";
+
+        navigate("/search-list"+filterParams);
     }
 
-
+    React.useEffect(()=>{
+        navigateToFilter();
+    },[linkParams])
     return(
             <div className='filteringOptions'>
             <div className='filteringElement'>
@@ -160,7 +227,7 @@ function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocation
                 ) : null}
             </div>  
             <div className='filteringElement'>
-                <button className='filteringButton' onClick={handleOpenPlace}><img className='leftIcon' src={place}/><div className='filteringTitle'>{filters.selectedLocation}</div><img className='rightIcon' src={arrow}/></button>
+                <button className='filteringButton' onClick={handleOpenPlace}><img className='leftIcon' src={place}/><div className='filteringTitle'>{currentLocation}</div><img className='rightIcon' src={arrow}/></button>
                 
                     {openPlace ? (
                         <div className="menu">
@@ -176,7 +243,7 @@ function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocation
                 ) : null}
             </div>  
             <div className='filteringElement'>
-                <button className='filteringButton' onClick={handleOpenCategory}><img className='leftIcon' src={category}/><div className='filteringTitle'>{filters.selectedCategory}</div><img className='rightIcon' src={arrow}/></button>
+                <button className='filteringButton' onClick={handleOpenCategory}><img className='leftIcon' src={category}/><div className='filteringTitle'>{currentCategory}</div><img className='rightIcon' src={arrow}/></button>
                 
                     {openCategory ? (
                         <div className="menu">
@@ -184,7 +251,7 @@ function FilteringOptions({getTypesOfEvents, setFilters,filters,getEventLocation
                             {
                                 categoryList.map((val,key)=>{
                                     return(
-                                        <button className='drop-down-btn' key={key} onClick={()=>selectCategory(val)}>{val.description}</button>
+                                        <button className='drop-down-btn' key={key} onClick={() => {selectCategory(val)/*setLinkParams(prev=>({...prev,category:val.typeID}));handleOpenCategory();*/}}>{val.description}</button>
                                     )
                                 })
                             }
@@ -216,8 +283,13 @@ function SearchEvents({search,filters}){
     const navigate = useNavigate();
     const [events,setEvents] = React.useState();
     const [pageCount,setPageCount] = React.useState(1);
+    let lastSearch = null;
     React.useEffect(()=>{
-        search(filters.phrase,filters.priceFrom,filters.priceTo,filters.dateFrom,filters.dateTo,filters.place,filters.type,pageCount,10).then(r=>{
+        if(lastSearch===filters){
+            return;
+        }
+        lastSearch=filters;
+        search(filters.phrase,filters.priceFrom,filters.priceTo,filters.dateFrom,filters.dateTo,filters.place==="null"?null:filters.place,parseInt(filters.type),pageCount,10).then(r=>{
                     setEvents(r);
        })
     },[filters])
@@ -260,6 +332,9 @@ function SearchEvents({search,filters}){
 }
 export default function SearchList() {
     const navigate = useNavigate();
+    const location = useLocation();
+    const {search} = useLocation();
+    const queryParams = new URLSearchParams(search);
 
     const [filters, setFilters] = React.useState({
         phrase: "",
@@ -267,20 +342,28 @@ export default function SearchList() {
         dateTo: null,
         priceFrom: null,
         priceTo: null,
-        place: null,
-        type: null,
+        place: queryParams.get('location'),
+        type: queryParams.get('category'),
         selectedCategory:"Kategoria",
         selectedLocation:"Miejsce",
         selectedDate:"Data",
         selectedPrice:"Cena",
       });
       
+      React.useEffect(()=>{
+        const category = queryParams.get('category')
+        const location = queryParams.get('location')
+            setFilters(prev =>({
+                ...prev,
+                type: category,
+                place: location
+            }))
+      },[queryParams.get('category'),queryParams.get('location'),queryParams.get('date_u'),queryParams.get('date_d'),queryParams.get('price_u'),queryParams.get('price_d')])
 
  
-    const location = useLocation();
     
  
-    React.useEffect(()=>{
+    /*React.useEffect(()=>{
             
             if(location.state === null || location.state.phrase === null )
             {
@@ -304,7 +387,7 @@ export default function SearchList() {
                     }))
       
             }     
-    },[location])
+    },[location])*/
 
    
     return (
@@ -312,9 +395,8 @@ export default function SearchList() {
         <div className="App">
             <Header/>
         <main className='content'>
-            
             <EventsController >
-                <FilteringOptions filters={filters} setFilters={setFilters}/>
+                <FilteringOptions filters={filters} setFilters={setFilters} locationSelected={queryParams.get('location')} categorySelected={queryParams.get('category')}/>
             </EventsController>
 
 

@@ -19,7 +19,13 @@ export default function SuggestedEvents({
       {suggestedEvents ? (
         <div>
           <div className="content-header">
-            Sugerowane wydarzenia specjalnie dla Ciebie!
+            {
+              suggestedEvents.length===0?
+              "Brak sugerowanych wydarzeń!"
+              :
+              "Sugerowane wydarzenia specjalnie dla Ciebie!"
+            }
+            
           </div>
           <div className="place-content">
             {suggestedEvents.map((val, key) => {

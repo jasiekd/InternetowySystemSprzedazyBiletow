@@ -17,7 +17,6 @@ export default function OrganisatorEventsTab({getOrganisatorEvents}){
   };
     useEffect(()=>{
         getOrganisatorEvents(pageCount,10,status).then((r)=>{
-            console.log(r)
             setEventInfos(r)
         })
     },[status,pageCount])

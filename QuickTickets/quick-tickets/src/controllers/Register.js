@@ -20,7 +20,7 @@ export default function RegisterController({children}){
         const gateway = new AccountService();
         const response = await gateway.register(registerData);
 
-        if(response.status === 201)
+        if(response.status === 200)
         {
             Swal.fire({
                 icon: 'success',
@@ -30,7 +30,7 @@ export default function RegisterController({children}){
             })
             navigate("/login");
         }
-        else if(response.status === 500)
+        else if(response.status === 404)
         {
             Swal.fire(
                 'Błąd rejestracji',

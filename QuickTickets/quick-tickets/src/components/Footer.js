@@ -4,7 +4,7 @@ import '../styles/footer.css';
 function Footer(){
     return(
         <div className="footer">
-            COPYRIGHT 2023 BY QUICK TICKETS
+            COPYRIGHT 2025 BY QUICK TICKETS
         </div>
         
     )

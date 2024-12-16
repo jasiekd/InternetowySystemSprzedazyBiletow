@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import '../styles/ProfileTicket.css'
 import { useNavigate } from "react-router-dom";
 import LoginController from "../controllers/Login";
+import moment from "moment";
 export default function ProfileTicket({seats,event,printAble,editAble,imgURL,date,location,price,title,editBlocked,preview}){
     const [open, setOpen] = React.useState(false);
     const navigate = useNavigate();
@@ -52,7 +53,7 @@ export default function ProfileTicket({seats,event,printAble,editAble,imgURL,dat
                 <div className='event-list-info'>
                 <div className='event-list-title'>{title}</div>
                     <div className='event-list-placeTime'>
-                        <div className='event-list-time'>{date}</div>
+                        <div className='event-list-time'>{moment(date).format('DD.MM.YYYY, hh:mm a')}</div>
                         <div className='event-list-place'>{location}</div>
                         <div className='event-list-place'>cena: {price}zł</div>
                         <div className='event-list-place'>ilość miejsc: {seats}</div>

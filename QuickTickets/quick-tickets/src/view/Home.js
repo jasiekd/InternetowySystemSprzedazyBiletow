@@ -99,7 +99,7 @@ export default function Home() {
           <div className="events-categories-leftbtn">
             <button
               className="btn events-categories-element"
-              onClick={() => navigate("/search-list", { state: { type: 1 } })}
+              onClick={() => navigate("/search-list?category=1", { state: { type: 1 } })}
             >
               <img
                 className="img"
@@ -114,28 +114,28 @@ export default function Home() {
             <div className="events-categories-row">
               <button
                 className="btn events-categories-element"
-                onClick={() => navigate("/search-list", { state: { type: 2 } })}
+                onClick={() => navigate("/search-list?category=2", { state: { type: 2 } })}
               >
                 <img className="img" src={theater} alt="" />
                 <p>Teatr</p>
               </button>
               <button
                 className="btn events-categories-element"
-                onClick={() => navigate("/search-list", { state: { type: 8 } })}
+                onClick={() => navigate("/search-list?category=8", { state: { type: 8 } })}
               >
                 <img className="img" src={children} alt="" />
                 <p>Dla dzieci</p>
               </button>
               <button
                 className="btn events-categories-element"
-                onClick={() => navigate("/search-list", { state: { type: 7 } })}
+                onClick={() => navigate("/search-list?category=7", { state: { type: 7 } })}
               >
                 <img className="img" src={standUp} alt="" />
                 <p>Stand-Up</p>
               </button>
               <button
                 className="btn events-categories-element"
-                onClick={() => navigate("/search-list", { state: { type: 4 } })}
+                onClick={() => navigate("/search-list?category=4", { state: { type: 4 } })}
               >
                 <img className="img" src={cinema} alt="" />
                 <p>Kino</p>
@@ -144,28 +144,28 @@ export default function Home() {
             <div className="events-categories-row">
               <button
                 className="btn events-categories-element"
-                onClick={() => navigate("/search-list", { state: { type: 3 } })}
+                onClick={() => navigate("/search-list?category=3", { state: { type: 3 } })}
               >
                 <img className="img" src={sports} alt="" />
                 <p>Sport</p>
               </button>
               <button
                 className="btn events-categories-element"
-                onClick={() => navigate("/search-list", { state: { type: 9 } })}
+                onClick={() => navigate("/search-list?category=9", { state: { type: 9 } })}
               >
                 <img className="img" src={classic} alt="" />
                 <p>Klasyka</p>
               </button>
               <button
                 className="btn events-categories-element"
-                onClick={() => navigate("/search-list", { state: { type: 6 } })}
+                onClick={() => navigate("/search-list?category=6", { state: { type: 6 } })}
               >
                 <img className="img" src={fair} alt="" />
                 <p>Targi</p>
               </button>
               <button
                 className="btn events-categories-element"
-                onClick={() => navigate("/search-list", { state: { type: 5 } })}
+                onClick={() => navigate("/search-list?category=5", { state: { type: 5 } })}
               >
                 <img className="img" src={festival} alt="" />
                 <p>Festivale</p>

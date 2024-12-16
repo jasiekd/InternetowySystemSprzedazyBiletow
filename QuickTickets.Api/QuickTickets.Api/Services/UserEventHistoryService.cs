@@ -70,6 +70,7 @@ namespace QuickTickets.Api.Services
             {
                 Console.WriteLine($"Hot events for user {ModelID}");
                 var hotEvents = await _eventsService.getHotEventsInfo();
+                ListOfEventsInfo = hotEvents.Take(3).ToList();
             }
             else
             {
