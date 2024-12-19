@@ -1,6 +1,8 @@
 * {
   margin: 0;
   padding: 0;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 body {
@@ -60,8 +62,8 @@ body {
   font-size: 1.3rem;
 }
 .info-event-img {
-  width: 100%;
-  object-fit: contain;
+  max-width: 100%;
+  height: auto;
   border-radius: 8px;
 }
 .greenButton {

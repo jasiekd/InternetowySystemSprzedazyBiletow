@@ -1,79 +1,84 @@
-.event-info{
-    background-color: white;
-    margin-top: 2rem;
+.event-info {
+  background-color: white;
+  margin-top: 2rem;
 }
-.event-content{
-    display: flex;
-    flex-direction: row;
-
+.event-content {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
 }
-.event-img img{
-    width: 450px;
-    height: 350px;
-    object-fit: cover;
-    padding: 2rem;
+.event-img-section {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  width: 25rem;
+  flex-grow: 1;
 }
-.event-description{
-    padding: 2rem;
+.event-img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
 }
-.event-description-title{
-    font-size: 3rem;
-    font-weight: 700;
-
-
+.event-description {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  padding: 2rem;
+  width: 25rem;
 }
-.event-description-text{
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    height: 220px;
-    text-align: justify;
-    overflow-x: auto;
-    overflow-wrap: break-word;
-    width: 1000px;
+.event-description-title {
+  font-size: 3rem;
+  font-weight: 700;
 }
-.event-title{
-    padding: 2rem;
-    padding-bottom: 0;
+.event-description-text {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  height: 220px;
+  text-align: justify;
+  overflow-x: auto;
+  overflow-wrap: break-word;
 }
-.event-title-header{
-    font-size: 2rem;
-    font-weight: 700;
-    display: flex;
+.event-title {
+  padding: 2rem;
+  padding-bottom: 0;
 }
-.event-place{
-    background-color: white;
-    padding-top: 2rem;
-    margin-top: 2rem;
-
+.event-title-header {
+  font-size: 2rem;
+  font-weight: 700;
+  display: flex;
 }
-.comments{
-    background-color: white;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    padding: 10px;
+.event-place {
+  background-color: white;
+  padding-top: 2rem;
+  margin-top: 2rem;
 }
-.comment{
-    background-color: rgb(228, 228, 228);
-    padding: 1rem;
-    
+.comments {
+  background-color: white;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding: 10px;
 }
-.comment-list{
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    padding-top: 1rem;
-    padding-bottom: 2rem;
+.comment {
+  background-color: rgb(228, 228, 228);
+  padding: 1rem;
 }
-.comment-author{
-    font-weight: 600;
-    font-size: 1.4rem;
+.comment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
 }
-.event-preview{
-    width: 600px;
-    
+.comment-author {
+  font-weight: 600;
+  font-size: 1.4rem;
 }
-.deleteComment{
-    height: 2rem;
-    float: right;
-    cursor: pointer;
+.event-preview {
+  width: 600px;
+}
+.deleteComment {
+  height: 2rem;
+  float: right;
+  cursor: pointer;
 }
